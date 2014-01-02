@@ -3,7 +3,7 @@ $this->load->view("inc/cabecera.inc.php")
 
  ?>
 Patata
-<?php echo anchor('../registrar/registrar.php', 'Mis Noticias'); ?>
+
 
 
 <?php 
