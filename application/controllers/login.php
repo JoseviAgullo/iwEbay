@@ -21,7 +21,7 @@ class Login extends CI_Controller {
 	{
 		$data['tituloHead'] = "IWeBay";
 		$data['tituloBody'] = "IWeBay";
-		$this->load->view('registro/login.php', $data);
+		$this->load->view('registrar/login.php', $data);
 	}
 }
 

@@ -2,9 +2,8 @@
 $this->load->view("inc/cabecera.inc.php")
 
  ?>
-Patata
-<?php echo anchor('../registrar/registrar.php', 'Mis Noticias'); ?>
 
+Aquí va el formulario de registro
 
 <?php 
 	$this->load->view("inc/pie.inc.php")

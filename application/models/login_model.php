@@ -1,5 +1,5 @@
 <?php 
-	class registrar_model extends CI_Model {
+	class login_model extends CI_Model {
 			
 	}
  ?>
