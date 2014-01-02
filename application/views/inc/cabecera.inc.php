@@ -7,6 +7,10 @@
 <body>
 
 <div id="container">
-	<h1><?php echo $tituloBody ?></h1>
-
+	
+		<span style="float: right"><a href="../registro/login.php">Login</a> | 
+			<a href="../registro/registrar.php">Registro</a>
+		</span>
+		<h1><?php echo $tituloBody ?></h1>
+	
 	<div id="body">
