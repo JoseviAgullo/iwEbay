@@ -2,9 +2,8 @@
 $this->load->view("inc/cabecera.inc.php")
 
  ?>
-Patata
 
-
+Página de inicio
 
 <?php 
 	$this->load->view("inc/pie.inc.php")
