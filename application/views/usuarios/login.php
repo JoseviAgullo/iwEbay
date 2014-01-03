@@ -3,7 +3,7 @@ $this->load->view("inc/cabecera.inc.php")
 
  ?>
 
-<form action="usuario/do_login" method="POST">
+<form action="do_login" method="POST">
 	<fieldset>
 		<div class="campoForm">
 			<label for="nick">Nombre usuario: </label> <br>
@@ -22,8 +22,6 @@ echo anchor('usuario/recuperarContraseña','Recuperar contraseña');
 echo ' ';
 echo anchor('','Volver atrás')
 ?>
-
-
 
 
 <?php
