@@ -22,6 +22,7 @@ class Productos extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model('productos_model', '', TRUE);
+
 	}
 
 	public function index()
@@ -47,6 +48,9 @@ class Productos extends CI_Controller {
 			$data['listado'] = $this->table->generate();
 		}
 
+		$this->load->model('categoria_model');
+		$data['categorias'] = $this->categoria_model->getCategorias();
+
         $this->load->view('productos/index.php', $data);
 	}
 
@@ -57,6 +61,8 @@ class Productos extends CI_Controller {
 		$data['tituloBody'] = "IWeBay";
 		$data['link_atras'] = anchor('productos/index', 'Volver al listado');
 
+		$this->load->model('categoria_model');
+		$data['categorias'] = $this->categoria_model->getCategorias();
 
 		$this->load->view('productos/detalle', $data);
 

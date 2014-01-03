@@ -18,20 +18,25 @@ text-decoration: none;
 display: block;
 padding: 10px 10px 10px 20px;
 }
-#menuvert ul li a:hover {
+#menuvert ul li:hover {
 background: #336699; /* color del botón al pasar el cursor */
 border-left: 10px solid #000066; /* color del rectángulo junto al título */
 color: #FFFFFF; /* color de las letras al pasar el cursor */
 }
 </style>
 
+
  <div>
 	<div id="menuvert" float="left" style="float:left">
 		<ul>
-			<li> <?php echo anchor('usuarios/login', 'Categoría 1');?> </li>
-			<li> <?php echo anchor('usuarios/login', 'Categoría 2');?> </li>
-			<li> <?php echo anchor('usuarios/login', 'Categoría 3');?> </li>
-			<li> <?php echo anchor('usuarios/login', 'Categoría 4');?> </li>
-			<li> <?php echo anchor('usuarios/login', 'Categoría 5');?> </li>
+			<?php 			
+				foreach ($categorias as $fila){
+					echo anchor('usuarios/login', '<li>'.$fila->categoria.'</li>');
+				}
+			?>
 		</ul>
+
 	</div>
+
+	
+		
