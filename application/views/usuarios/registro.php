@@ -7,7 +7,7 @@ $this->load->view("inc/cabecera.inc.php")
 <h4> Hazte de oro vendiendo y subastando los productos que ya no quieres en nuestra web. 
 	Para ello solo tienes que registrarte aquí. Es muy sencillo, ¡adelante! </h4>
 
-<form action="resultado.php" method="POST">
+<form action="registrar" method="POST">
 	<fieldset>
 		<div class="campoForm">
 			<label for="nick">Nombre usuario*: </label> <br>
