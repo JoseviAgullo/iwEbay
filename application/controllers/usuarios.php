@@ -2,21 +2,13 @@
 
 class Usuarios extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('usuarios_model', '', TRUE);
+        $this->load->library('session');
+    }
+
 	public function login()
 	{
         $data['tituloHead'] = "IWeBay";
@@ -33,7 +25,23 @@ class Usuarios extends CI_Controller {
 
     public function do_login()
     {
-        echo 'Aquí llegamos, estamos en el controlador de usuarios: controllers/usuarios.php';
+        $nick = $this->input->post('nick');
+        $password = $this->input->post('password');
+
+        if($nick == '' || $password == '') {
+            $_FLASH['error_login'] = 'Usuario o contraseña vacios';
+            redirect('usuarios/login','refresh');
+        }
+
+        $usuario = array('nick' => $nick,
+                         'password' => $password);
+        if ($this->usuarios_model->login($usuario)) {
+            $this->session->set_userdata($usuario);
+            redirect ('inicio', 'refresh');
+        } else {
+            $_FLASH['error_login'] = 'Usuario o contraseña erronea';
+            redirect ('usuarios/login', 'refresh');
+        }
     }
 
     public function registrar()

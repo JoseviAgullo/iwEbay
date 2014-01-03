@@ -1,8 +1,11 @@
 <?php 
-$this->load->view("inc/cabecera.inc.php")
-
+$this->load->view("inc/cabecera.inc.php");
  ?>
-
+<?php if(isset($_SESSION['error_login']) && $_SESSION['error_login'] != "") {
+    echo ('<hr>' . $_SESSION['error_login'] . '<hr>');
+    $_SESSION['error_login'] = '';
+}
+?>
 <form action="do_login" method="POST">
 	<fieldset>
 		<div class="campoForm">
@@ -25,33 +28,5 @@ echo anchor('','Volver atrás')
 
 
 <?php
-//Esta función deberá estar en el controlador de usuarios
-//2 funciones: una encargada de renderizar la vista (comprobar si está logueado ya o no...)
-//             otra encargada de realizar el login en si
-//hay que tratar que haya la menor cantidad de código fuera de los controladores y los modelos.
-function login(){
-
-	$usuario = $_POST["nick"];
-	$password = $_POST["password"];
-
-	if(sesion::comprobar($usuario, $password)){
-		sesion::crear($usuario);	
-		sesion::saltar_a("privada.php");
-	}
-	else{	
-		$error = "Usuario o contraseña incorrectos";
-
-		//echo ("patata");
-		//sesion::saltar_a("login.php");
-	}
-}
-
-if($_SERVER['REQUEST_METHOD'] == "POST"){
-	
-	login();
-}
-
-
 	$this->load->view("inc/pie.inc.php")
-
  ?>
