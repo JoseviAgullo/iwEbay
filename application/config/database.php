@@ -50,7 +50,7 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'root';
-$db['default']['password'] = 'patata';
+$db['default']['password'] = 'root';
 $db['default']['database'] = 'iwebay';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';

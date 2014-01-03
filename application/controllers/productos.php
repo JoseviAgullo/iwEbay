@@ -37,17 +37,29 @@ class Productos extends CI_Controller {
 		$data['listado'] = "No se han encontrado productos";		
 
 		if($data['cuantos'] > 0){
-			$this->table->set_heading('Nombre', 'Precio', 'Fecha fin', 'Vendedor');
+			$this->table->set_heading('Nombre', 'Precio', 'Fecha fin', 'Detalles');
 			$this->table->set_empty('&nbsp;');
 
 			foreach ($productos as $item) {
-				$this->table->add_row($item->nombre, $item->precio_inicial, "Mañana");
+				$this->table->add_row($item->nombre, $item->precio_inicial, "Mañana", anchor('productos/detalle/'.$item->id , 'Detalles'));
 			}
 
 			$data['listado'] = $this->table->generate();
 		}
 
         $this->load->view('productos/index.php', $data);
+	}
+
+	public function detalle($id){
+		$data['tupla'] = $this->productos_model->dameUno($id)->row();
+
+		$data['tituloHead'] = "IWeBay Detalles del producto";
+		$data['tituloBody'] = "IWeBay";
+		$data['link_atras'] = anchor('productos/index', 'Volver al listado');
+
+
+		$this->load->view('productos/detalle', $data);
+
 	}
 
 }

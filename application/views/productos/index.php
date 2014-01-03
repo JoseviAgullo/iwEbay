@@ -3,7 +3,7 @@
 
 
 
-	<div id="productos"  style="border-style:solid; border-width:1px; float:left">
+	<div id="productos"  style="float:left">
 		<?php echo $listado;?>
 	</div>
 </div>
