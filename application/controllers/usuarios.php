@@ -33,14 +33,12 @@ class Usuarios extends CI_Controller {
 
     public function do_login()
     {
-        //Será la función encargada de realizar el login
-        //POST index.php/usuario/do_login
+        echo 'Aquí llegamos, estamos en el controlador de usuarios: controllers/usuarios.php';
     }
 
     public function registrar()
     {
-        //Será la que se encargue de realizar la acción de registrar al usuario.
-        //POST index.php/usuario/registrar
+        echo 'Registro realizado PATATALMENTE' . ' controllers/usuarios.php';
     }
 }
 
