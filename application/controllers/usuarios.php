@@ -23,6 +23,12 @@ class Usuarios extends CI_Controller {
         $data['tituloBody'] = "IWeBay";
         $this->load->view('usuarios/login', $data);
 	}
+    public function perfil()
+    {
+        $data['tituloHead'] = "IWeBay";
+        $data['tituloBody'] = "IWeBay";
+        $this->load->view('usuarios/perfil', $data);
+    }
 
     public function registro()
     {
