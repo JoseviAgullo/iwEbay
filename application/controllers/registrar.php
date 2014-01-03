@@ -5,7 +5,7 @@ class Registrar extends CI_Controller {
       //http://localhost/ebay/index.php/registrar
       	$data['tituloHead'] = "IWeBay Regístrate";
 		$data['tituloBody'] = "IWeBay";
-		$this->load->view('registrar/registrar.php', $data);
+		$this->load->view('registrar/registro.php', $data);
    }
 
 }

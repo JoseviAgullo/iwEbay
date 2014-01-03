@@ -8,8 +8,12 @@
 
 <div id="container">
 	
-		<span style="float: right"><a href="/ebay/index.php/login">Login</a> | 
-			 <a href="/ebay/index.php/registrar">Registro</a>
+		<span style="float: right">
+            <?php
+                echo anchor('usuarios/login', 'Login');
+                echo ' | ';
+                echo anchor('usuarios/registro', 'Registro');
+            ?>
 		</span>
 		<h1><?php echo $tituloBody ?></h1>
 

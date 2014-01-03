@@ -17,10 +17,31 @@ class Usuarios extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
+	public function login()
 	{
-		$this->load->view('welcome_message');
+        $data['tituloHead'] = "IWeBay";
+        $data['tituloBody'] = "IWeBay";
+        $this->load->view('usuarios/login', $data);
 	}
+
+    public function registro()
+    {
+        $data['tituloHead'] = "IWeBay";
+        $data['tituloBody'] = "IWeBay";
+        $this->load->view('usuarios/registro', $data);
+    }
+
+    public function do_login()
+    {
+        //Será la función encargada de realizar el login
+        //POST index.php/usuario/do_login
+    }
+
+    public function registrar()
+    {
+        //Será la que se encargue de realizar la acción de registrar al usuario.
+        //POST index.php/usuario/registrar
+    }
 }
 
 /* End of file welcome.php */
