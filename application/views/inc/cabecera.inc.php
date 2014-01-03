@@ -15,7 +15,7 @@
                 echo anchor('usuarios/registro', 'Registro');
             ?>
 		</span>
-		<h1><?php echo $tituloBody ?></h1>
+		<h1><?php echo anchor('inicio', $tituloBody); ?></h1>
 
 	
 	<div id="body">
