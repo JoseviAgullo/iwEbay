@@ -17,12 +17,39 @@ class Productos extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function crearSubasta()
-	{
-		$data['tituloHead'] = "IWeBay";
-        $data['tituloBody'] = "IWeBay";
-        $this->load->view('productos/crearSubasta', $data);
+
+	function __construct(){
+		parent::__construct();
+
+		$this->load->model('productos_model', '', TRUE);
 	}
+
+	public function index()
+	{
+		$data['tituloHead'] = "IWeBay Productos";
+        $data['tituloBody'] = "IWeBay";
+
+        $productos = $this->productos_model->listado();		
+		$data['cuantos'] = $this->productos_model->cuenta_todos();
+
+		$this->load->library('table');
+
+		$data['listado'] = "No se han encontrado productos";		
+
+		if($data['cuantos'] > 0){
+			$this->table->set_heading('Nombre', 'Precio', 'Fecha fin', 'Vendedor');
+			$this->table->set_empty('&nbsp;');
+
+			foreach ($productos as $item) {
+				$this->table->add_row($item->nombre, $item->precio_inicial, "Mañana");
+			}
+
+			$data['listado'] = $this->table->generate();
+		}
+
+        $this->load->view('productos/index.php', $data);
+	}
+
 }
 
 /* End of file welcome.php */
