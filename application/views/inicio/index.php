@@ -18,6 +18,7 @@
 			<p>Producto 3</p>
 		</div>
 	</div>
+</div>
 
 	<div id="limpieza" style="clear:both;"></div> <!-- Este div es por si queremos después insertar algo debajo, que no se vaya al lado de lo otro -->
 
