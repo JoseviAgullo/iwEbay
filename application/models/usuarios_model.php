@@ -16,6 +16,24 @@
 
             return false;
         }
+
+        public function registrar($usuario)
+        {
+            
+            $this->db->insert($this->tabla, $usuario);
+
+            $id = $this->db->insert_id();
+
+            return $id;
+        }
+
+        public function getUsuario($nick)
+        {
+            $this->db->where('username', $nick);
+            return $this->db->get($this->tabla);
+        }
+
+        
 			
 	}
  ?>
