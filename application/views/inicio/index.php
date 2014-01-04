@@ -5,10 +5,18 @@
 
 	<div id="Destacados"  style="border-style:solid; border-width:1px; float:left; margin-left:10px; padding:3px;">
 		<h2>Productos Destacados</h2>
-		<?php foreach ($listado_destacados as $row)
+		<?php 
+		if(empty($listado_destacados))
 			{
-				echo '<div class="item_destacado" style="border-style:solid; border-width:1px; margin:3px; padding:3px; width:150px">
-						imagen aquí <p>'. $row->nombre . ' - ' .$row->estado .'</p>' . anchor('productos/detalle/'.$row->id , 'Detalles'). ' </div>';
+				echo 'No se han encontrado productos destacados';
+			}
+			else
+			{
+				foreach ($listado_destacados as $row)
+				{
+					echo '<div class="item_destacado" style="border-style:solid; border-width:1px; margin:3px; padding:3px; width:150px">
+							imagen aquí <p>'. $row->nombre . ' - ' .$row->precio_inicial .'€</p>' . anchor('productos/detalle/'.$row->id , 'Detalles'). ' </div>';
+				}
 			}
 		?>
 </div>
