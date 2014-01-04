@@ -68,14 +68,14 @@ $this->load->view("inc/cabecera.inc.php")
 		<div class="campoForm">
 			<table>
         		<tr>
-		            <td><label for="nombre">Nombre real: </label> </td> 	                          
-	            	<td> </td>
-            		<td><label for="apellido">Apellido real: </label></td>                   
+		            <td><label for="nombre">Nombre real: </label> </td> 	                         
+            		<td><label for="apellido">Apellido real: </label></td>
+            		<td><label for="tlf">Telefono: </label> </td>                   
         		</tr>
         		<tr>
 		            <td><input type="text" name="nombre" placeholder="Introduce tu nombre..."></td>   
-					<td> </td>
-            		<td><input type="text" name="apellido" placeholder="Introduce tu apellido..."></td>              
+            		<td><input type="text" name="apellido" placeholder="Introduce tu apellido..."></td>  
+            		<td><input type="tel" name="tlf" placeholder="Introduce tu teléfono..."></td>            
         		</tr>
         	</table>	
 		</div>

@@ -67,6 +67,7 @@ class Usuarios extends CI_Controller {
         $localidad = $this->input->post('localidad');
         $tos = $this->input->post('tos');
         $informado = $this->input->post('informado');
+        $tlf = $this->input->post('tlf');
 
         //Verificamos que no hayan campos vacios
         if($nick == '' || $pass == '' || $pass2 == '' || $email == '' || $email2 == '')
@@ -87,6 +88,26 @@ class Usuarios extends CI_Controller {
             $this->session->set_flashdata('error_registro_email', 'El email no coincide');
             redirect('usuarios/registro','refresh');
         }
+        if($tos)
+        {
+
+            $user_registrar = array('userName' => $nick,
+                         'password' => $pass,
+                        'email'=>$email,
+                        'direccion'=>$direccion,
+                        'telefono'=>$tlf,
+                        'fecha_nacimiento'=>$fecha_nac);
+            $this->usuarios_model->registrar($user_registrar);
+
+
+        }
+        else
+        {
+            $this->session->set_flashdata('error_registro_vacio', 'Debe aceptar los términos y condiciones');
+            redirect('usuarios/registro','refresh');
+        }
+
+
 
     }
 }
