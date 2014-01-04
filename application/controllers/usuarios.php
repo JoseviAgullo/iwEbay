@@ -52,7 +52,42 @@ class Usuarios extends CI_Controller {
 
     public function registrar()
     {
-        echo 'Registro realizado PATATALMENTE' . ' controllers/usuarios.php';
+        $nick = $this->input->post('nick');
+        $pass = $this->input->post('pass');
+        $pass2 = $this->input->post('pass2');
+        $email = $this->input->post('email');
+        $email2 = $this->input->post('email2');
+        $nombre = $this->input->post('nombre');
+        $apellidos = $this->input->post('apellidos');
+        $fecha_nac = $this->input->post('fecha');
+        $genero = $this->input->post('genero');
+        $nacionalidad = $this->input->post('nacionalidad');
+        $direccion = $this->input->post('direccion');
+        $provincia = $this->input->post('provincia');
+        $localidad = $this->input->post('localidad');
+        $tos = $this->input->post('tos');
+        $informado = $this->input->post('informado');
+
+        //Verificamos que no hayan campos vacios
+        if($nick == '' || $pass == '' || $pass2 == '' || $email == '' || $email2 == '')
+        {
+            $this->session->set_flashdata('error_registro_vacio', 'Campos obligatorios vacios');
+            redirect('usuarios/registro','refresh');
+        }
+
+        //Verificamos que las contraseñas coincidan
+        if($pass != $pass2)
+        {
+            $this->session->set_flashdata('error_registro_pass', 'Las contraseñas no coinciden');
+            redirect('usuarios/registro','refresh');
+        }
+
+        if($email != $email2)
+        {
+            $this->session->set_flashdata('error_registro_email', 'El email no coincide');
+            redirect('usuarios/registro','refresh');
+        }
+
     }
 }
 

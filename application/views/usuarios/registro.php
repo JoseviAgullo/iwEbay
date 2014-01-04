@@ -7,6 +7,21 @@ $this->load->view("inc/cabecera.inc.php")
 <h4> Hazte de oro vendiendo y subastando los productos que ya no quieres en nuestra web. 
 	Para ello solo tienes que registrarte aquí. Es muy sencillo, ¡adelante! </h4>
 
+	<?php
+	$error_vacio = $this->session->flashdata('error_registro_vacio');
+	$error_pass = $this->session->flashdata('error_registro_pass');
+	$error_email = $this->session->flashdata('error_registro_email');
+	if($error_vacio != '') {
+	    echo ('<hr> <p style="color:red">' . $error_vacio .'</p> <hr>');
+	}
+	if($error_pass != '') {
+	    echo ('<hr> <p style="color:red">' . $error_pass.'</p> <hr>');
+	}
+	if($error_email != '') {
+	    echo ('<hr> <p style="color:red">' . $error_email .'</p> <hr>');
+	}
+?>
+
 <form action="registrar" method="POST">
 	<fieldset>
 		<div class="campoForm">
@@ -25,7 +40,7 @@ $this->load->view("inc/cabecera.inc.php")
         		<tr>
 		            <td><input type="password" id="pass1" name="pass" placeholder="Introduce tu contraseña..."> </td>   
 					<td> </td>
-            		<td><input type="password" id="pass2" name="pass2" placeholder="Repite tu contraseña..." onBlur="comprobarPassword();"></td>              
+            		<td><input type="password" id="pass2" name="pass2" placeholder="Repite tu contraseña..." ></td>              
         		</tr>
         	</table>	
 		</div>
@@ -34,14 +49,14 @@ $this->load->view("inc/cabecera.inc.php")
         		<tr>
 		            <td><label for="email">Correo*: </label></td> 	                          
 	            	<td> </td>
-            		<td><label for="pass">Repite tu correo*: </label></td>
+            		<td><label for="email2">Repite tu correo*: </label></td>
             		<td> </td>
             		<td><label id="aviso_mail" style="color: red"> </label> </td>                   
         		</tr>
         		<tr>
-		            <td><input type="email" id="email1" name="email" placeholder="Introduce tu correo..."></td>   
+		            <td><input type="email" name="email" placeholder="Introduce tu correo..."></td>   
 					<td> </td>
-            		<td><input type="email" id="email2" name="email" placeholder="Repite tu correo..." onBlur="comprobarEmail();"></td>              
+            		<td><input type="email" name="email2" placeholder="Repite tu correo..."></td>              
         		</tr>
         	</table>	
 		</div>
@@ -55,12 +70,12 @@ $this->load->view("inc/cabecera.inc.php")
         		<tr>
 		            <td><label for="nombre">Nombre real: </label> </td> 	                          
 	            	<td> </td>
-            		<td><label for="pass">Apellido real: </label></td>                   
+            		<td><label for="apellido">Apellido real: </label></td>                   
         		</tr>
         		<tr>
 		            <td><input type="text" name="nombre" placeholder="Introduce tu nombre..."></td>   
 					<td> </td>
-            		<td><input type="text" name="nombre" placeholder="Introduce tu apellido..."></td>              
+            		<td><input type="text" name="apellido" placeholder="Introduce tu apellido..."></td>              
         		</tr>
         	</table>	
 		</div>
@@ -119,10 +134,10 @@ $this->load->view("inc/cabecera.inc.php")
 
 	<fieldset>
 		<div class="campoForm">		
-			<input type="checkbox" name="aceptar"> Acepto los <a href="">términos y condiciones</a>, a pesar de que no me los he leido* 
+			<input type="checkbox" name="tos"> Acepto los <a href="">términos y condiciones</a>, a pesar de que no me los he leido* 
 			<label id="aviso_checkbox" style="color: red"> </label>
 			<br>
-			<input type="checkbox" name="aceptar"> Quiero mantenerme informado de todas las novedades futuras
+			<input type="checkbox" name="informado"> Quiero mantenerme informado de todas las novedades futuras
 		</div>
 	</fieldset>
 
