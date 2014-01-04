@@ -16,6 +16,18 @@
 
             return false;
         }
+
+        public function registrar($usuario)
+        {
+            
+            $this->db->insert($this->tabla, $usuario);
+
+            $id = $this->db->insert_id();
+
+            return $id;
+        }
+
+        
 			
 	}
  ?>
