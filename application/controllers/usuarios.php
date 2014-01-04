@@ -42,7 +42,7 @@ class Usuarios extends CI_Controller {
         $usuario = array('nick' => $nick,
                          'password' => $password);
         if ($this->usuarios_model->login($usuario)) {
-            $this->session->set_userdata($usuario);
+            $this->session->set_userdata('usuario',$usuario);
             redirect ('inicio', 'refresh');
         } else {
             $this->session->set_flashdata('error_login', 'Usuario o contraseña incorrectas');
