@@ -68,6 +68,19 @@ class Productos extends CI_Controller {
 
 	}
 
+	public function nuevo(){		
+
+		$data['tituloHead'] = "IWeBay Crear nuevo producto";
+		$data['tituloBody'] = "IWeBay";
+		$data['link_atras'] = anchor('productos/index', 'Volver al listado');
+
+		$this->load->model('categoria_model');
+		$data['categorias'] = $this->categoria_model->getCategorias();
+
+		$this->load->view('productos/nuevo', $data);
+
+	}
+
 }
 
 /* End of file welcome.php */
