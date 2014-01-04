@@ -50,6 +50,12 @@ class Usuarios extends CI_Controller {
         }
     }
 
+    public function do_logout()
+    {
+        $this->session->unset_userdata('usuario');
+        redirect ('inicio/index', 'refresh');
+    }
+
     public function registrar()
     {
         $nick = $this->input->post('nick');

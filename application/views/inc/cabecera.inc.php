@@ -13,6 +13,9 @@
                 if($usuario = $this->session->userdata('usuario'))
                 {
                     echo anchor('usuarios/perfil/'.$usuario['nick'], $usuario['nick']);
+                     echo ' | ';
+                     echo anchor('usuarios/do_logout', 'Logout');
+
                 } else {
                     echo anchor('usuarios/login', 'Login');
                     echo ' | ';
