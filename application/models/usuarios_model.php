@@ -7,9 +7,14 @@
             $this->db->select('password');
             $this->db->from($this->tabla);
             $this->db->where('userName', $usuario['nick']);
-            $password = $this->db->get()->result();
+            $resultado = $this->db->get()->result();
 
-            return $password == $usuario['password'];
+            if (count($resultado) > 0){
+                $password = $resultado[0]->password;
+                return $password == $usuario['password'];
+            }
+
+            return false;
         }
 			
 	}
