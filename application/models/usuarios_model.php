@@ -27,6 +27,12 @@
             return $id;
         }
 
+        public function getUsuario($nick)
+        {
+            $this->db->where('username', $nick);
+            return $this->db->get($this->tabla);
+        }
+
         
 			
 	}
