@@ -182,3 +182,12 @@ ALTER TABLE `voto`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+INSERT INTO `iwebay`.`categoria` (`categoria`) VALUES ('Moda');
+INSERT INTO `iwebay`.`categoria` (`categoria`) VALUES ('Joyería y Belleza');
+INSERT INTO `iwebay`.`categoria` (`categoria`) VALUES ('Electrónica');
+INSERT INTO `iwebay`.`categoria` (`categoria`) VALUES ('Hogar y Decoración');
+INSERT INTO `iwebay`.`categoria` (`categoria`) VALUES ('Entretenimiento');
+INSERT INTO `iwebay`.`categoria` (`categoria`) VALUES ('Deportes y Tiempo Libre');
+INSERT INTO `iwebay`.`categoria` (`categoria`) VALUES ('Coleccionismo y Arte');
+INSERT INTO `iwebay`.`categoria` (`categoria`) VALUES ('Motor');
