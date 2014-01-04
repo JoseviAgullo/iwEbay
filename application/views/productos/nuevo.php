@@ -1,7 +1,12 @@
 <?php $this->load->view("inc/cabecera.inc.php") ?>
 <?php $this->load->view("inc/menuLateral.inc.php") ?>
 
-
+<?php
+$error = $this->session->flashdata('error_subasta');
+if($error != '') {
+    echo ('<hr> <p style="color:red">' . $error . '</p> <hr>');
+}
+?>
 
 
 	<div id="detalles"  style="float:left">
@@ -27,7 +32,7 @@
 						</tr>
 						<tr>
 							<td>
-								<input type="date" name="fechaFinSubasta" placeholder="DD/MM/YYYY" onBlur="comprobarFecha();">
+								<input type="date" name="fechaFinSubasta" placeholder="DD/MM/YYYY">
 							</td>
 						</tr>
 						<tr>

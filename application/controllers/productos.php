@@ -117,7 +117,12 @@ class Productos extends CI_Controller {
         $precioIni = $this->input->post('precioIniProductoSubasta');
         $precioYa = $this->input->post('precioYaProductoSubasta');
 
-        $producto_reg = array('nombre' => $nombre,
+        if($nombre == '' || $cantidad == '' || $detalles == '' || $precioIni == '' || $precioYa == ''){
+        	$this->session->set_flashdata('error_subasta', 'Algún campo está vacio');
+        	redirect('productos/nuevo','refresh');
+        }
+		else{
+			$producto_reg = array('nombre' => $nombre,
         						'estado' => $estado,
         						'cantidad' => $cantidad,
         						'detalles' => $detalles,
@@ -126,7 +131,10 @@ class Productos extends CI_Controller {
 
         $this->productos_model->insertaProd($producto_reg);
 
+        redirect ('productos', 'refresh');	
+		}
 
+        
 
     }
 
