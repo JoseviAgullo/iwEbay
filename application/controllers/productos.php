@@ -109,6 +109,27 @@ class Productos extends CI_Controller {
         $this->load->view('productos/index.php', $data);
 	}
 
+	 public function nuevoProd(){
+	 	$nombre = $this->input->post('nombreProductoSubasta');
+        $estado = $this->input->post('estadoProductoSubasta');
+        $cantidad = $this->input->post('cantidadProductoSubasta');
+        $detalles = $this->input->post('detallesProductoSubasta');
+        $precioIni = $this->input->post('precioIniProductoSubasta');
+        $precioYa = $this->input->post('precioYaProductoSubasta');
+
+        $producto_reg = array('nombre' => $nombre,
+        						'estado' => $estado,
+        						'cantidad' => $cantidad,
+        						'detalles' => $detalles,
+        						'precio_inicial' => $precioIni,
+        						'precio_compra_ya' => $precioYa);
+
+        $this->productos_model->insertaProd($producto_reg);
+
+
+
+    }
+
 }
 
 /* End of file welcome.php */

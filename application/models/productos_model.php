@@ -39,6 +39,14 @@
 		function dameUno($id){
 			$this->db->where('id', $id);
 			return $this->db->get($this->tabla);	
+		}
+
+		function insertaProd($prod){
+			$this->db->insert($this->tabla, $prod);
+
+			$id = $this->db->insert_id();
+
+			return $id;	
 		}	
 	}
  ?>

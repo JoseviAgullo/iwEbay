@@ -5,7 +5,7 @@
 
 
 	<div id="detalles"  style="float:left">
-		<form action="registrar" method="POST">
+		<form action="nuevoProd" method="POST">
 			<fieldset>
 				<legend>Datos de la subasta</legend>
 				<div id = "datosForm">
