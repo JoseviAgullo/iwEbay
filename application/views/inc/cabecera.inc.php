@@ -10,9 +10,14 @@
 	
 		<span style="float: right">
             <?php
-                echo anchor('usuarios/login', 'Login');
-                echo ' | ';
-                echo anchor('usuarios/registro', 'Registro');
+                if($usuario = $this->session->userdata('usuario'))
+                {
+                    echo anchor('usuarios/perfil/'.$usuario['nick'], $usuario['nick']);
+                } else {
+                    echo anchor('usuarios/login', 'Login');
+                    echo ' | ';
+                    echo anchor('usuarios/registro', 'Registro');
+                }
             ?>
 		</span>
 		<h1><?php echo anchor('inicio', $tituloBody); ?></h1>

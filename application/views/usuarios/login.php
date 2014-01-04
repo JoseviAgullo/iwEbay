@@ -1,9 +1,10 @@
 <?php 
 $this->load->view("inc/cabecera.inc.php");
  ?>
-<?php if(isset($_SESSION['error_login']) && $_SESSION['error_login'] != "") {
-    echo ('<hr>' . $_SESSION['error_login'] . '<hr>');
-    $_SESSION['error_login'] = '';
+<?php
+$error = $this->session->flashdata('error_login');
+if($error != '') {
+    echo ('<hr> <p style="color:red">' . $error . '</p> <hr>');
 }
 ?>
 <form action="do_login" method="POST">

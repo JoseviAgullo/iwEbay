@@ -35,17 +35,17 @@ class Usuarios extends CI_Controller {
         $password = $this->input->post('password');
 
         if($nick == '' || $password == '') {
-            $_FLASH['error_login'] = 'Usuario o contraseña vacios';
+            $this->session->set_flashdata('error_login', 'Usuario o contraseña vacios');
             redirect('usuarios/login','refresh');
         }
 
         $usuario = array('nick' => $nick,
                          'password' => $password);
         if ($this->usuarios_model->login($usuario)) {
-            $this->session->set_userdata($usuario);
+            $this->session->set_userdata('usuario',$usuario);
             redirect ('inicio', 'refresh');
         } else {
-            $_FLASH['error_login'] = 'Usuario o contraseña erronea';
+            $this->session->set_flashdata('error_login', 'Usuario o contraseña incorrectas');
             redirect ('usuarios/login', 'refresh');
         }
     }
