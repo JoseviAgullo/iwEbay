@@ -110,7 +110,7 @@ class Productos extends CI_Controller {
 	}
 
 	 public function nuevoProd(){
-	 	$nombre = $this->input->post('nombreProductoSuabasta');
+	 	$nombre = $this->input->post('nombreProductoSubasta');
         $estado = $this->input->post('estadoProductoSubasta');
         $cantidad = $this->input->post('cantidadProductoSubasta');
         $detalles = $this->input->post('detallesProductoSubasta');
