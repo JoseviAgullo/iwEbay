@@ -94,7 +94,7 @@ if($error != '') {
 						</td>
 						<td> </td>
 						<td>
-							Precio ¡Compra Ya! (en €):
+							<span id="textCompraYa">Precio ¡Compra Ya! (en €):</span>
 						</td>
 					</tr>
 					<tr>
@@ -103,7 +103,7 @@ if($error != '') {
 						</td>
 						<td> </td>
 						<td>
-							<input type="number" name="precioYaProductoSubasta">
+							<input id="inputCompraYa" type="number" name="precioYaProductoSubasta">
 						</td>
 					</tr>
 				</table>

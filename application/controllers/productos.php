@@ -22,6 +22,8 @@ class Productos extends CI_Controller {
 		parent::__construct();
 
 		$this->load->model('productos_model', '', TRUE);
+		$this->load->model('usuarios_model', '', TRUE);
+		$this->load->library('session');
 
 	}
 
@@ -110,6 +112,7 @@ class Productos extends CI_Controller {
 	}
 
 	 public function nuevoProd(){
+	 	//elementos producto
 	 	$nombre = $this->input->post('nombreProductoSubasta');
         $estado = $this->input->post('estadoProductoSubasta');
         $cantidad = $this->input->post('cantidadProductoSubasta');
@@ -117,7 +120,16 @@ class Productos extends CI_Controller {
         $precioIni = $this->input->post('precioIniProductoSubasta');
         $precioYa = $this->input->post('precioYaProductoSubasta');
 
-        if($nombre == '' || $cantidad == '' || $detalles == '' || $precioIni == '' || $precioYa == ''){
+        //elementos subasta
+		$descSubasta = $this->input->post('descripcion_subasta');
+		$fechaFinSubasta = $this->input->post('fechaFinSubasta');
+		$compraYaSubasta = $this->input->post('checkCompraYa');
+		$tipoEnvio = $this->input->post('tipoEnvioProductoSubasta');
+		$gastosEnvio = $this->input->post('gastosEnvioProductoSubasta');
+		$formaPago = $this->input->post('formaPagoProductoSubasta');
+
+
+        if($nombre == '' || $cantidad == '' || $detalles == '' || $precioIni == '' || $precioYa == '' || $descSubasta == '' || $fechaFinSubasta == '' || $gastosEnvio == ''){
         	$this->session->set_flashdata('error_subasta', 'Algún campo está vacio');
         	redirect('productos/nuevo','refresh');
         }
@@ -129,9 +141,24 @@ class Productos extends CI_Controller {
         						'precio_inicial' => $precioIni,
         						'precio_compra_ya' => $precioYa);
 
-        $this->productos_model->insertaProd($producto_reg);
+			$id_producto = $this->productos_model->insertaProd($producto_reg);
 
-        redirect ('productos', 'refresh');	
+        	
+        	//obtenemos el id del user mirando en sesión el nombre registrado
+        	
+			$usuario = $this->session->userdata('usuario');
+        	$id_user = $this->usuarios_model->getUsuario($usuario['nick']);
+
+        	$subasta_reg = array('descripcion' => $descSubasta,
+        							'fecha_fin' => $fechaFinSubasta,
+        							'compra_ya' => $compraYaSubasta,
+        							'tipo_envio' => $tipoEnvio,
+        							'forma_pago' => $formaPago,
+        							'gastos_envio' => $gastosEnvio,
+        							'usuario_id' => $id_user->id,
+        							'producto_id' => $id_producto);
+
+        	redirect ('productos', 'refresh');	
 		}
 
         
