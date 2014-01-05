@@ -15,8 +15,16 @@ class Usuarios extends CI_Controller {
         $data['tituloBody'] = "IWeBay";
         $this->load->view('usuarios/login', $data);
 	}
-    public function perfil()
+    public function perfil($nombre)
     {
+        $data['tupla'] = $this->usuarios_model->getUsuario($nombre)->row();
+
+        $data['tituloHead'] = "IWeBay Perfil de ".$nombre;
+        $data['tituloBody'] = "IWeBay";
+
+
+
+
         $data['tituloHead'] = "IWeBay";
         $data['tituloBody'] = "IWeBay";
         $this->load->view('usuarios/perfil', $data);
@@ -27,6 +35,8 @@ class Usuarios extends CI_Controller {
         $data['tituloHead'] = "IWeBay";
         $data['tituloBody'] = "IWeBay";
         $this->load->view('usuarios/registro', $data);
+
+
     }
 
     public function do_login()
