@@ -65,42 +65,28 @@ class Usuarios extends CI_Controller {
 
     public function registrar()
     {
-        $nick = $this->input->post('nick');
-        $pass = $this->input->post('pass');
+        $nick = $this->input->post('username');
+        $pass = $this->input->post('pass1');
         $pass2 = $this->input->post('pass2');
         $email = $this->input->post('email');
-        $email2 = $this->input->post('email2');
-        $nombre = $this->input->post('nombre');
-        $apellidos = $this->input->post('apellidos');
-        $fecha_nac = $this->input->post('fecha');
-        $genero = $this->input->post('genero');
-        $nacionalidad = $this->input->post('nacionalidad');
+        $fecha_nac = $this->input->post('f_nacimiento');
         $direccion = $this->input->post('direccion');
-        $provincia = $this->input->post('provincia');
-        $localidad = $this->input->post('localidad');
         $tos = $this->input->post('tos');
         $informado = $this->input->post('informado');
-        $tlf = $this->input->post('tlf');
+        $tlf = $this->input->post('telefono');
 
-        //Verificamos que no hayan campos vacios
-        if($nick == '' || $pass == '' || $pass2 == '' || $email == '' || $email2 == '')
+        if($nick == '' || $pass == '' || $pass2 == '' || $email == '')
         {
-            $this->session->set_flashdata('error_registro_vacio', 'Campos obligatorios vacios');
+            $this->session->set_flashdata('error', 'Campos obligatorios vacios');
             redirect('usuarios/registro','refresh');
         }
 
-        //Verificamos que las contraseñas coincidan
         if($pass != $pass2)
         {
-            $this->session->set_flashdata('error_registro_pass', 'Las contraseñas no coinciden');
+            $this->session->set_flashdata('error', 'Las contraseñas no coinciden');
             redirect('usuarios/registro','refresh');
         }
 
-        if($email != $email2)
-        {
-            $this->session->set_flashdata('error_registro_email', 'El email no coincide');
-            redirect('usuarios/registro','refresh');
-        }
         if($tos)
         {
 
@@ -110,13 +96,23 @@ class Usuarios extends CI_Controller {
                         'direccion'=>$direccion,
                         'telefono'=>$tlf,
                         'fecha_nacimiento'=>$fecha_nac);
-            $this->usuarios_model->registrar($user_registrar);
-
-
+            $user_id = $this->usuarios_model->registrar($user_registrar);
+            if($user_id > 0) {
+                $usuario = array();
+                $usuario['id'] = $user_id;
+                $usuario['nick'] = $nick;
+                $usuario['email'] = $email;
+                $usuario['password'] = $pass;
+                $this->session->set_userdata('usuario',$usuario);
+                redirect('usuarios/perfil/'.$nick, 'refresh');
+            } else {
+                $this->session->set_flashdata('error', '¡UPS! Ha habido un problema al registrarte, espera unos segundos e intentalo de nuevo');
+                redirect('usuarios/registro','refresh');
+            }
         }
         else
         {
-            $this->session->set_flashdata('error_registro_vacio', 'Debe aceptar los términos y condiciones');
+            $this->session->set_flashdata('error', 'Debe aceptar los términos y condiciones');
             redirect('usuarios/registro','refresh');
         }
 
