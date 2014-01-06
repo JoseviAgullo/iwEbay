@@ -61,6 +61,10 @@ class Productos extends CI_Controller {
 		//recogemos el producto con su subasta y su creador
 		$data['tupla'] = $this->productos_model->dameUno($id);
 
+		//recogemos la puja máxima correspondiente al producto
+		$data['puja'] = $this->productos_model->damePujaProd($id);		
+
+
 		$data['tituloHead'] = "IWeBay Detalles del producto";
 		$data['tituloBody'] = "IWeBay";
 		$data['link_atras'] = anchor('productos/index', 'Volver al listado');

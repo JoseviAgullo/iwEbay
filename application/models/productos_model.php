@@ -52,6 +52,22 @@
             return $producto;	
 		}
 
+		function damePujaProd($id){
+			$this->db->select('puja.cantidad');
+			$this->db->from('puja');
+			$this->db->join('subasta', 'subasta.id = puja.subasta_id');
+			$this->db->join('producto', 'subasta.producto_id = producto.id');			
+			$this->db->where('producto.id', $id);
+			$this->db->order_by('puja.cantidad', 'desc');
+
+			$query = $this->db->get();
+            $rs = $query->result();
+            $puja = '';
+            if(count($rs) > 0){
+                $puja = $rs[0];
+            }
+            return $puja;
+		}
 
 		function insertaProd($prod){
 			$this->db->insert($this->tabla, $prod);
