@@ -82,11 +82,25 @@ if($error != '') {
 						<td>
 							Detalles
 						</td>
+						<td> </td>
+						<td>
+							Categoría
+						</td>
 					</tr>
 					<tr>
-						<td colspan=8>
+						<td>
 							<textarea id="detallesProductoSubasta" name="detallesProductoSubasta" placeholder="Cuenta algún detalle característico del producto..."></textarea>	
-						</td>						
+						</td>		
+						<td> </td>				
+						<td>
+							<select name="categoriaProductoSubasta">
+								<?php 
+									foreach ($categorias as $fila){
+										echo '<option value="'.$fila->categoria.'">'.$fila->categoria.'</option>';										
+									}
+								?>								
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<td>

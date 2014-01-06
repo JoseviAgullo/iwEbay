@@ -135,13 +135,15 @@ class Productos extends CI_Controller {
 		$gastosEnvio = $this->input->post('gastosEnvioProductoSubasta');
 		$formaPago = $this->input->post('formaPagoProductoSubasta');
 
+		//categoria seleccionada
+		$categoria = $this->input->post('categoriaProductoSubasta');
 
         if($nombre == '' || $cantidad == '' || $detalles == '' || $precioIni == '' || $precioYa == '' || $descSubasta == '' || $fechaFinSubasta == '' || $gastosEnvio == ''){
         	$this->session->set_flashdata('error_subasta', 'Algún campo está vacio');
         	redirect('productos/nuevo','refresh');
         }
 		else{
-			
+			//registramos el producto
 			$producto_reg = array('nombre' => $nombre,
         						'estado' => $estado,
         						'cantidad' => $cantidad,
@@ -150,12 +152,15 @@ class Productos extends CI_Controller {
         						'precio_compra_ya' => $precioYa);
 
 			$id_producto = $this->productos_model->insertaProd($producto_reg);
+        	
+			//añadimos la categoria del producto a la tabla correspondiente
 
-			
-        	
+			$prodCat = array('producto_id' => $id_producto, 
+								'categoria_id' => $categoria);
+
+			$this->productos_model->guardarCategProd($prodCat);
+
         	//obtenemos el id del user mirando en sesión el nombre registrado
-        	
-        	//ESTO VA MAL, HAY QUE MIRAR COMO OBTENER EL ID DEL USUARIO REGISTRADO
 			$usuario = $this->session->userdata('usuario');
         	$id_user = $usuario['id'];
 
