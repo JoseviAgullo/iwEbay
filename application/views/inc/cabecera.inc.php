@@ -9,12 +9,13 @@
 <div id="container">
 	
 		<span style="float: right">
+            
             <?php
                 if($usuario = $this->session->userdata('usuario'))
                 {
                     echo anchor('productos/nuevo/', 'Vender');
                      echo ' | ';
-                    echo anchor('usuarios/perfil/'.$usuario['nick'], $usuario['nick']);
+                    echo anchor('usuarios/perfil/'.$usuario['id'], $usuario['nick']);
                      echo ' | ';
                      echo anchor('usuarios/do_logout', 'Logout');
 

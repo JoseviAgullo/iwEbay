@@ -12,9 +12,12 @@
 			return $this->db->count_all($this->tabla);
 		}
 
-		function cuenta_destacados(){
-			$this->db->where('destacado', '1');
-			return $this->db->count_all($this->tabla);
+		function cuenta_destacados(){ 
+			$this->db->from($this->tabla);
+			$this->db->where('destacado', '1');			
+        	$query = $this->db->get(); 
+
+        	return $query->num_rows();
 		}
 
 		function listado(){
@@ -67,6 +70,20 @@
                 $puja = $rs[0];
             }
             return $puja;
+		}
+
+		function dameSubasta($id){
+			$this->db->select('id');
+			$this->db->from('subasta');
+			$this->db->where('producto_id', $id);
+
+			$query = $this->db->get();
+            $rs = $query->result();
+            $subasta = '';
+            if(count($rs) > 0){
+                $subasta = $rs[0];
+            }
+            return $subasta;				
 		}
 
 		function insertaProd($prod){

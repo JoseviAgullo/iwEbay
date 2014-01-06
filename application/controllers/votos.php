@@ -2,6 +2,12 @@
 
 class Votos extends CI_Controller {
 
+	function __construct()
+    {
+        parent::__construct();
+        $this->load->model('votos_model', '', TRUE);
+    }
+
 	/**
 	 * Index Page for this controller.
 	 *
@@ -21,6 +27,33 @@ class Votos extends CI_Controller {
 	{
 		$this->load->view('welcome_message');
 	}
+
+	public function votar($usuario_destino)
+    {
+    	if($usuario = $this->session->userdata('usuario'))
+        {
+	    	$usuario_origen = $this->session->userdata('usuario');
+	        echo ('hola, '. $usuario_origen['id']);
+	        $formSubmit = $this->input->post('env_voto');
+	        $desc = $this->input->post('desc');
+
+	        //Recuperamos el nombre del destino con flashdata, para luego redireccionar a él.
+	        $nombreDestino = $this->session->flashdata('nombreDestino');
+
+
+	        if( $formSubmit == 'posi' )
+	        	$this->votos_model->votar_positivo($usuario_origen['id'], $usuario_destino, $desc);
+	        else
+	        	$this->votos_model->votar_negativo($usuario_origen['id'], $usuario_destino, $desc);
+
+	        $this->session->set_flashdata('votoOK', 'Voto realizado correctamente');
+
+	        redirect('usuarios/perfil/'.$nombreDestino,'refresh');
+	    }
+	    else {
+            show_error('Debes estar logueado para acceder a esta pagina', 403);
+        }		    	
+    }
 }
 
 /* End of file welcome.php */

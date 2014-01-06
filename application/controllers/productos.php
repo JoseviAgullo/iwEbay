@@ -24,6 +24,7 @@ class Productos extends CI_Controller {
 		$this->load->model('productos_model', '', TRUE);
 		$this->load->model('usuarios_model', '', TRUE);
 		$this->load->model('subastas_model', '', TRUE);
+		$this->load->model('pujas_model', '', TRUE);
 		$this->load->library('session');
 
 	}
@@ -75,6 +76,11 @@ class Productos extends CI_Controller {
 		$this->load->view('productos/detalle', $data);
 
 	}
+
+	 public function pujar()
+    {
+        echo ('Hola, cocacola');
+    }
 
 	public function nuevo(){
 		if($usuario = $this->session->userdata('usuario')){
@@ -182,14 +188,26 @@ class Productos extends CI_Controller {
 
         	redirect ('productos', 'refresh');	
 		}
-
     }
 
     public function anyadePuja(){
+    	/*$id = $this->input->post('id_pet');
+        $puja = $this->input->post('valor_puja');
+		
+		$usuario = $this->session->userdata('usuario');
+        $id_user = $usuario['id'];
 
+        $subasta = $this->productos_model->dameSubasta($id);
+
+        $puja_reg = array('cantidad' => $puja,
+        					'fecha' => date("d-m-y"),
+        					'usuario_id' => $id_user,
+        					'subasta_id' => $subasta->id);
+
+        $this->pujas_model->insertaPuja($subasta_reg);
+		*/
+
+        redirect ('productos/index', 'refresh');
     }
 
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
