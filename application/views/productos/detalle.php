@@ -27,7 +27,14 @@
 				<table>
 					<tr>
 						<td style="font-weight:bold">Precio actual:</td>
-						<td><?php echo $tupla->precio_inicial; ?></td>
+						<td><?php   if($puja == ''){
+        					   			echo $tupla->precio_inicial;
+        							} 
+        							else{
+        								echo $puja->cantidad;
+        							}
+        					?>
+        				</td>
 					</tr>
 					<tr>
 						<td style="font-weight:bold">Fecha finalización: </td>
@@ -36,7 +43,12 @@
 					<tr>
 						<td> 
 							<input type="number" id="valor_puja" name="valor_puja"> <br>
-							<span>Introduce <?php echo $tupla->precio_inicial; ?> o más</span>
+							<span>Introduce <?php if($puja == ''){
+        					   			echo $tupla->precio_inicial * 1.05;
+        							} 
+        							else{        								
+        								echo $puja->cantidad * 1.05;
+        							} ?> o más</span>
 					 	</td>
 						<td> <input type="submit" value="Pujar"> </td>
 					</tr>
