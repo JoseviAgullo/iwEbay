@@ -19,7 +19,7 @@ class Usuarios extends CI_Controller {
     {
         $tupla = $this->usuarios_model->getUsuario($id);
         $data['tupla'] = $tupla;
-
+        $data['tienda'] = $this->usuarios_model->getTiendaId(array('id' => $tupla->id));
         $data['tituloHead'] = "IWeBay Perfil de ".$tupla->userName;
         $data['tituloBody'] = "IWeBay";
         $data['action'] = 'usuarios/votar';
@@ -129,6 +129,9 @@ class Usuarios extends CI_Controller {
     }
 
     public function productos($id,$categoria) {
+        //$cat = explode('%20',$categoria);
+        //$categoria = implode(' ',$cat);
+        $categoria = urldecode($categoria);
         $data['tituloHead'] = "IWeBay - " . $categoria;
         $data['tituloBody'] = "IWeBay";
         $this->load->model('productos_model', '', TRUE);

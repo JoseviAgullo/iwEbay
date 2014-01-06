@@ -98,7 +98,8 @@ class Productos extends CI_Controller {
 	}
 
 	public function categoria($categoria){
-		$data['tituloHead'] = "IWeBay ".$categoria;
+        $categoria = urldecode($categoria);
+		$data['tituloHead'] = "IWeBay - ".$categoria;
 		$data['tituloBody'] = "IWeBay";
 
 		$productos = $this->productos_model->listado_categoria($categoria);		
@@ -108,7 +109,7 @@ class Productos extends CI_Controller {
 
 		$data['listado'] = "No se han encontrado productos";		
 
-		if($data['cuantos'] > 0){
+		if(count($productos) > 0){
 			$this->table->set_heading('Nombre', 'Precio', 'Fecha fin', 'Detalles');
 			$this->table->set_empty('&nbsp;');
 

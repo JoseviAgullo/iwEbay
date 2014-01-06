@@ -4,8 +4,8 @@ $this->load->helper('form');
 ?>
 <div id="lateral"style="width:180px; border-style:solid; border-width:1px; margin:3px; float:left; margin:10px; padding:3px;">
 	<div id="imag" style="width:150px; height:150px; border-style:solid; border-width:1px; margin:3px; padding:3px;"> imagen</div>
-	<h3 id="user"> <?php echo $tupla->userName ?> </h4>
-	<?php echo anchor('tiendas/tienda','Ver Tienda') ?>
+	<h3 id="user"> <?php echo $tupla->userName ?> </h3>
+	<?php echo anchor('tiendas/tienda/'. $tienda,'Ver Tienda') ?>
 	<p id = "email">Email: <?php echo $tupla->email ?></p>
 	<p id = "votos">Votos Positivos: <?php echo $cantidad_positivos . ' de '. $cantidad_total ?></p>
 </div>
