@@ -62,6 +62,10 @@ class Tiendas extends CI_Controller {
 
         if($usuario = $this->session->userdata('usuario'))
         {
+            if($this->usuarios_model->tieneTienda($usuario)){
+                $tienda_id = $this->usuarios_model->getTiendaId($usuario);
+                redirect('tiendas/tienda/'.$tienda_id, 'refresh');
+            }
             $data['tituloHead'] = "IWeBay";
             $data['tituloBody'] = "IWeBay";
 
