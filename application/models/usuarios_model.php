@@ -27,10 +27,10 @@
             return $id;
         }
 
-        public function getUsuario($nick)
+        public function getUsuario($id)
         {
             $this->db->select('id, userName, password, email');
-            $this->db->where('username', $nick);
+            $this->db->where('id', $id);
             $rs = $this->db->get($this->tabla)->result();
             $usuario = '';
             if(count($rs) > 0){

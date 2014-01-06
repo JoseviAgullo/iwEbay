@@ -6,6 +6,7 @@ class Usuarios extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('usuarios_model', '', TRUE);
+        $this->load->model('votos_model', '', TRUE);
     }
 
 	public function login()
@@ -14,13 +15,17 @@ class Usuarios extends CI_Controller {
         $data['tituloBody'] = "IWeBay";
         $this->load->view('usuarios/login', $data);
 	}
-    public function perfil($nombre)
+    public function perfil($id)
     {
-        $data['tupla'] = $this->usuarios_model->getUsuario($nombre);
+        $tupla = $this->usuarios_model->getUsuario($id);
+        $data['tupla'] = $tupla;
 
-        $data['tituloHead'] = "IWeBay Perfil de ".$nombre;
+        $data['tituloHead'] = "IWeBay Perfil de ".$tupla->userName;
         $data['tituloBody'] = "IWeBay";
         $data['action'] = 'usuarios/votar';
+        $data['cantidad_positivos'] = $this->votos_model->votos_positivos($id); 
+        $data['cantidad_total'] = $this->votos_model->cuenta_todos($id); 
+
 
         $data['tituloHead'] = "IWeBay";
         $data['tituloBody'] = "IWeBay";

@@ -7,7 +7,7 @@ $this->load->helper('form');
 	<h3 id="user"> <?php echo $tupla->userName ?> </h4>
 	<?php echo anchor('tiendas/tienda','Ver Tienda') ?>
 	<p id = "email">Email: <?php echo $tupla->email ?></p>
-	<p id = "votos">Votos Positivos: <?php echo 'falta implementar' ?></p>
+	<p id = "votos">Votos Positivos: <?php echo $cantidad_positivos . ' de '. $cantidad_total ?></p>
 </div>
 
 <div class="campoForm">
