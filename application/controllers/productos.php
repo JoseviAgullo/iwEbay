@@ -58,7 +58,8 @@ class Productos extends CI_Controller {
 	}
 
 	public function detalle($id){
-		$data['tupla'] = $this->productos_model->dameUno($id)->row();
+		//recogemos el producto con su subasta y su creador
+		$data['tupla'] = $this->productos_model->dameUno($id);
 
 		$data['tituloHead'] = "IWeBay Detalles del producto";
 		$data['tituloBody'] = "IWeBay";
