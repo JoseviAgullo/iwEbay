@@ -7,6 +7,7 @@ class Usuarios extends CI_Controller {
         parent::__construct();
         $this->load->model('usuarios_model', '', TRUE);
         $this->load->model('votos_model', '', TRUE);
+        $this->load->helper(array('form', 'url'));
     }
 
 	public function login()
@@ -129,6 +130,26 @@ class Usuarios extends CI_Controller {
 
 
 
+    }
+
+    public function subir_imagen($id)
+    {
+        $config['upload_path'] = './images/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $filename = $this->input->post('userfile');
+
+        $this->load->library('upload', $config);
+        $this->load->helper('html');
+
+        if ( ! $this->upload->do_upload())
+        {
+           echo ('Error');
+        }
+        else
+        {
+           echo ('Todo bien '. $this->upload->data()['full_path']);
+          echo img('images/'.  $this->upload->data()['client_name']);
+        }
     }
    
 }
