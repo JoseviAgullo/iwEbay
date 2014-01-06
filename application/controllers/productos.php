@@ -183,9 +183,9 @@ class Productos extends CI_Controller {
         	redirect ('productos', 'refresh');	
 		}
 
-		
+    }
 
-        
+    public function anyadePuja(){
 
     }
 
