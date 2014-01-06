@@ -96,7 +96,7 @@ if($error != '') {
 							<select name="categoriaProductoSubasta">
 								<?php 
 									foreach ($categorias as $fila){
-										echo '<option value="'.$fila->categoria.'">'.$fila->categoria.'</option>';										
+										echo '<option value="'.$fila['categoria'].'">'.$fila['categoria'].'</option>';										
 									}
 								?>								
 							</select>

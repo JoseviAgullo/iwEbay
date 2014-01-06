@@ -18,7 +18,7 @@ $this->load->helper('form');
 		}
 	
 		echo form_open('votos/votar/'. $tupla->id);
-		$this->session->set_flashdata('nombreDestino', $tupla->userName); ?>
+		?>
 
 		<?php
 			if($usuario = $this->session->userdata('usuario'))

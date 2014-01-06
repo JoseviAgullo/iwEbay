@@ -37,10 +37,7 @@ class Votos extends CI_Controller {
 	        $formSubmit = $this->input->post('env_voto');
 	        $desc = $this->input->post('desc');
 
-	        //Recuperamos el nombre del destino con flashdata, para luego redireccionar a él.
-	        $nombreDestino = $this->session->flashdata('nombreDestino');
-
-
+	        
 	        if( $formSubmit == 'posi' )
 	        	$this->votos_model->votar_positivo($usuario_origen['id'], $usuario_destino, $desc);
 	        else
@@ -48,12 +45,14 @@ class Votos extends CI_Controller {
 
 	        $this->session->set_flashdata('votoOK', 'Voto realizado correctamente');
 
-	        redirect('usuarios/perfil/'.$nombreDestino,'refresh');
+	        redirect('usuarios/perfil/'.$usuario_destino,'refresh');
 	    }
 	    else {
             show_error('Debes estar logueado para acceder a esta pagina', 403);
         }		    	
     }
+
+
 }
 
 /* End of file welcome.php */
