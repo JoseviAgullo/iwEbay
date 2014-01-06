@@ -28,9 +28,13 @@ class Usuarios extends CI_Controller {
 
     public function registro()
     {
-        $data['tituloHead'] = "IWeBay";
-        $data['tituloBody'] = "IWeBay";
-        $this->load->view('usuarios/registro', $data);
+        if($usuario = $this->session->userdata('usuario')){
+            redirect('usuarios/perfil/' . $usuario['id'], 'refresh');
+        } else {
+            $data['tituloHead'] = "IWeBay";
+            $data['tituloBody'] = "IWeBay";
+            $this->load->view('usuarios/registro', $data);
+        }
     }
 
     public function do_login()
@@ -89,13 +93,14 @@ class Usuarios extends CI_Controller {
 
         if($tos)
         {
-
+            date_default_timezone_set('UTC');
+            $fecha = date_parse($fecha_nac);
             $user_registrar = array('userName' => $nick,
                          'password' => $pass,
                         'email'=>$email,
                         'direccion'=>$direccion,
                         'telefono'=>$tlf,
-                        'fecha_nacimiento'=>$fecha_nac);
+                        'fecha_nacimiento'=> $fecha['year'] . '-' . $fecha['month'] . '-' . $fecha['day']);
             $user_id = $this->usuarios_model->registrar($user_registrar);
             if($user_id > 0) {
                 $usuario = array();

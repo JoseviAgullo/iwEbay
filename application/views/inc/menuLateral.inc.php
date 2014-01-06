@@ -31,7 +31,7 @@ color: #FFFFFF; /* color de las letras al pasar el cursor */
 		<ul>
 			<?php 			
 				foreach ($categorias as $fila){
-					echo anchor('productos/categoria/'.$fila->categoria, '<li>'.$fila->categoria.'</li>');
+					echo anchor('productos/categoria/'.$fila['categoria'], '<li>'.$fila['categoria'].'</li>');
 				}
 			?>
 		</ul>

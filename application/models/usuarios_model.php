@@ -50,7 +50,14 @@
             $this->db->distinct();
 
             $query = $this->db->get();
-            return $query->result();
+
+            if($query->num_rows() > 0){
+                foreach ($query->result() as $res) :
+                    $categoria = array('categoria' => $res->categoria_id);
+                    $categorias[] = $categoria;
+                endforeach;
+            }
+            return $categorias;
         }
 
         public function getUltimasSubastas($id)
@@ -59,7 +66,7 @@
             $this->db->join('subasta', 'subasta.usuario_id = usuario.id');
             $this->db->join('producto', 'subasta.producto_id = producto.id');
             $this->db->where('usuario.id', $id);
-            $this->db->order_by('subasta.fecha_inicio','asc');
+            $this->db->order_by('subasta.id','desc');
             $this->db->limit(10);
 
             $query = $this->db->get();

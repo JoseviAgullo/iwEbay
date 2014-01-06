@@ -1,16 +1,16 @@
 <?php 
 $this->load->view("inc/cabecera.inc.php");
-$this->load->view("inc/menuLateral.inc.php"); 
+
  ?>
 <?php
-
-echo '<h2> Tienda de ' . anchor('usuarios/perfil/' . $usuario->userName ,$usuario->userName) . '</h2>'
+echo '<h2>'. $tienda->nombre . '</h2>';
+$this->load->view("inc/menuLateral.inc.php");
 ?>
 
 
 <div id="desc_tienda"  style="border-style:solid; border-width:1px; float:left; margin-left:10px; padding:3px;">
     <?php
-    echo('<p>Bienvenido a la tienda de ' . $usuario->userName);
+    echo('<p>Bienvenido a la tienda de ' . $usuario->userName . '</p>');
     echo('<p>'. $tienda->descripcion .'</p>')
     ?>
 
@@ -30,7 +30,7 @@ echo '<h2> Tienda de ' . anchor('usuarios/perfil/' . $usuario->userName ,$usuari
             <tr>
                 <td><img src="imagenes/productos/default.jpg"></td>
                 <td><?php echo $subasta->nombre; ?></td>
-                <td><?php echo $subasta->precio; ?></td>
+                <td><?php echo $subasta->precio_compra_ya; ?></td>
                 <td><?php echo anchor('productos/detalles'.$subasta->producto_id, 'Detalles') ?></td>
             </tr>
     <?php endforeach; ?>

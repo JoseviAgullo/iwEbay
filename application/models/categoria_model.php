@@ -9,7 +9,8 @@
 
 			if($sql->num_rows() > 0){
 				foreach ($sql->result() as $res) :
-					$menu[] = $res;
+                    $categoria = array('categoria' => $res->categoria);
+					$menu[] = $categoria;
 				endforeach;
 			}
 
