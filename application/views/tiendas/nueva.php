@@ -48,11 +48,11 @@ if($error){
 <form action="crear" method="POST">
 	<fieldset>
 		<div class="campoForm">
-			<label for="nombre">Nombre de la tienda:  </label> <br>
+			<label for="nombre">Nombre de la tienda: *  </label> <br>
 			<input type="text" name="nombre"placeholder="Nombre de la tienda">
 		</div>
 		<div class="campoForm">
-			<label for="descripcion">Descripcion: </label> <br>
+			<label for="descripcion">Descripcion: * </label> <br>
 			<textarea name="descripcion" placeholder="Una breve descripción de los que habrá en tu tienda y por qué la gente debería comprarte a ti." rows="4" cols="50"></textarea>
 		</div>
 	</fieldset>

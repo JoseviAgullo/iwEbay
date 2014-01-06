@@ -20,6 +20,7 @@ class Usuarios extends CI_Controller {
 
         $data['tituloHead'] = "IWeBay Perfil de ".$nombre;
         $data['tituloBody'] = "IWeBay";
+        $data['action'] = 'usuarios/votar';
 
         $data['tituloHead'] = "IWeBay";
         $data['tituloBody'] = "IWeBay";
@@ -123,6 +124,7 @@ class Usuarios extends CI_Controller {
 
 
     }
+   
 }
 
 /* End of file welcome.php */
