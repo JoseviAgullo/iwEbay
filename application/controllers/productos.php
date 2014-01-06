@@ -98,7 +98,8 @@ class Productos extends CI_Controller {
 	}
 
 	public function categoria($categoria){
-		$data['tituloHead'] = "IWeBay ".$categoria;
+        $categoria = urldecode($categoria);
+		$data['tituloHead'] = "IWeBay - ".$categoria;
 		$data['tituloBody'] = "IWeBay";
 
 		$productos = $this->productos_model->listado_categoria($categoria);		
@@ -108,7 +109,7 @@ class Productos extends CI_Controller {
 
 		$data['listado'] = "No se han encontrado productos";		
 
-		if($data['cuantos'] > 0){
+		if(count($productos) > 0){
 			$this->table->set_heading('Nombre', 'Precio', 'Fecha fin', 'Detalles');
 			$this->table->set_empty('&nbsp;');
 
@@ -150,40 +151,48 @@ class Productos extends CI_Controller {
         	redirect('productos/nuevo','refresh');
         }
 		else{
-			//registramos el producto
-			$producto_reg = array('nombre' => $nombre,
-        						'estado' => $estado,
-        						'cantidad' => $cantidad,
-        						'detalles' => $detalles,
-        						'precio_inicial' => $precioIni,
-        						'precio_compra_ya' => $precioYa);
+			if ($precioIni >= $precioYa)
+			{
+				$this->session->set_flashdata('error_subasta', 'El precio de subasta debe ser inferior al de compra directa');
+        		redirect('productos/nuevo','refresh');		
+	        }
+			else{
+				//registramos el producto
+				$producto_reg = array('nombre' => $nombre,
+	        						'estado' => $estado,
+	        						'cantidad' => $cantidad,
+	        						'detalles' => $detalles,
+	        						'precio_inicial' => $precioIni,
+	        						'precio_compra_ya' => $precioYa);
 
-			$id_producto = $this->productos_model->insertaProd($producto_reg);
-        	
-			//añadimos la categoria del producto a la tabla correspondiente
+				$id_producto = $this->productos_model->insertaProd($producto_reg);
+	        	
+				//añadimos la categoria del producto a la tabla correspondiente
 
-			$prodCat = array('producto_id' => $id_producto, 
-								'categoria_id' => $categoria);
+				$prodCat = array('producto_id' => $id_producto, 
+									'categoria_id' => $categoria);
 
-			$this->productos_model->guardarCategProd($prodCat);
+				$this->productos_model->guardarCategProd($prodCat);
 
-        	//obtenemos el id del user mirando en sesión el nombre registrado
-			$usuario = $this->session->userdata('usuario');
-        	$id_user = $usuario['id'];
+	        	//obtenemos el id del user mirando en sesión el nombre registrado
+				$usuario = $this->session->userdata('usuario');
+	        	$id_user = $usuario['id'];
 
-        	$subasta_reg = array('descripcion' => $descSubasta,
-        							'fecha_fin' => $fechaFinSubasta,
-        							'compra_ya' => $compraYaSubasta,
-        							'tipo_envio' => $tipoEnvio,
-        							'forma_pago' => $formaPago,
-        							'gastos_envio' => $gastosEnvio,
-        							'usuario_id' => $id_user,
-        							'producto_id' => $id_producto);
+	        	$subasta_reg = array('descripcion' => $descSubasta,
+	        							'fecha_fin' => $fechaFinSubasta,
+	        							'compra_ya' => $compraYaSubasta,
+	        							'tipo_envio' => $tipoEnvio,
+	        							'forma_pago' => $formaPago,
+	        							'gastos_envio' => $gastosEnvio,
+	        							'usuario_id' => $id_user,
+	        							'producto_id' => $id_producto);
 
-        	$this->subastas_model->insertaSubasta($subasta_reg);
+	        	$this->subastas_model->insertaSubasta($subasta_reg);
 
-        	redirect ('productos', 'refresh');	
+	        	redirect ('productos', 'refresh');	
+        	}
 		}
-    }
+	}
+    
 
 }

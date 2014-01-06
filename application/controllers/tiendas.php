@@ -28,7 +28,7 @@ class Tiendas extends CI_Controller {
 	}
 	public function tienda($tienda_id)
 	{
-		$data['tituloHead'] = "IWeBay";
+
 		$data['tituloBody'] = "IWeBay";
 
         $tienda = $this->tiendas_model->getTienda($tienda_id);
@@ -36,6 +36,7 @@ class Tiendas extends CI_Controller {
             show_404();
         } else {
             $data['tienda'] = $tienda;
+            $data['tituloHead'] = "IWeBay - " . $tienda->nombre;
         }
 
         $usuario = $this->tiendas_model->getUsuario($tienda_id);

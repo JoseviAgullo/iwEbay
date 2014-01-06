@@ -9,6 +9,10 @@
 
 		function cuenta_categoria($categoria){
 			//falta el where
+			$this->db->from($this->tabla);
+			$this->db->join('producto_a_categoria', 'producto_a_categoria.producto_id = producto.id');
+            $this->db->where('producto_a_categoria.categoria_id', $categoria);
+
 			return $this->db->count_all($this->tabla);
 		}
 
@@ -28,7 +32,10 @@
 
 
 		function listado_categoria($categoria){
-			$this->db->order_by('nombre', 'desc');
+			
+			$this->db->join('producto_a_categoria', 'producto_a_categoria.producto_id = producto.id');
+			$this->db->join('categoria', 'producto_a_categoria.categoria_id = categoria.categoria');
+            $this->db->where('categoria.categoria', $categoria);
 			return $this->db->get($this->tabla)->result();
 		}
 
@@ -98,5 +105,17 @@
 		{
 			$this->db->insert('producto_a_categoria', $datos);
 		}
+
+        public function getProductosUsuario($id,$categoria)
+        {
+            $this->db->select('producto.nombre, producto.precio_inicial, subasta.fecha_fin, producto.id');
+            $this->db->from($this->tabla);
+            $this->db->join('subasta', 'subasta.producto_id = producto.id');
+            $this->db->join('producto_a_categoria', 'producto_a_categoria.producto_id = producto.id');
+            $this->db->where('subasta.usuario_id', $id);
+            $this->db->where('producto_a_categoria.categoria_id', $categoria);
+
+            return $this->db->get()->result();
+        }
 	}
  ?>

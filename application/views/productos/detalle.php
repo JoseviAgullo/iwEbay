@@ -2,7 +2,12 @@
 <?php $this->load->view("inc/menuLateral.inc.php");
 	$this->load->helper('form'); ?>
 
-
+<?php
+$error = $this->session->flashdata('error_puja');
+if($error != '') {
+    echo ('<hr> <p style="color:red">' . $error . '</p> <hr>');
+}
+?>
 
 
 <div id="detalles"  style="float:left">
@@ -18,7 +23,7 @@
 							<br>
 							<?php echo '<input type="hidden" id="id_pet" name="id_pet" value="'.$tupla->producto_id.'">'; ?> 
 							<br>						
-							<?php echo anchor('usuarios/perfil/'.$tupla->userName, $tupla->userName); ?><br>
+							<?php echo anchor('usuarios/perfil/'.$tupla->id, $tupla->userName); ?><br>
 							Enlace a la tienda<br>
 						</td>
 					</tr>
@@ -32,11 +37,19 @@
 						<td style="font-weight:bold">Precio actual:</td>
 						<td><?php   if($puja == ''){
         					   			echo $tupla->precio_inicial.' €';
+        					   			echo '<input type="hidden" id="valor_min_puja" name="valor_min_puja" value="'.$tupla->precio_inicial.'">';
+        							} 
+        							else{
+        								echo $puja->cantidad.' €';
+        								echo '<input type="hidden" id="valor_min_puja" value="'.$puja->cantidad.'">';
+        							}
+        					?>
+        					<input type="hidden" name="valor_min_puja" value="<?php if($puja == ''){
+        					   			echo $tupla->precio_inicial;        					   			
         							} 
         							else{
         								echo $puja->cantidad;
-        							}
-        					?>
+        							} ?>">
         				</td>
 					</tr>
 					<tr>
@@ -47,10 +60,10 @@
 						<td> 
 							<input type="number" id="valor_puja" name="valor_puja"> <br>
 							<span>Introduce <?php if($puja == ''){
-        					   			echo $tupla->precio_inicial * 1.05;
+        					   			echo $tupla->precio_inicial + 1;
         							} 
         							else{        								
-        								echo $puja->cantidad * 1.05;
+        								echo $puja->cantidad + 1;
         							} ?> o más</span>
 					 	</td>
 						<td> <input type="submit" value="Pujar"> </td>
