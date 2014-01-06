@@ -77,6 +77,11 @@ class Productos extends CI_Controller {
 
 	}
 
+	 public function pujar()
+    {
+        echo ('Hola, cocacola');
+    }
+
 	public function nuevo(){
 		if($usuario = $this->session->userdata('usuario')){
             $data['tituloHead'] = "IWeBay Crear nuevo producto";
