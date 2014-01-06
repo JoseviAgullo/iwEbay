@@ -48,5 +48,10 @@
 
 			return $id;	
 		}	
+
+		function guardarCategProd($datos)
+		{
+			$this->db->insert('producto_a_categoria', $datos);
+		}
 	}
  ?>
