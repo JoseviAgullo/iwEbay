@@ -37,9 +37,21 @@
 		}
 
 		function dameUno($id){
-			$this->db->where('id', $id);
-			return $this->db->get($this->tabla);
+			$this->db->select('*');
+			$this->db->from($this->tabla);
+       		$this->db->join('subasta', 'subasta.producto_id = producto.id');            
+            $this->db->join('usuario', 'subasta.usuario_id = usuario.id');
+            $this->db->where('producto.id', $id);
+                        
+            $query = $this->db->get();
+            $rs = $query->result();
+            $producto = '';
+            if(count($rs) > 0){
+                $producto = $rs[0];
+            }
+            return $producto;	
 		}
+
 
 		function insertaProd($prod){
 			$this->db->insert($this->tabla, $prod);

@@ -12,10 +12,10 @@
 					<tr>
 						<td>Aquí va la foto</td>
 						<td>
-							<font size="6"><?php echo $tupla->nombre; ?></font>
+							<font size="6"><?php echo $tupla->nombre; ?></font>			
 							<br>
-							<br>
-							Nombre Usuario<br>
+							<br>						
+							<?php echo anchor('usuarios/perfil/'.$tupla->userName, $tupla->userName); ?><br>
 							Enlace a la tienda<br>
 						</td>
 					</tr>
@@ -31,10 +31,10 @@
 					</tr>
 					<tr>
 						<td style="font-weight:bold">Fecha finalización: </td>
-						<td>Mañana</td>
+						<td><?php echo date("d-m-Y", strtotime($tupla->fecha_fin)); ?></td>
 					</tr>
 					<tr>
-						<td>
+						<td> 
 							<input type="number" id="valor_puja" name="valor_puja"> <br>
 							<span>Introduce <?php echo $tupla->precio_inicial; ?> o más</span>
 					 	</td>
@@ -47,7 +47,7 @@
 			<table>
 				<tr>
 					<td style="font-weight:bold">
-						Descripción del producto:
+						Descripción del producto:	
 					</td>
 				</tr>
 				<tr>
@@ -57,17 +57,25 @@
 				</tr>
 				<tr>
 					<td style="font-weight:bold">
-						Detalles de envío:
+						Detalles de envío:	
+					</td>
+					<td> </td>
+					<td style="font-weight:bold">
+						Gastos de envío:
 					</td>
 				</tr>
 				<tr>
 					<td>
-						Aquí van los detalles
+						<?php echo $tupla->tipo_envio; ?>
+					</td>
+					<td> </td>
+					<td>
+						<?php echo $tupla->gastos_envio; ?> €
 					</td>
 				</tr>
 				<tr>
 					<td style="font-weight:bold">
-						Condiciones de la venta:
+						Condiciones de la venta:	
 					</td>
 				</tr>
 				<tr>
