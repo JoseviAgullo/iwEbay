@@ -27,7 +27,7 @@ $this->load->view("inc/cabecera.inc.php")
             dayNamesShort: ['Dom', 'Lun', 'Mar', 'Mié;', 'Juv', 'Vie', 'Sáb'],
             dayNamesMin: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
             weekHeader: 'Sm',
-            dateFormat: 'dd/mm/yy',
+            dateFormat: 'dd-mm-yy',
             firstDay: 1,
             isRTL: false,
             showMonthAfterYear: false,
@@ -98,7 +98,7 @@ if($error){
         		<tr>
 		            <td><input type="text" name="telefono" placeholder="Introducte tu teléfono"></td>
 					<td> </td>
-            		<td><input id="datepicker" type="date" name="f_nacimiento" placeholder="DD/MM/AAAA"></td>
+            		<td><input id="datepicker" type="date" name="f_nacimiento" placeholder="DD-MM-AAAA"></td>
         		</tr>
         	</table>	
 		</div>

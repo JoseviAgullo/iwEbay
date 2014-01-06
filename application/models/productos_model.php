@@ -72,6 +72,20 @@
             return $puja;
 		}
 
+		function dameSubasta($id){
+			$this->db->select('id');
+			$this->db->from('subasta');
+			$this->db->where('producto_id', $id);
+
+			$query = $this->db->get();
+            $rs = $query->result();
+            $subasta = '';
+            if(count($rs) > 0){
+                $subasta = $rs[0];
+            }
+            return $subasta;				
+		}
+
 		function insertaProd($prod){
 			$this->db->insert($this->tabla, $prod);
 

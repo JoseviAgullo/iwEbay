@@ -14,7 +14,7 @@
 						<td>
 							<font size="6"><?php echo $tupla->nombre; ?></font>			
 							<br>
-							<?php echo '<input type="hidden" id="id_pet" name="id_pet" value="'.$tupla->producto_id.'">'; ?>
+							<?php echo '<input type="hidden" id="id_pet" name="id_pet" value="'.$tupla->producto_id.'">'; ?> 
 							<br>						
 							<?php echo anchor('usuarios/perfil/'.$tupla->userName, $tupla->userName); ?><br>
 							Enlace a la tienda<br>
@@ -29,7 +29,7 @@
 					<tr>
 						<td style="font-weight:bold">Precio actual:</td>
 						<td><?php   if($puja == ''){
-        					   			echo $tupla->precio_inicial;
+        					   			echo $tupla->precio_inicial.' €';
         							} 
         							else{
         								echo $puja->cantidad;
