@@ -50,7 +50,7 @@
             $this->db->distinct();
 
             $query = $this->db->get();
-
+            $categorias = [];
             if($query->num_rows() > 0){
                 foreach ($query->result() as $res) :
                     $categoria = array('categoria' => $res->categoria_id);
@@ -94,6 +94,23 @@
                 $id = $rs[0]->tienda_id;
             }
             return $id;
+        }
+
+        public function getTienda($usuario)
+        {
+            $this->db->select('tienda.*');
+            $this->db->from($this->tabla);
+            $this->db->join('usuario_a_tienda', 'usuario.id = usuario_a_tienda.usuario_id');
+            $this->db->join('tienda', 'tienda.id = usuario_a_tienda.tienda_id');
+            $this->db->where('usuario.id', $usuario['id']);
+
+            $tienda = '';
+            $rs = $this->db->get()->result();
+            if(count($rs) > 0){
+                $tienda = $rs[0];
+            }
+
+            return $tienda;
         }
 			
 	}

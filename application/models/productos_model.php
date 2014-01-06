@@ -98,5 +98,17 @@
 		{
 			$this->db->insert('producto_a_categoria', $datos);
 		}
+
+        public function getProductosUsuario($id,$categoria)
+        {
+            $this->db->select('producto.nombre, producto.precio_inicial, subasta.fecha_fin, producto.id');
+            $this->db->from($this->tabla);
+            $this->db->join('subasta', 'subasta.producto_id = producto.id');
+            $this->db->join('producto_a_categoria', 'producto_a_categoria.producto_id = producto.id');
+            $this->db->where('subasta.usuario_id', $id);
+            $this->db->where('producto_a_categoria.categoria_id', $categoria);
+
+            return $this->db->get()->result();
+        }
 	}
  ?>

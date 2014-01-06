@@ -4,7 +4,7 @@ $this->load->view("inc/cabecera.inc.php");
  ?>
 <?php
 echo '<h2>'. $tienda->nombre . '</h2>';
-$this->load->view("inc/menuLateral.inc.php");
+$this->load->view("inc/menuLateralTienda.inc.php");
 ?>
 
 
@@ -16,7 +16,6 @@ $this->load->view("inc/menuLateral.inc.php");
 
 
 </div>
-
 <div id="ultimas_subastas"  style="border-style:solid; border-width:1px; float:left; margin-left:10px; padding:3px;">
 	<h2 style="float:center;">Últimas Subastas </h2>
     <table>
@@ -30,8 +29,8 @@ $this->load->view("inc/menuLateral.inc.php");
             <tr>
                 <td><img src="imagenes/productos/default.jpg"></td>
                 <td><?php echo $subasta->nombre; ?></td>
-                <td><?php echo $subasta->precio_compra_ya; ?></td>
-                <td><?php echo anchor('productos/detalles'.$subasta->producto_id, 'Detalles') ?></td>
+                <td><?php echo $subasta->precio_compra_ya . '€' ?></td>
+                <td><?php echo anchor('usuarios/'.$subasta->producto_id, 'Detalles') ?></td>
             </tr>
     <?php endforeach; ?>
         </tbody>

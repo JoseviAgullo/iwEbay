@@ -11,7 +11,7 @@ class Usuarios extends CI_Controller {
 
 	public function login()
 	{
-        $data['tituloHead'] = "IWeBay";
+        $data['tituloHead'] = "IWeBay - Login";
         $data['tituloBody'] = "IWeBay";
         $this->load->view('usuarios/login', $data);
 	}
@@ -27,7 +27,7 @@ class Usuarios extends CI_Controller {
         $data['cantidad_total'] = $this->votos_model->cuenta_todos($id); 
 
 
-        $data['tituloHead'] = "IWeBay";
+        $data['tituloHead'] = "IWeBay - ".$tupla->userName;
         $data['tituloBody'] = "IWeBay";
         $this->load->view('usuarios/perfil', $data);
     }
@@ -37,7 +37,7 @@ class Usuarios extends CI_Controller {
         if($usuario = $this->session->userdata('usuario')){
             redirect('usuarios/perfil/' . $usuario['id'], 'refresh');
         } else {
-            $data['tituloHead'] = "IWeBay";
+            $data['tituloHead'] = "IWeBay - Regístrate";
             $data['tituloBody'] = "IWeBay";
             $this->load->view('usuarios/registro', $data);
         }
@@ -126,9 +126,28 @@ class Usuarios extends CI_Controller {
             $this->session->set_flashdata('error', 'Debe aceptar los términos y condiciones');
             redirect('usuarios/registro','refresh');
         }
+    }
 
+    public function productos($id,$categoria) {
+        $data['tituloHead'] = "IWeBay - " . $categoria;
+        $data['tituloBody'] = "IWeBay";
+        $this->load->model('productos_model', '', TRUE);
+        $productos = $this->productos_model->getProductosUsuario($id,$categoria);
+        $categorias = $this->usuarios_model->getCategoriaDeProductos($id);
 
+        $this->load->library('table');
+        $this->table->set_heading('Nombre', 'Precio', 'Fecha fin', 'Detalles');
+        $this->table->set_empty('&nbsp;');
 
+        foreach ($productos as $item) {
+            $this->table->add_row($item->nombre, $item->precio_inicial . '€', "Mañana", anchor('productos/detalle/'.$item->id , 'Detalles'));
+        }
+        $data['listado'] = $this->table->generate();
+
+        $data['usuario'] = $this->usuarios_model->getUsuario($id);
+        $data['tienda'] = $this->usuarios_model->getTienda(array('id' => $id));
+        $data['categorias'] = $categorias;
+        $this->load->view('usuarios/productos',$data);
     }
    
 }
