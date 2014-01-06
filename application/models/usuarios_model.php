@@ -30,10 +30,40 @@
         public function getUsuario($nick)
         {
             $this->db->where('username', $nick);
-            return $this->db->get($this->tabla);
+            $rs = $this->db->get($this->tabla)->result();
+            $usuario = '';
+            if(count($rs) > 0){
+                $usuario = $rs[0];
+            }
+            return $usuario;
         }
 
-        
+        public function getCategoriaDeProductos($id)
+        {
+            $this->db->select('categoria_id');
+            $this->db->from($this->tabla);
+            $this->db->join('subasta', 'subasta.usuario_id = usuario.id');
+            $this->db->join('producto', 'subasta.producto_id = producto.id');
+            $this->db->join('producto_a_categoria', 'producto.id = producto_a_categoria.producto_id');
+            $this->db->where('usuario.id', $id);
+            $this->db->distinct();
+
+            $query = $this->db->get();
+            return $query->result();
+        }
+
+        public function getUltimasSubastas($id)
+        {
+            $this->db->from($this->tabla);
+            $this->db->join('subasta', 'subasta.usuario_id = usuario.id');
+            $this->db->join('producto', 'subasta.producto_id = producto.id');
+            $this->db->where('usuario.id', $id);
+            $this->db->order_by('subasta.fecha_inicio','asc');
+            $this->db->limit(10);
+
+            $query = $this->db->get();
+            return $query->result();
+        }
 			
 	}
  ?>

@@ -6,7 +6,6 @@ class Usuarios extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('usuarios_model', '', TRUE);
-        $this->load->library('session');
     }
 
 	public function login()
@@ -35,8 +34,6 @@ class Usuarios extends CI_Controller {
         $data['tituloHead'] = "IWeBay";
         $data['tituloBody'] = "IWeBay";
         $this->load->view('usuarios/registro', $data);
-
-
     }
 
     public function do_login()
@@ -52,7 +49,8 @@ class Usuarios extends CI_Controller {
         $usuario = array('nick' => $nick,
                          'password' => $password);
         if ($this->usuarios_model->login($usuario)) {
-            $this->session->set_userdata('usuario',$usuario);
+
+            $this->session->set_userdata('usuario',$this->usuarios_model->getUsuario($usuario));
             redirect ('inicio', 'refresh');
         } else {
             $this->session->set_flashdata('error_login', 'Usuario o contraseña incorrectas');
