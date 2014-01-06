@@ -108,8 +108,6 @@ CREATE TABLE `producto_a_categoria` (
   `producto_id` int(11) NOT NULL,
   `categoria_id` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`producto_id`,`categoria_id`),
-  UNIQUE KEY `id_producto_UNIQUE` (`producto_id`),
-  UNIQUE KEY `id_categoria_UNIQUE` (`categoria_id`),
   CONSTRAINT `categoria_producto` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`categoria`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `producto_categoria` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;

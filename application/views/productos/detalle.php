@@ -12,10 +12,10 @@
 					<tr>
 						<td>Aquí va la foto</td>
 						<td>
-							<font size="6"><?php echo $tupla->nombre; ?></font>			
+							<font size="6"><?php echo $tupla->nombre; ?></font>
 							<br>
-							<br>						
-							Nombre Usuario<br>						
+							<br>
+							Nombre Usuario<br>
 							Enlace a la tienda<br>
 						</td>
 					</tr>
@@ -34,7 +34,7 @@
 						<td>Mañana</td>
 					</tr>
 					<tr>
-						<td> 
+						<td>
 							<input type="number" id="valor_puja" name="valor_puja"> <br>
 							<span>Introduce <?php echo $tupla->precio_inicial; ?> o más</span>
 					 	</td>
@@ -47,7 +47,7 @@
 			<table>
 				<tr>
 					<td style="font-weight:bold">
-						Descripción del producto:	
+						Descripción del producto:
 					</td>
 				</tr>
 				<tr>
@@ -57,7 +57,7 @@
 				</tr>
 				<tr>
 					<td style="font-weight:bold">
-						Detalles de envío:	
+						Detalles de envío:
 					</td>
 				</tr>
 				<tr>
@@ -67,7 +67,7 @@
 				</tr>
 				<tr>
 					<td style="font-weight:bold">
-						Condiciones de la venta:	
+						Condiciones de la venta:
 					</td>
 				</tr>
 				<tr>
