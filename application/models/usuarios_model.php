@@ -39,6 +39,18 @@
             return $usuario;
         }
 
+        public function getPorNick($nick)
+        {
+            $this->db->select('id, userName, password, email');
+            $this->db->where('userName', $nick);
+            $rs = $this->db->get($this->tabla)->result();
+            $usuario = '';
+            if(count($rs) > 0){
+                $usuario = $rs[0];
+            }
+            return $usuario;
+        }
+
         public function getCategoriaDeProductos($id)
         {
             $this->db->select('categoria_id');

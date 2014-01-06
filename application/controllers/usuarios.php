@@ -57,7 +57,7 @@ class Usuarios extends CI_Controller {
         $usuario = array('nick' => $nick,
                          'password' => $password);
         if ($this->usuarios_model->login($usuario)) {
-            $aux = $this->usuarios_model->getUsuario($usuario['nick']);
+            $aux = $this->usuarios_model->getPorNick($usuario['nick']);
             $usuario['id'] = $aux->id;
             $usuario['email'] = $aux->email;
             $this->session->set_userdata('usuario',$usuario);
@@ -130,8 +130,6 @@ class Usuarios extends CI_Controller {
     }
 
     public function productos($id,$categoria) {
-        //$cat = explode('%20',$categoria);
-        //$categoria = implode(' ',$cat);
         $categoria = urldecode($categoria);
         $data['tituloHead'] = "IWeBay - " . $categoria;
         $data['tituloBody'] = "IWeBay";
