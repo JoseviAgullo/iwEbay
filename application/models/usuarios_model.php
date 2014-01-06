@@ -65,6 +65,29 @@
             $query = $this->db->get();
             return $query->result();
         }
+
+        public function tieneTienda($usuario)
+        {
+            $this->db->from($this->tabla);
+            $this->db->join('usuario_a_tienda', 'usuario.id = usuario_a_tienda.usuario_id');
+            $this->db->where('usuario.id', $usuario['id']);
+
+            $rs = $this->db->get()->result();
+            return count($rs) > 0;
+        }
+
+        public function getTiendaId($usuario) {
+            $this->db->from($this->tabla);
+            $this->db->join('usuario_a_tienda', 'usuario.id = usuario_a_tienda.usuario_id');
+            $this->db->where('usuario.id', $usuario['id']);
+
+            $rs = $this->db->get()->result();
+            $id = -1;
+            if(count($rs) > 0){
+                $id = $rs[0]->tienda_id;
+            }
+            return $id;
+        }
 			
 	}
  ?>

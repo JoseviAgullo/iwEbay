@@ -58,7 +58,12 @@ class Productos extends CI_Controller {
 	}
 
 	public function detalle($id){
-		$data['tupla'] = $this->productos_model->dameUno($id)->row();
+		//recogemos el producto con su subasta y su creador
+		$data['tupla'] = $this->productos_model->dameUno($id);
+
+		//recogemos la puja máxima correspondiente al producto
+		$data['puja'] = $this->productos_model->damePujaProd($id);		
+
 
 		$data['tituloHead'] = "IWeBay Detalles del producto";
 		$data['tituloBody'] = "IWeBay";
@@ -77,8 +82,7 @@ class Productos extends CI_Controller {
     }
 
 	public function nuevo(){
-	if($usuario = $this->session->userdata('usuario'))
-        {
+		if($usuario = $this->session->userdata('usuario')){
             $data['tituloHead'] = "IWeBay Crear nuevo producto";
 			$data['tituloBody'] = "IWeBay";
 			$data['link_atras'] = anchor('productos/index', 'Volver al listado');
@@ -87,7 +91,8 @@ class Productos extends CI_Controller {
 			$data['categorias'] = $this->categoria_model->getCategorias();
 
 			$this->load->view('productos/nuevo', $data);
-        } else {
+        } 
+        else {
             show_error('Debes estar logueado para acceder a esta pagina', 403);
         }		
 
@@ -183,7 +188,9 @@ class Productos extends CI_Controller {
         	redirect ('productos', 'refresh');	
 		}
 
-        
+    }
+
+    public function anyadePuja(){
 
     }
 
