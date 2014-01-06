@@ -5,7 +5,7 @@
 
 
 <div id="detalles"  style="float:left">
-	<form action="registrar" method="POST">
+	<form action="anyadePuja" method="POST">
 		<fieldset>
 			<div class="detalles_prod">
 				<table>
@@ -14,6 +14,7 @@
 						<td>
 							<font size="6"><?php echo $tupla->nombre; ?></font>			
 							<br>
+							<?php echo '<input type="hidden" id="id_pet" name="id_pet" value="'.$tupla->producto_id.'">'; ?>
 							<br>						
 							<?php echo anchor('usuarios/perfil/'.$tupla->userName, $tupla->userName); ?><br>
 							Enlace a la tienda<br>
@@ -104,7 +105,7 @@
 <div id="limpieza" style="clear:both;"></div> <!-- Este div es por si queremos después insertar algo debajo, que no se vaya al lado de lo otro -->
 
 <fieldset>
-	Falta implementar método POST y que el precio actual muestre el precio de la ultima puja, es decir, el precio actual real
+	Falta implementar método POST
 </fieldset>
 
 <hr>
