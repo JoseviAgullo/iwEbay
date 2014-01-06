@@ -17,9 +17,42 @@ class Pujas extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
+
+	function __construct(){
+		parent::__construct();
+
+		$this->load->model('productos_model', '', TRUE);
+		$this->load->model('usuarios_model', '', TRUE);
+		$this->load->model('subastas_model', '', TRUE);
+		$this->load->model('pujas_model', '', TRUE);
+		$this->load->library('session');
+
+	}
+
 	public function index()
 	{
 		$this->load->view('welcome_message');
+	}
+
+	public function pujar($id)
+	{
+		$id = $this->input->post('id_pet');
+        $puja = $this->input->post('valor_puja');
+		
+		$usuario = $this->session->userdata('usuario');
+        $id_user = $usuario['id'];
+
+        $subasta = $this->productos_model->dameSubasta($id);
+
+        $puja_reg = array('cantidad' => $puja,
+        					'fecha' => date("d-m-y"),
+        					'usuario_id' => $id_user,
+        					'subasta_id' => $subasta->id);
+
+        $this->pujas_model->insertaPuja($puja_reg);
+
+        redirect('productos/detalle/'.$id, 'refresh');
+		
 	}
 }
 

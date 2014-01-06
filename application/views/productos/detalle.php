@@ -1,11 +1,13 @@
 <?php $this->load->view("inc/cabecera.inc.php") ?>
-<?php $this->load->view("inc/menuLateral.inc.php") ?>
+<?php $this->load->view("inc/menuLateral.inc.php");
+	$this->load->helper('form'); ?>
 
 
 
 
 <div id="detalles"  style="float:left">
-	<form action="anyadePuja" method="POST">
+	<?php echo form_open('pujas/pujar/'. $tupla->producto_id);
+		?>
 		<fieldset>
 			<div class="detalles_prod">
 				<table>

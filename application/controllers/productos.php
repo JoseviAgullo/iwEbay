@@ -77,11 +77,7 @@ class Productos extends CI_Controller {
 
 	}
 
-	 public function pujar()
-    {
-        echo ('Hola, cocacola');
-    }
-
+	
 	public function nuevo(){
 		if($usuario = $this->session->userdata('usuario')){
             $data['tituloHead'] = "IWeBay Crear nuevo producto";
@@ -188,26 +184,6 @@ class Productos extends CI_Controller {
 
         	redirect ('productos', 'refresh');	
 		}
-    }
-
-    public function anyadePuja(){
-    	/*$id = $this->input->post('id_pet');
-        $puja = $this->input->post('valor_puja');
-		
-		$usuario = $this->session->userdata('usuario');
-        $id_user = $usuario['id'];
-
-        $subasta = $this->productos_model->dameSubasta($id);
-
-        $puja_reg = array('cantidad' => $puja,
-        					'fecha' => date("d-m-y"),
-        					'usuario_id' => $id_user,
-        					'subasta_id' => $subasta->id);
-
-        $this->pujas_model->insertaPuja($subasta_reg);
-		*/
-
-        redirect ('productos/index', 'refresh');
     }
 
 }
