@@ -21,17 +21,79 @@ class Tiendas extends CI_Controller {
 	function __construct(){
 		parent::__construct();
 
+        $this->load->model('tiendas_model', '', TRUE);
+        $this->load->model('usuarios_model', '', TRUE);
 		$this->load->model('categoria_model', '', TRUE);
 
 	}
-	public function tienda()
+	public function tienda($tienda_id)
 	{
 		$data['tituloHead'] = "IWeBay";
 		$data['tituloBody'] = "IWeBay";
 
-		$data['categorias'] = $this->categoria_model->getCategorias();
+        $tienda = $this->tiendas_model->getTienda($tienda_id);
+        if($tienda == '') {
+            show_404();
+        } else {
+            $data['tienda'] = $tienda;
+        }
+
+        $usuario = $this->tiendas_model->getUsuario($tienda_id);
+        if($usuario == '') {
+            show_error('No se ha podido encontrar informacion del usuario de la tienda' . $tienda_id);
+        } else {
+            $data['usuario'] = $usuario;
+        }
+
+		$categorias = $this->usuarios_model->getCategoriaDeProductos($usuario->id);
+        if(count($categorias) <= 0) {
+            $data['categorias'] = array();
+        } else {
+            $data['categorias'] = $categorias;
+        }
+
+        $data['ultimas'] = $this->usuarios_model->getUltimasSubastas($usuario->id);
+
 		$this->load->view('tiendas/tienda.php', $data);
+
 	}
+
+    public function nueva(){
+
+        if($usuario = $this->session->userdata('usuario'))
+        {
+            $data['tituloHead'] = "IWeBay";
+            $data['tituloBody'] = "IWeBay";
+
+            $this->load->view('tiendas/nueva', $data);
+        } else {
+            show_error('Debes estar logueado para acceder a esta pagina', 403);
+        }
+    }
+
+    public function crear() {
+        if($usuario = $this->session->userdata('usuario')) {
+            $tienda = array();
+            $tienda['nombre'] = $this->input->post('nombre');
+            $tienda['descripcion'] = $this->input->post('descripcion');
+
+            if($tienda['nombre'] == '' || $tienda['descripcion'] == '') {
+                $this->session->set_flashdata('error', 'Campo/s obligatorio/s vacio/s');
+                redirect('tiendas/nueva','refresh');
+            } else {
+                $tienda_id = $this->tiendas_model->crear($tienda,$usuario);
+                if($tienda_id){
+                    $this->session->set_flashdata('exito', '¡Tienda creada con exito!');
+                    redirect('tiendas/tienda/' . $tienda_id);
+                } else {
+                    $this->session->set_flashdata('error', '¡UPS! Parece que algo ha ido mal, por favor espera unos segundos y vuelve a intentarlo');
+                    redirect('tiendas/nueva','refresh');
+                }
+            }
+        } else {
+            show_error('Debes estar logueado para acceder a esta pagina', 403);
+        }
+    }
 }
 
 /* End of file welcome.php */

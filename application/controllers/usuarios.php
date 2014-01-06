@@ -21,9 +21,6 @@ class Usuarios extends CI_Controller {
         $data['tituloHead'] = "IWeBay Perfil de ".$nombre;
         $data['tituloBody'] = "IWeBay";
 
-
-
-
         $data['tituloHead'] = "IWeBay";
         $data['tituloBody'] = "IWeBay";
         $this->load->view('usuarios/perfil', $data);
@@ -49,8 +46,10 @@ class Usuarios extends CI_Controller {
         $usuario = array('nick' => $nick,
                          'password' => $password);
         if ($this->usuarios_model->login($usuario)) {
-
-            $this->session->set_userdata('usuario',$this->usuarios_model->getUsuario($usuario));
+            $aux = $this->usuarios_model->getUsuario($usuario['nick']);
+            $usuario['id'] = $aux->id;
+            $usuario['email'] = $aux->email;
+            $this->session->set_userdata('usuario',$usuario);
             redirect ('inicio', 'refresh');
         } else {
             $this->session->set_flashdata('error_login', 'Usuario o contraseña incorrectas');
