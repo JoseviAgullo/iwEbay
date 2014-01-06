@@ -36,6 +36,8 @@ class Pujas extends CI_Controller {
 
 	public function pujar($id)
 	{
+		$cantMin = $this->input->post('valor_min_puja');
+
 		$id = $this->input->post('id_pet');
         $puja = $this->input->post('valor_puja');
 		
@@ -44,12 +46,17 @@ class Pujas extends CI_Controller {
 
         $subasta = $this->productos_model->dameSubasta($id);
 
-        $puja_reg = array('cantidad' => $puja,
+        if($puja < ($cantMin + 1)){
+        	$this->session->set_flashdata('error_puja', 'Cantidad insertada inferior a la requerida');
+        }
+        else{
+        	$puja_reg = array('cantidad' => $puja,
         					'fecha' => date("d-m-y"),
         					'usuario_id' => $id_user,
         					'subasta_id' => $subasta->id);
 
-        $this->pujas_model->insertaPuja($puja_reg);
+        	$this->pujas_model->insertaPuja($puja_reg);	
+        }
 
         redirect('productos/detalle/'.$id, 'refresh');
 		
