@@ -151,10 +151,7 @@ class Productos extends CI_Controller {
         	
         	//ESTO VA MAL, HAY QUE MIRAR COMO OBTENER EL ID DEL USUARIO REGISTRADO
 			$usuario = $this->session->userdata('usuario');
-        	$users = $this->usuarios_model->getUsuario($usuario['nick']);
-        	
-			$id_user = $usuario['id'];
-			
+        	$id_user = $usuario['id'];
 
         	$subasta_reg = array('descripcion' => $descSubasta,
         							'fecha_fin' => $fechaFinSubasta,
