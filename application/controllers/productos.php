@@ -23,6 +23,7 @@ class Productos extends CI_Controller {
 
 		$this->load->model('productos_model', '', TRUE);
 		$this->load->model('usuarios_model', '', TRUE);
+		$this->load->model('subastas_model', '', TRUE);
 		$this->load->library('session');
 
 	}
@@ -134,6 +135,7 @@ class Productos extends CI_Controller {
         	redirect('productos/nuevo','refresh');
         }
 		else{
+			
 			$producto_reg = array('nombre' => $nombre,
         						'estado' => $estado,
         						'cantidad' => $cantidad,
@@ -143,11 +145,16 @@ class Productos extends CI_Controller {
 
 			$id_producto = $this->productos_model->insertaProd($producto_reg);
 
+			
         	
         	//obtenemos el id del user mirando en sesión el nombre registrado
         	
+        	//ESTO VA MAL, HAY QUE MIRAR COMO OBTENER EL ID DEL USUARIO REGISTRADO
 			$usuario = $this->session->userdata('usuario');
-        	$id_user = $this->usuarios_model->getUsuario($usuario['nick']);
+        	$users = $this->usuarios_model->getUsuario($usuario['nick']);
+        	
+			$id_user = $usuario['id'];
+			
 
         	$subasta_reg = array('descripcion' => $descSubasta,
         							'fecha_fin' => $fechaFinSubasta,
@@ -155,8 +162,10 @@ class Productos extends CI_Controller {
         							'tipo_envio' => $tipoEnvio,
         							'forma_pago' => $formaPago,
         							'gastos_envio' => $gastosEnvio,
-        							'usuario_id' => $id_user->id,
+        							'usuario_id' => $id_user,
         							'producto_id' => $id_producto);
+
+        	$this->subastas_model->insertaSubasta($subasta_reg);
 
         	redirect ('productos', 'refresh');	
 		}
