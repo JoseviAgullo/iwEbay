@@ -12,9 +12,14 @@ class Usuarios extends CI_Controller {
 
 	public function login()
 	{
-        $data['tituloHead'] = "IWeBay - Login";
-        $data['tituloBody'] = "IWeBay";
-        $this->load->view('usuarios/login', $data);
+        if($usuario = $this->session->userdata('usuario')) {
+            $this->session->set_flashdata('error', '¡Ya estás logueado!');
+            redirect('usuarios/perfil/' . $usuario['id'],'refresh');
+        } else {
+            $data['tituloHead'] = "IWeBay - Login";
+            $data['tituloBody'] = "IWeBay";
+            $this->load->view('usuarios/login', $data);
+        }
 	}
     public function perfil($id)
     {
