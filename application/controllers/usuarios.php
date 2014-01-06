@@ -16,7 +16,7 @@ class Usuarios extends CI_Controller {
 	}
     public function perfil($nombre)
     {
-        $data['tupla'] = $this->usuarios_model->getUsuario($nombre)->row();
+        $data['tupla'] = $this->usuarios_model->getUsuario($nombre);
 
         $data['tituloHead'] = "IWeBay Perfil de ".$nombre;
         $data['tituloBody'] = "IWeBay";

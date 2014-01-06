@@ -29,6 +29,7 @@
 
         public function getUsuario($nick)
         {
+            $this->db->select('id, userName, password, email');
             $this->db->where('username', $nick);
             $rs = $this->db->get($this->tabla)->result();
             $usuario = '';
