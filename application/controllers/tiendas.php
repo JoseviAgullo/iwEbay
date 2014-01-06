@@ -40,7 +40,7 @@ class Tiendas extends CI_Controller {
 
         $usuario = $this->tiendas_model->getUsuario($tienda_id);
         if($usuario == '') {
-            show_error('No se ha podido encontrar informacion del usuario de la tienda' . $tienda_id);
+            show_error('No se ha podido encontrar informacion del usuario de la tienda ' . $tienda_id);
         } else {
             $data['usuario'] = $usuario;
         }
