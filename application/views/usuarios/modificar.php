@@ -1,6 +1,6 @@
 <?php 
-$this->load->view("inc/cabecera.inc.php")
-
+$this->load->view("inc/cabecera.inc.php");
+date_default_timezone_set('UTC');
  ?>
 
 <h2> Regístrate (falta funcionalidad aún)</h2>
@@ -98,7 +98,7 @@ if($error){
         		<tr>
 		            <td><input type="text" name="telefono" placeholder="Introducte tu teléfono" value="<?php echo $usuario->telefono ?>"></td>
 					<td> </td>
-            		<td><input id="datepicker" type="date" name="f_nacimiento" placeholder="DD-MM-AAAA" value="<?php echo $usuario->fecha_nacimiento ?>"></td>
+            		<td><input id="datepicker" type="date" name="f_nacimiento" placeholder="DD-MM-AAAA" value="<?php echo date('d-m-Y', strtotime($usuario->fecha_nacimiento )) ?>"></td>
         		</tr>
         	</table>	
 		</div>
@@ -116,7 +116,8 @@ if($error){
     <p>* Campos obligatorios</p>
 
 	<div class="campoForm">
-		<input type="submit" value="Modificar">
+		<input type="submit" value="Modificar Información">
+        <input type="button" value="Darse de Baja">
 	</div>
 
 </form>

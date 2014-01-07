@@ -2,6 +2,7 @@
 $this->load->view("inc/cabecera.inc.php"); 
 $this->load->helper('form');
 $this->load->helper('file');
+$usuario = $this->session->userdata('usuario');
 ?>
 <div id="lateral"style="width:180px; border-style:solid; border-width:1px; margin:3px; float:left; margin:10px; padding:3px;">
 	
@@ -18,6 +19,12 @@ $this->load->helper('file');
 	<?php echo anchor('tiendas/tienda/'. $tienda,'Ver Tienda') ?>
 	<p id = "email">Email: <?php echo $tupla->email ?></p>
 	<p id = "votos">Votos Positivos: <?php echo $cantidad_positivos . ' de '. $cantidad_total ?></p>
+    <?php
+        if($usuario != '' && $usuario['id'] == $tupla->id) {
+            echo anchor('usuarios/perfil/' . $tupla->id .'/modificar', 'Modificar perfil');
+        }
+    ?>
+
 </div>
 
 <div class="campoForm">
@@ -31,7 +38,7 @@ $this->load->helper('file');
 		?>
 
 		<?php
-			if($usuario = $this->session->userdata('usuario') && $this->session->userdata('usuario')['id'] != $tupla->id)
+			if($usuario != '' && $usuario['id'] != $tupla->id)
         	{
                 echo('<label for="desc">Recomienda a '. $tupla->userName . ':  </label> <br>
                 <textarea name="desc" cols="40" rows="5" placeholder="¡Comenta tu voto!">
