@@ -65,7 +65,7 @@ if($error != '') {
 					</tr>
 					
 					<tr>						 
-						<?php  if($usuario = $this->session->userdata('usuario'))
+						<?php  if($usuario = $this->session->userdata('usuario') && $this->session->userdata('usuario')['id'] != $tupla->usuario_id)
                 			{ 
                 				echo '<td>';
                 				echo '<input type="number" id="valor_puja" name="valor_puja"> <br>';

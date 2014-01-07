@@ -174,8 +174,10 @@ class Productos extends CI_Controller {
 	        		$ya='1';
 	        	else
 	        		$ya='0';
+                date_default_timezone_set('UTC');
+                $fecha = date_parse($fechaFinSubasta);
 	        	$subasta_reg = array('descripcion' => $descSubasta,
-	        							'fecha_fin' => $fechaFinSubasta,
+	        							'fecha_fin' => $fecha['year'] . '-' . $fecha['month'] . '-' . $fecha['day'],
 	        							'compra_ya' => $ya,
 	        							'tipo_envio' => $tipoEnvio,
 	        							'forma_pago' => $formaPago,
