@@ -141,5 +141,11 @@
             $this->db->where('id', $usuario['id']);
             $this->db->update($this->tabla, $usuario);
         }
+
+        public function borrar($id)
+        {
+            $this->db->where('id', $id);
+            $this->db->delete($this->tabla);
+        }
 	}
  ?>

@@ -2,7 +2,7 @@
 $this->load->view("inc/cabecera.inc.php"); 
 $this->load->helper('form');
 $this->load->helper('file');
-$usuario = $this->session->userdata('usuario');
+$usuario = $this->session->userdata('usuario')
 ?>
 <div id="lateral"style="width:180px; border-style:solid; border-width:1px; margin:3px; float:left; margin:10px; padding:3px;">
 	

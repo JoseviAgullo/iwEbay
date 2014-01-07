@@ -279,4 +279,14 @@ class Usuarios extends CI_Controller {
             show_error('Debes estar logueado para ver esta pagina', 403, 'Acceso no permitido');
         }
     }
+    public function borrar($id)
+    {
+        if($usuario = $this->session->userdata('usuario') && $this->session->userdata('usuario')['id'] == $id)
+        {
+            $this->usuarios_model->borrar($id);
+            $this->do_logout();
+        } else {
+            show_error('Debes estar logueado para realizar esta accion', 403, 'Acceso no permitido');
+        }
+    }
 }
