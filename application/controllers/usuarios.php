@@ -121,7 +121,7 @@ class Usuarios extends CI_Controller {
                 $usuario['email'] = $email;
                 $usuario['password'] = $pass;
                 $this->session->set_userdata('usuario',$usuario);
-                redirect('usuarios/perfil/'.$nick, 'refresh');
+                redirect('usuarios/perfil/'.$user_id, 'refresh');
             } else {
                 $this->session->set_flashdata('error', '¡UPS! Ha habido un problema al registrarte, espera unos segundos e intentalo de nuevo');
                 redirect('usuarios/registro','refresh');
@@ -172,8 +172,8 @@ class Usuarios extends CI_Controller {
         }
         else
         {
-           echo ('Todo bien '. $this->upload->data()['full_path']);
-          echo img('images/'.  $this->upload->data()['client_name']);
+           $this->upload->display_errors('<p>', '</p>');
+          echo img('images/'.  $this->upload->data()['file_name']);
         }
     }
    
