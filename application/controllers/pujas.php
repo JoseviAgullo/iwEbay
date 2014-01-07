@@ -60,7 +60,6 @@ class Pujas extends CI_Controller {
         }
 
         redirect('productos/detalle/'.$id, 'refresh');
-		
 	}
 }
 

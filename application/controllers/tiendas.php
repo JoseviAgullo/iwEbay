@@ -2,23 +2,8 @@
 
 class Tiendas extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
-
-	function __construct(){
+	function __construct()
+    {
 		parent::__construct();
 
         $this->load->model('tiendas_model', '', TRUE);
@@ -26,9 +11,9 @@ class Tiendas extends CI_Controller {
 		$this->load->model('categoria_model', '', TRUE);
 
 	}
+
 	public function tienda($tienda_id)
 	{
-
 		$data['tituloBody'] = "IWeBay";
 
         $tienda = $this->tiendas_model->getTienda($tienda_id);
@@ -55,7 +40,6 @@ class Tiendas extends CI_Controller {
                 $data['propietario'] = 'si';
             }
         }
-        
 
 		$categorias = $this->usuarios_model->getCategoriaDeProductos($usuario->id);
         if(count($categorias) <= 0) {
@@ -111,13 +95,7 @@ class Tiendas extends CI_Controller {
                 $this->load->library('upload', $config);
                 $this->load->helper('html');
 
-                if ( ! $this->upload->do_upload())
-                {
-                    echo ('Error');
-                    echo $this->upload->display_errors('<p>', '</p>');
-                    echo anchor('tiendas/tienda/'.$tienda_id,'Volver a la tienda');
-                }
-                else
+                if ($this->upload->do_upload())
                 {
                     $config2['image_library'] = 'gd2';
                     $config2['source_image'] = $this->upload->data()['full_path'];;
@@ -179,13 +157,7 @@ class Tiendas extends CI_Controller {
                 $this->load->library('upload', $config);
                 $this->load->helper('html');
 
-                if ( ! $this->upload->do_upload())
-                {
-                   echo ('Error');
-                   echo $this->upload->display_errors('<p>', '</p>');
-                   echo anchor('tiendas/tienda/'.$tienda_id,'Volver a la tienda');
-                }
-                else
+                if ($this->upload->do_upload())
                 {    
                     $config2['image_library'] = 'gd2';
                     $config2['source_image'] = $this->upload->data()['full_path'];;
@@ -200,7 +172,6 @@ class Tiendas extends CI_Controller {
                 }
                 //-----------------------------------------------------------
 
-
                 $tienda = array(
                     'id' => $tienda_id,
                     'nombre' => $this->input->post('nombre'),
@@ -213,6 +184,17 @@ class Tiendas extends CI_Controller {
             }
         } else {
             show_error('Debe estar logueado para acceder a esta pagina',403,'Acceso Prohibido');
+        }
+    }
+
+    public function borrar($id)
+    {
+        if($usuario = $this->session->userdata('usuario'))
+        {
+            $this->tiendas_model->borrar($id);
+            redirect('usuarios/perfil/'.$usuario['id'], 'refresh');
+        } else {
+            show_error('Debes estar logueado para realizar esta accion', 403, 'Acceso no permitido');
         }
     }
 }

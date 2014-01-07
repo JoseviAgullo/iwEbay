@@ -10,8 +10,6 @@ class Productos extends CI_Controller {
 		$this->load->model('subastas_model', '', TRUE);
 		$this->load->model('pujas_model', '', TRUE);
 		$this->load->library('session');
-        
-
 	}
 
 	public function index()
@@ -64,10 +62,8 @@ class Productos extends CI_Controller {
 		$data['categorias'] = $this->categoria_model->getCategorias();
 
 		$this->load->view('productos/detalle', $data);
-
 	}
 
-	
 	public function nuevo(){
 		if($usuario = $this->session->userdata('usuario')){
             $data['tituloHead'] = "IWeBay Crear nuevo producto";
@@ -81,10 +77,7 @@ class Productos extends CI_Controller {
         } 
         else {
             show_error('Debes estar logueado para acceder a esta pagina', 403);
-        }		
-
-		
-
+        }
 	}
 
 	public function categoria($categoria){
@@ -205,13 +198,7 @@ class Productos extends CI_Controller {
 	            $this->load->library('upload', $config);
 	            $this->load->helper('html');
 
-	            if ( ! $this->upload->do_upload())
-	            {
-	               echo ('Error');
-	               echo $this->upload->display_errors('<p>', '</p>');
-	               echo anchor('productos/detalle'.$id_producto,'Volver al perfil');
-	            }
-	            else
+	            if ($this->upload->do_upload())
 	            {
 	                $config2['image_library'] = 'gd2';
 	                $config2['source_image'] = $this->upload->data()['full_path'];;
@@ -228,6 +215,147 @@ class Productos extends CI_Controller {
             redirect ('productos', 'refresh');
 		}
 	}
-    
 
+    public function do_modificar($id)
+    {
+        //elementos producto
+        $nombre = $this->input->post('nombreProductoSubasta');
+        $estado = $this->input->post('estadoProductoSubasta');
+        $cantidad = $this->input->post('cantidadProductoSubasta');
+        $detalles = $this->input->post('detallesProductoSubasta');
+        $precioIni = $this->input->post('precioIniProductoSubasta');
+        $precioYa = $this->input->post('precioYaProductoSubasta');
+
+        //elementos subasta
+        $descSubasta = $this->input->post('descripcion_subasta');
+        $fechaFinSubasta = $this->input->post('fechaFinSubasta');
+        $compraYaSubasta = $this->input->post('checkCompraYa');
+        $tipoEnvio = $this->input->post('tipoEnvioProductoSubasta');
+        $gastosEnvio = $this->input->post('gastosEnvioProductoSubasta');
+        $formaPago = $this->input->post('formaPagoProductoSubasta');
+
+        //categoria seleccionada
+        $categoria = $this->input->post('categoriaProductoSubasta');
+
+        if($nombre == '' || $cantidad == '' || $detalles == '' || $precioIni == '' ||  $descSubasta == '' || $fechaFinSubasta == '' || $gastosEnvio == ''){
+            $this->session->set_flashdata('error_subasta', 'Algún campo está vacio');
+            redirect('productos/nuevo','refresh');
+        }
+        else
+        {
+            if($compraYaSubasta)
+            {
+                $ya = 1;
+                if($precioYa == '') {
+                    $this->session->set_flashdata('error_subasta', 'Tienes que especificar el precio de compra directa');
+                    redirect('productos/nuevo','refresh');
+                }
+                if ($precioIni >= $precioYa)
+                {
+                    $this->session->set_flashdata('error_subasta', 'El precio de subasta debe ser inferior al de compra directa');
+                    redirect('productos/nuevo','refresh');
+                }
+            } else {
+                $ya = 0;
+                $precioYa = 0;
+            }
+
+            //registramos el producto
+            $producto_reg = array(
+                'id' => $id,
+                'nombre' => $nombre,
+                'estado' => $estado,
+                'cantidad' => $cantidad,
+                'detalles' => $detalles,
+                'precio_inicial' => $precioIni,
+                'precio_compra_ya' => $precioYa);
+
+            $this->productos_model->modificar($producto_reg);
+
+            //añadimos la categoria del producto a la tabla correspondiente
+
+            $prodCat = array('producto_id' => $id,
+                'categoria_id' => $categoria);
+
+            $this->productos_model->modificarCategProd($id,$prodCat);
+
+            //obtenemos el id del user mirando en sesión el nombre registrado
+            $usuario = $this->session->userdata('usuario');
+            $id_user = $usuario['id'];
+
+            date_default_timezone_set('UTC');
+            $fecha = date_parse($fechaFinSubasta);
+            $subasta_reg = array(
+                'id' => $this->productos_model->dameSubasta($id)->id,
+                'descripcion' => $descSubasta,
+                'fecha_fin' => $fecha['year'] . '-' . $fecha['month'] . '-' . $fecha['day'],
+                'compra_ya' => $ya,
+                'tipo_envio' => $tipoEnvio,
+                'forma_pago' => $formaPago,
+                'gastos_envio' => $gastosEnvio,
+                'usuario_id' => $id_user,
+                'producto_id' => $id);
+
+            $this->subastas_model->modificar($subasta_reg);
+
+            $config['upload_path'] = './images/producto';
+            $config['allowed_types'] = 'jpg';
+            $config['overwrite'] = 'true';
+
+            $config['file_name'] = $id;
+            $filename = $this->input->post('userfile');
+
+            $this->load->library('upload', $config);
+            $this->load->helper('html');
+
+            if ($this->upload->do_upload())
+            {
+                $config2['image_library'] = 'gd2';
+                $config2['source_image'] = $this->upload->data()['full_path'];;
+                $config2['create_thumb'] = TRUE;
+                $config2['maintain_ratio'] = TRUE;
+                $config2['width']     = 150;
+                $config2['height']   = 150;
+                $this->load->library('image_lib', $config2);
+
+                $this->image_lib->resize();
+
+            }
+
+            redirect ('productos', 'refresh');
+        }
+    }
+
+    public function modificar($producto_id){
+        if($usuario = $this->session->userdata('usuario')){
+            $data['tituloHead'] = "IWeBay Crear nuevo producto";
+            $data['tituloBody'] = "IWeBay";
+            $data['link_atras'] = anchor('productos/index', 'Volver al listado');
+
+            $this->load->model('categoria_model');
+            $data['categorias'] = $this->categoria_model->getCategorias();
+            $data['producto'] = $this->productos_model->dameUno($producto_id);
+            $data['subasta'] = $this->productos_model->dameSubasta($producto_id);
+
+            $this->load->view('productos/modificar', $data);
+        }
+        else {
+            show_error('Debes estar logueado para acceder a esta pagina', 403);
+        }
+    }
+
+    public function borrar($producto_id)
+    {
+        if($usuario = $this->session->userdata('usuario')) {
+            $producto = $this->productos_model->dameUno($producto_id);
+            if($usuario['id'] == $producto->usuario_id){
+                $this->productos_model->borrar($producto_id);
+                redirect('productos/index','refresh');
+            } else {
+                show_error('No tienes permiso para realizar esta accion', 403, 'Prohibido');
+            }
+        } else {
+            show_error('Debes estar logueado para realizar esta accion', 403, 'Prohibido');
+        }
+    }
 }

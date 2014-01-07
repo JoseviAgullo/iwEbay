@@ -73,5 +73,10 @@
             $this->db->where('id', $tienda['id']);
             $this->db->update($this->tabla, $tienda);
         }
+        public function borrar($tienda_id)
+        {
+            $this->db->where('id',$tienda_id);
+            $this->db->delete($this->tabla);
+        }
 	}
  ?>

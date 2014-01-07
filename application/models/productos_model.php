@@ -148,5 +148,23 @@
         	return $this->db->get()->result();
 
         }
+
+        function modificar($producto)
+        {
+            $this->db->where('id',$producto['id']);
+            $this->db->update($this->tabla,$producto);
+        }
+
+        function modificarCategProd($producto_id,$datos)
+        {
+            $this->db->where('producto_id',$producto_id);
+            $this->db->update('producto_a_categoria', $datos);
+        }
+
+        function borrar($id)
+        {
+            $this->db->where('id', $id);
+            $this->db->delete($this->tabla);
+        }
 	}
  ?>

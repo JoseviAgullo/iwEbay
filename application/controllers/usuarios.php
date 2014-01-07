@@ -22,6 +22,7 @@ class Usuarios extends CI_Controller {
             $this->load->view('usuarios/login', $data);
         }
 	}
+
     public function perfil($id)
     {
         date_default_timezone_set('UTC');
@@ -59,7 +60,6 @@ class Usuarios extends CI_Controller {
         {
             $data['ventas'] = "El usuario actualmente no tiene ninguna subasta activa";
         }
-
 
         $data['tituloHead'] = "IWeBay - ".$tupla->userName;
         $data['tituloBody'] = "IWeBay";
@@ -185,8 +185,6 @@ class Usuarios extends CI_Controller {
         $this->load->view('usuarios/productos',$data);
     }
 
-    
-
     public function modificar($user_id)
     {
         $usuario = $this->session->userdata('usuario');
@@ -218,13 +216,7 @@ class Usuarios extends CI_Controller {
             $this->load->library('upload', $config);
             $this->load->helper('html');
 
-            if ( ! $this->upload->do_upload())
-            {
-               echo ('Error');
-               echo $this->upload->display_errors('<p>', '</p>');
-               echo anchor('usuarios/perfil/'.$user_id,'Volver al perfil');
-            }
-            else
+            if ($this->upload->do_upload())
             {    
                 $config2['image_library'] = 'gd2';
                 $config2['source_image'] = $this->upload->data()['full_path'];;
@@ -235,7 +227,6 @@ class Usuarios extends CI_Controller {
                 $this->load->library('image_lib', $config2); 
 
                 $this->image_lib->resize();
-                
             }
 
             $nick = $this->input->post('username');
@@ -282,6 +273,7 @@ class Usuarios extends CI_Controller {
             show_error('Debes estar logueado para ver esta pagina', 403, 'Acceso no permitido');
         }
     }
+
     public function borrar($id)
     {
         if($usuario = $this->session->userdata('usuario') && $this->session->userdata('usuario')['id'] == $id)

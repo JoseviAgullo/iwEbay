@@ -33,7 +33,7 @@ echo form_open_multipart('tiendas/do_modificar/'.$tienda->id);
         </div>
 	</fieldset>
 	<input type="submit" name="modificiar" value="Modificar Tienda">
-	<input type="button" name="cancelar" value="Cancelar">
+<?php echo anchor('tiendas/borrar/'.$tienda->id , 'Cerrar Tienda', array('onclick'=>"return confirm('La tienda se cerrará ¿Estás seguro?')")); ?> <?php echo anchor('tiendas/tienda/'.$tienda->id,'Atrás') ?>
 </form>
 
 <?php 
