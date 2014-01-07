@@ -74,10 +74,12 @@ if($error != '') {
        							} 
        							else{        								
         							echo $puja->cantidad + 1;
-       							} echo ' o más</span>';
+       							} 
+       							echo ' o más</span>';
+       							echo '</td>';
+								echo '<td> <input type="submit" value="Pujar"> </td>';
        						}
-       						echo '</td>';
-						echo '<td> <input type="submit" value="Pujar"> </td>';
+       						
        					?>
 					</tr>
 				</table>
