@@ -32,6 +32,8 @@ class Usuarios extends CI_Controller {
         $data['action'] = 'usuarios/votar';
         $data['cantidad_positivos'] = $this->votos_model->votos_positivos($id); 
         $data['cantidad_total'] = $this->votos_model->cuenta_todos($id); 
+        $data['img_perfil'] = img('images/user/'.$id.'_thumb.jpg' );
+
         $ventas_bruto = $this->productos_model->productos_usuario($id);
         if($ventas_bruto)
         {
@@ -178,21 +180,37 @@ class Usuarios extends CI_Controller {
 
     public function subir_imagen($id)
     {
-        $config['upload_path'] = './images/';
-        $config['allowed_types'] = 'gif|jpg|png';
-        $filename = $this->input->post('userfile');
-
-        $this->load->library('upload', $config);
-        $this->load->helper('html');
-
-        if ( ! $this->upload->do_upload())
+        if($this->session->userdata('usuario'))
         {
-           echo ('Error');
-        }
-        else
-        {
-           $this->upload->display_errors('<p>', '</p>');
-          echo img('images/'.  $this->upload->data()['file_name']);
+            $config['upload_path'] = './images/user';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['overwrite'] = 'true';
+            
+            $config['file_name'] = $this->session->userdata('usuario')['id'];
+            $filename = $this->input->post('userfile');
+
+            $this->load->library('upload', $config);
+            $this->load->helper('html');
+
+            if ( ! $this->upload->do_upload())
+            {
+               echo ('Error');
+               echo $this->upload->display_errors('<p>', '</p>');
+               echo anchor('usuarios/perfil/'.$this->session->userdata('usuario')['id'],'Volver al perfil');
+            }
+            else
+            {    
+                $config2['image_library'] = 'gd2';
+                $config2['source_image'] = $this->upload->data()['full_path'];;
+                $config2['create_thumb'] = TRUE;
+                $config2['maintain_ratio'] = TRUE;
+                $config2['width']     = 150;
+                $config2['height']   = 150;
+                $this->load->library('image_lib', $config2); 
+
+                $this->image_lib->resize();
+                redirect('usuarios/perfil/'.$this->session->userdata('usuario')['id'],'refresh');
+            }
         }
     }
    
