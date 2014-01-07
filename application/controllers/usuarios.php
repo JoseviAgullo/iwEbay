@@ -238,9 +238,6 @@ class Usuarios extends CI_Controller {
                 
             }
 
-
-
-
             $nick = $this->input->post('username');
             $pass1 = $this->input->post('pass1');
             $pass2 = $this->input->post('pass2');
