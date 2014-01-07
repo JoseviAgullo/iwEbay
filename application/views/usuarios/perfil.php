@@ -4,6 +4,14 @@ $this->load->helper('form');
 $this->load->helper('file');
 $usuario = $this->session->userdata('usuario')
 ?>
+
+<?php 
+    if($usuario['id'] == $tupla->id){
+        echo anchor('usuarios/modificar/'.$tupla->id, 'Modificar perfil');
+    }
+
+ ?>
+
 <div id="lateral"style="width:180px; border-style:solid; border-width:1px; margin:3px; float:left; margin:10px; padding:3px;">
 	
 
