@@ -4,15 +4,16 @@ $this->load->helper('form');
 $this->load->helper('file');
 $usuario = $this->session->userdata('usuario')
 ?>
+
+<?php 
+    if($usuario['id'] == $tupla->id){
+        echo anchor('usuarios/modificar/'.$tupla->id, 'Modificar perfil');
+    }
+
+ ?>
+
 <div id="lateral"style="width:180px; border-style:solid; border-width:1px; margin:3px; float:left; margin:10px; padding:3px;">
 	
-
-		<?php echo form_open_multipart('usuarios/subir_imagen/'.$tupla->id);?>
-		<input type="file" name="userfile" size="20" />
-		<br /><br />
-		<input type="submit" value="upload" />
-		</form>
-
 	
 	<div id="imag" style="width:150px; height:150px; border-style:solid; border-width:1px; margin:3px; padding:3px;"> <?php echo $img_perfil ?></div>
 	<h3 id="user"> <?php echo $tupla->userName ?> </h3>
