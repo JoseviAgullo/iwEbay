@@ -61,17 +61,24 @@ if($error != '') {
                             ?>
                         </td>
 					</tr>
-					<tr>
-						<td> 
-							<input type="number" id="valor_puja" name="valor_puja"> <br>
-							<span>Introduce <?php if($puja == ''){
-        					   			echo $tupla->precio_inicial + 1;
-        							} 
-        							else{        								
-        								echo $puja->cantidad + 1;
-        							} ?> o más</span>
-					 	</td>
-						<td> <input type="submit" value="Pujar"> </td>
+					
+					<tr>						 
+						<?php  if($usuario = $this->session->userdata('usuario'))
+                			{ 
+                				echo '<td>';
+                				echo '<input type="number" id="valor_puja" name="valor_puja"> <br>';
+
+								echo '<span>Introduce '; 
+								if($puja == ''){
+       					   			echo $tupla->precio_inicial + 1;
+       							} 
+       							else{        								
+        							echo $puja->cantidad + 1;
+       							} echo ' o más</span>';
+       						}
+       						echo '</td>';
+						echo '<td> <input type="submit" value="Pujar"> </td>';
+       					?>
 					</tr>
 				</table>
 			</div>
