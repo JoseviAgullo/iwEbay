@@ -102,6 +102,8 @@ class Productos extends CI_Controller {
 		$data['tituloHead'] = "IWeBay - ".$categoria;
 		$data['tituloBody'] = "IWeBay";
 
+		date_default_timezone_set('UTC');
+
 		$productos = $this->productos_model->listado_categoria($categoria);		
 		$data['cuantos'] = $this->productos_model->cuenta_categoria($categoria);
 
@@ -114,7 +116,7 @@ class Productos extends CI_Controller {
 			$this->table->set_empty('&nbsp;');
 
 			foreach ($productos as $item) {
-				$this->table->add_row($item->nombre, $item->precio_inicial, "Mañana", anchor('productos/detalle/'.$item->id , 'Detalles'));
+				$this->table->add_row($item->nombre, $item->precio_inicial, date("d-m-Y", strtotime($item->fecha_fin)), anchor('productos/detalle/'.$item->id , 'Detalles'));
 			}
 
 			$data['listado'] = $this->table->generate();
