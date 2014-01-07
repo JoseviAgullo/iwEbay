@@ -23,6 +23,7 @@ class Inicio extends CI_Controller {
 
 		$this->load->model('categoria_model', '', TRUE);
 		$this->load->model('productos_model', '', TRUE);
+		$this->load->helper(array('form', 'url'));
 
 	}
 

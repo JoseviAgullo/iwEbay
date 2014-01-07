@@ -31,7 +31,7 @@ $this->load->view("inc/menuLateralTienda.inc.php");
             <tbody>
             <?php foreach($ultimas as $subasta) :?>
                 <tr>
-                    <td><img src="imagenes/productos/default.jpg"></td>
+                    <td><?php echo img('images/producto/'.$subasta->producto_id.'_thumb.jpg' );?>  </td>
                     <td><?php echo $subasta->nombre; ?></td>
                     <td><?php echo $subasta->precio_compra_ya . '€' ?></td>
                     <td><?php echo anchor('productos/detalle/'.$subasta->producto_id, 'Detalles') ?></td>

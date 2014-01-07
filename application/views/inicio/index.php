@@ -14,8 +14,8 @@
 			{
 				foreach ($listado_destacados as $row)
 				{
-					echo '<div class="item_destacado" style="border-style:solid; border-width:1px; margin:3px; padding:3px; width:300px">
-							imagen aquí <p>'. $row->nombre . ' - ' .$row->precio_inicial .'€</p>' . anchor('productos/detalle/'.$row->id , 'Detalles'). ' </div>';
+					echo '<div class="item_destacado" style="border-style:solid; border-width:1px; margin:3px; padding:3px; width:300px">'. img('images/producto/'.$row->id.'_thumb.jpg' )
+							.'<br>'. $row->nombre . ' - ' .$row->precio_inicial .'€</p>' . anchor('productos/detalle/'.$row->id , 'Detalles'). ' </div>';
 				}
 			}
 		?>

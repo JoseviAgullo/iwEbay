@@ -10,6 +10,7 @@ class Productos extends CI_Controller {
 		$this->load->model('subastas_model', '', TRUE);
 		$this->load->model('pujas_model', '', TRUE);
 		$this->load->library('session');
+        
 
 	}
 
@@ -50,7 +51,9 @@ class Productos extends CI_Controller {
 		//recogemos la puja máxima correspondiente al producto
 		$data['puja'] = $this->productos_model->damePujaProd($id);
 
-		$data['tienda'] = $this->productos_model->dameTienda($data['tupla']->id);		
+		$data['tienda'] = $this->productos_model->dameTienda($data['tupla']->id);	
+
+		$data['img_perfil'] = img('images/producto/'.$id.'_thumb.jpg' );	
 
 
 		$data['tituloHead'] = "IWeBay Detalles del producto";
@@ -192,8 +195,37 @@ class Productos extends CI_Controller {
 
             $this->subastas_model->insertaSubasta($subasta_reg);
 
-            redirect ('productos', 'refresh');
+            $config['upload_path'] = './images/producto';
+	            $config['allowed_types'] = 'jpg';
+	            $config['overwrite'] = 'true';
 
+	            $config['file_name'] = $id_producto;
+	            $filename = $this->input->post('userfile');
+
+	            $this->load->library('upload', $config);
+	            $this->load->helper('html');
+
+	            if ( ! $this->upload->do_upload())
+	            {
+	               echo ('Error');
+	               echo $this->upload->display_errors('<p>', '</p>');
+	               echo anchor('productos/detalle'.$id_producto,'Volver al perfil');
+	            }
+	            else
+	            {
+	                $config2['image_library'] = 'gd2';
+	                $config2['source_image'] = $this->upload->data()['full_path'];;
+	                $config2['create_thumb'] = TRUE;
+	                $config2['maintain_ratio'] = TRUE;
+	                $config2['width']     = 150;
+	                $config2['height']   = 150;
+	                $this->load->library('image_lib', $config2);
+
+	                $this->image_lib->resize();
+
+	            }
+
+            redirect ('productos', 'refresh');
 		}
 	}
     
