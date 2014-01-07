@@ -167,8 +167,8 @@ class Usuarios extends CI_Controller {
         }
         else
         {
-           echo ('Todo bien '. $this->upload->data()['full_path']);
-          echo img('images/'.  $this->upload->data()['client_name']);
+           $this->upload->display_errors('<p>', '</p>');
+          echo img('images/'.  $this->upload->data()['file_name']);
         }
     }
    
