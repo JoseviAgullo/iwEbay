@@ -237,9 +237,6 @@ class Usuarios extends CI_Controller {
                 $this->image_lib->resize();
                 
             }
-            //---------------------------------------------
-
-
 
             $nick = $this->input->post('username');
             $pass1 = $this->input->post('pass1');
