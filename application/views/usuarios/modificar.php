@@ -51,6 +51,13 @@ if($error){
 
 <?php echo form_open('usuarios/do_modificar/'.$usuario->id) ?>
 	<fieldset>
+
+        <div class="campoForm">
+            <label for="descripcion">Inserte una imagen de perfil: </label> <br>
+            <input type="file" name="userfile" size="20" />
+            <br /><br />
+        </div>
+        
 		<div class="campoForm">
 			<table>
         		<tr>

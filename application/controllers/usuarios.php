@@ -44,9 +44,13 @@ class Usuarios extends CI_Controller {
             $this->table->set_empty('&nbsp;');
 
             foreach ($ventas_bruto as $item) {
-                $precio_bet = $this->productos_model->damePujaProd($item->id);
-                echo $precio_bet;
-                $this->table->add_row($item->descripcion, $item->gastos_envio, date("d-m-Y", strtotime($item->fecha_fin)),$precio_bet, $item->precio_compra_ya, anchor('productos/detalle/'.$item->producto_id , 'Detalles'));
+
+                $precio_bet = $this->productos_model->damePujaProd($item->producto_id);
+                if($precio_bet)
+                    $this->table->add_row($item->descripcion, $item->gastos_envio, date("d-m-Y", strtotime($item->fecha_fin)), $precio_bet->cantidad, $item->precio_compra_ya, anchor('productos/detalle/'.$item->producto_id , 'Detalles'));
+                else
+                    $this->table->add_row($item->descripcion, $item->gastos_envio, date("d-m-Y", strtotime($item->fecha_fin)), $item->precio_inicial, $item->precio_compra_ya, anchor('productos/detalle/'.$item->producto_id , 'Detalles'));
+
             }
 
             $data['ventas'] = $this->table->generate();
@@ -234,6 +238,43 @@ class Usuarios extends CI_Controller {
     {
         $usuario = $this->session->userdata('usuario');
         if($usuario && $usuario['id'] == $user_id ){
+
+            $config['upload_path'] = './images/user';
+            $config['allowed_types'] = 'gif|jpg|png';
+            $config['overwrite'] = 'true';
+            
+            $config['file_name'] = $user_id;
+            $filename = $this->input->post('userfile');
+
+            $this->load->library('upload', $config);
+            $this->load->helper('html');
+
+            if ( ! $this->upload->do_upload())
+            {
+               echo ('Error');
+               echo $this->upload->display_errors('<p>', '</p>');
+               echo anchor('usuarios/perfil/'.$user_id,'Volver al perfil');
+            }
+            else
+            {    
+                $config2['image_library'] = 'gd2';
+                $config2['source_image'] = $this->upload->data()['full_path'];;
+                $config2['create_thumb'] = TRUE;
+                $config2['maintain_ratio'] = TRUE;
+                $config2['width']     = 150;
+                $config2['height']   = 150;
+                $this->load->library('image_lib', $config2); 
+
+                $this->image_lib->resize();
+                
+            }
+
+
+
+
+
+
+
             $nick = $this->input->post('username');
             $pass1 = $this->input->post('pass1');
             $pass2 = $this->input->post('pass2');
