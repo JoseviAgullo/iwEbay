@@ -36,6 +36,7 @@ class Pujas extends CI_Controller {
 
 	public function pujar($id)
 	{
+        date_default_timezone_set('UTC');
 		$cantMin = $this->input->post('valor_min_puja');
 
 		$id = $this->input->post('id_pet');
