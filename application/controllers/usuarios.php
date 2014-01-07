@@ -121,7 +121,7 @@ class Usuarios extends CI_Controller {
                 $usuario['email'] = $email;
                 $usuario['password'] = $pass;
                 $this->session->set_userdata('usuario',$usuario);
-                redirect('usuarios/perfil/'.$nick, 'refresh');
+                redirect('usuarios/perfil/'.$user_id, 'refresh');
             } else {
                 $this->session->set_flashdata('error', '¡UPS! Ha habido un problema al registrarte, espera unos segundos e intentalo de nuevo');
                 redirect('usuarios/registro','refresh');
