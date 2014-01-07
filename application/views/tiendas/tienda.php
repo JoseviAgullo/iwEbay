@@ -6,18 +6,21 @@ $this->load->view("inc/cabecera.inc.php");
 echo '<h2>'. $tienda->nombre . '</h2>';
 $this->load->view("inc/menuLateralTienda.inc.php");
 ?>
-<?php 
+
+
+<div id="desc_tienda"  style="border-style:solid; border-width:1px; float:left; margin-left:10px; padding:3px;">
+   
+    <?php
+    echo('<p>Bienvenido a la tienda de ' . $usuario->userName . '</p>');
+    echo('<p>'. $tienda->descripcion .'</p>')
+    ?>
+    <div id="imag" style="width:150px; height:150px; margin:3px; padding:3px;"> <?php echo $img_perfil ?></div>
+    <?php 
     if($propietario != ''){
         echo anchor('tiendas/modificar/'.$tienda->id, 'Modificar tienda');
     }
 
  ?>
-
-<div id="desc_tienda"  style="border-style:solid; border-width:1px; float:left; margin-left:10px; padding:3px;">
-    <?php
-    echo('<p>Bienvenido a la tienda de ' . $usuario->userName . '</p>');
-    echo('<p>'. $tienda->descripcion .'</p>')
-    ?>
 
 
 </div>

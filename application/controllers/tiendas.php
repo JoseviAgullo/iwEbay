@@ -38,6 +38,7 @@ class Tiendas extends CI_Controller {
             $data['tienda'] = $tienda;
             $data['tituloHead'] = "IWeBay - " . $tienda->nombre;
         }
+        $data['img_perfil'] = img('images/tienda/'.$tienda_id.'_thumb.jpg' );
 
         $usuario = $this->tiendas_model->getUsuario($tienda_id);
         if($usuario == '') {
@@ -132,6 +133,41 @@ class Tiendas extends CI_Controller {
         if($usuario = $this->session->userdata('usuario')) {
             $user_id = $this->tiendas_model->getUsuarioId($tienda_id);
             if($usuario['id'] == $user_id){
+                /*
+                *   Parte en la cual subimos un fichero. Hemos puesto que solo permita .JPG
+                */
+                $config['upload_path'] = './images/tienda';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['overwrite'] = 'true';
+                
+                $config['file_name'] = $tienda_id;
+                $filename = $this->input->post('userfile');
+
+                $this->load->library('upload', $config);
+                $this->load->helper('html');
+
+                if ( ! $this->upload->do_upload())
+                {
+                   echo ('Error');
+                   echo $this->upload->display_errors('<p>', '</p>');
+                   echo anchor('tiendas/tienda/'.$tienda_id,'Volver a la tienda');
+                }
+                else
+                {    
+                    $config2['image_library'] = 'gd2';
+                    $config2['source_image'] = $this->upload->data()['full_path'];;
+                    $config2['create_thumb'] = TRUE;
+                    $config2['maintain_ratio'] = TRUE;
+                    $config2['width']     = 150;
+                    $config2['height']   = 150;
+                    $this->load->library('image_lib', $config2); 
+
+                    $this->image_lib->resize();
+                   
+                }
+                //-----------------------------------------------------------
+
+
                 $tienda = array(
                     'id' => $tienda_id,
                     'nombre' => $this->input->post('nombre'),
@@ -146,9 +182,4 @@ class Tiendas extends CI_Controller {
             show_error('Debe estar logueado para acceder a esta pagina',403,'Acceso Prohibido');
         }
     }
-
-    
 }
-
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
