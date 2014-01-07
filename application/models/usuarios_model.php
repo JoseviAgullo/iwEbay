@@ -62,7 +62,7 @@
             $this->db->distinct();
 
             $query = $this->db->get();
-            //$categorias = [];
+            $categorias = array();
             if($query->num_rows() > 0){
                 foreach ($query->result() as $res) :
                     $categoria = array('categoria' => $res->categoria_id);
@@ -124,6 +124,22 @@
 
             return $tienda;
         }
-			
+
+        public function getTodo($id)
+        {
+            $this->db->where('id', $id);
+            $rs = $this->db->get($this->tabla)->result();
+            $usuario ='';
+            if(count($rs) > 0) {
+                $usuario = $rs[0];
+            }
+            return $usuario;
+        }
+
+        public function modificar($usuario)
+        {
+            $this->db->where('id', $usuario['id']);
+            $this->db->update($this->tabla, $usuario);
+        }
 	}
  ?>

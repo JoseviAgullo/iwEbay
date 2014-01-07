@@ -16,8 +16,9 @@ $this->load->view("inc/menuLateralTienda.inc.php");
 
 
 </div>
-<div id="ultimas_subastas"  style="border-style:solid; border-width:1px; float:left; margin-left:10px; padding:3px;">
-	<h2 style="float:center;">Últimas Subastas </h2>
+    <div id="limpieza" style="clear:both;"></div>
+<div id="ultimas_subastas"  style="border-style:solid; border-width:1px; float:left; margin-left:14.85%; padding:3px;">
+	<h2 style="float: center;">Últimas Subastas </h2>
     <table>
         <thead>
             <tr>
