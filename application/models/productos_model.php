@@ -35,10 +35,13 @@
 
 		function listado_categoria($categoria){
 			
+			$this->db->select('producto.*, subasta.fecha_fin');
+			$this->db->from($this->tabla);
+			$this->db->join('subasta', 'subasta.producto_id = producto.id');
 			$this->db->join('producto_a_categoria', 'producto_a_categoria.producto_id = producto.id');
 			$this->db->join('categoria', 'producto_a_categoria.categoria_id = categoria.categoria');
             $this->db->where('categoria.categoria', $categoria);
-			return $this->db->get($this->tabla)->result();
+			return $this->db->get()->result();
 		}
 
 		function listado_destacados(){
@@ -118,6 +121,15 @@
             $this->db->where('producto_a_categoria.categoria_id', $categoria);
 
             return $this->db->get()->result();
+        }
+
+        public function productos_usuario($id)
+        {
+        	$this->db->from($this->tabla);
+        	$this->db->join('subasta', 'subasta.producto_id = producto.id');
+        	$this->db->where('subasta.usuario_id', $id);
+        	return $this->db->get()->result();
+
         }
 	}
  ?>
