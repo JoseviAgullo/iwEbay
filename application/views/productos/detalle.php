@@ -24,7 +24,7 @@ if($error != '') {
 							<?php echo '<input type="hidden" id="id_pet" name="id_pet" value="'.$tupla->producto_id.'">'; ?> 
 							<br>						
 							<?php echo anchor('usuarios/perfil/'.$tupla->id, $tupla->userName); ?><br>
-							Enlace a la tienda<br>
+							<?php echo anchor('tiendas/tienda/'.$tienda->id, 'Visita la tienda de este usuario'); ?><br>
 						</td>
 					</tr>
 				</table>
