@@ -46,7 +46,6 @@ class Usuarios extends CI_Controller {
             foreach ($ventas_bruto as $item) {
                 $precio_bet = $this->productos_model->damePujaProd($item->id);
                 echo $precio_bet;
-                echo 'jeje';
                 $this->table->add_row($item->descripcion, $item->gastos_envio, date("d-m-Y", strtotime($item->fecha_fin)),$precio_bet, $item->precio_compra_ya, anchor('productos/detalle/'.$item->producto_id , 'Detalles'));
             }
 
