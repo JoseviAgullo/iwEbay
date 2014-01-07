@@ -45,6 +45,16 @@ class Tiendas extends CI_Controller {
         } else {
             $data['usuario'] = $usuario;
         }
+        
+        $data['propietario'] = '';        
+        if($this->session->userdata('usuario')){
+            $user = $this->session->userdata('usuario');
+            $id_user = $user['id'];    
+            if($id_user == $usuario->id){
+                $data['propietario'] = 'si';
+            }
+        }
+        
 
 		$categorias = $this->usuarios_model->getCategoriaDeProductos($usuario->id);
         if(count($categorias) <= 0) {
@@ -136,6 +146,8 @@ class Tiendas extends CI_Controller {
             show_error('Debe estar logueado para acceder a esta pagina',403,'Acceso Prohibido');
         }
     }
+
+    
 }
 
 /* End of file welcome.php */
