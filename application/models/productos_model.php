@@ -122,5 +122,14 @@
 
             return $this->db->get()->result();
         }
+
+        public function productos_usuario($id)
+        {
+        	$this->db->from($this->tabla);
+        	$this->db->join('subasta', 'subasta.producto_id = producto.id');
+        	$this->db->where('subasta.usuario_id', $id);
+        	return $this->db->get()->result();
+
+        }
 	}
  ?>

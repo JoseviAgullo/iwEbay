@@ -6,11 +6,7 @@ $this->load->helper('file');
 <div id="lateral"style="width:180px; border-style:solid; border-width:1px; margin:3px; float:left; margin:10px; padding:3px;">
 	
 
-		<?php echo form_open_multipart('usuarios/subir_imagen/2');?>
-		<input type="file" name="userfile" size="20" />
-		<br /><br />
-		<input type="submit" value="upload" />
-		</form>
+		
 
 	
 	<div id="imag" style="width:150px; height:150px; border-style:solid; border-width:1px; margin:3px; padding:3px;"> imagen</div>
@@ -44,9 +40,10 @@ $this->load->helper('file');
 			 } ?>
 		</div>
 		<div class="campoForm">
-			<label for="desc">Listado de productos:  </label> <br>
-			<textarea name="desc" cols="40" rows="5" placeholder="Cuentame tu vida...">
-			</textarea>	
+			<fieldset>
+			<h3>Subastas</h3>
+			<?php echo $ventas;?>
+			</fieldset>
 		</div>
 		<div class="campoForm">
 		<div id="limpieza" style="clear:both;"></div> 

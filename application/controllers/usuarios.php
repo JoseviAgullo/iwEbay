@@ -6,6 +6,7 @@ class Usuarios extends CI_Controller {
     {
         parent::__construct();
         $this->load->model('usuarios_model', '', TRUE);
+        $this->load->model('productos_model', '', TRUE);
         $this->load->model('votos_model', '', TRUE);
         $this->load->helper(array('form', 'url'));
     }
@@ -31,6 +32,24 @@ class Usuarios extends CI_Controller {
         $data['action'] = 'usuarios/votar';
         $data['cantidad_positivos'] = $this->votos_model->votos_positivos($id); 
         $data['cantidad_total'] = $this->votos_model->cuenta_todos($id); 
+        $ventas_bruto = $this->productos_model->productos_usuario($id);
+        if($ventas_bruto)
+        {
+        $this->load->library('table');
+
+        $this->table->set_heading('Descripcion', 'Gastos de Envío', 'Fecha Fin','Última Puja','Compralo Ya', 'Detalles');
+            $this->table->set_empty('&nbsp;');
+
+            foreach ($ventas_bruto as $item) {
+                $this->table->add_row($item->descripcion, $item->gastos_envio, date("d-m-Y", strtotime($item->fecha_fin)),$item->precio_inicial, $item->precio_compra_ya, anchor('productos/detalle/'.$item->producto_id , 'Detalles'));
+            }
+
+            $data['ventas'] = $this->table->generate();
+        }
+        else
+        {
+            $data['ventas'] = "El usuario actualmente no tiene ninguna subasta activa";
+        }
 
 
         $data['tituloHead'] = "IWeBay - ".$tupla->userName;
