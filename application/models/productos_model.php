@@ -98,6 +98,23 @@
             return $subasta;				
 		}
 
+		function dameTienda($id_user){
+
+			$this->db->select('tienda.id');
+			$this->db->from('usuario');
+			$this->db->join('usuario_a_tienda', 'usuario.id = usuario_a_tienda.usuario_id');
+			$this->db->join('tienda', 'usuario_a_tienda.tienda_id = tienda.id');
+			$this->db->where('usuario.id', $id_user);
+
+			$query = $this->db->get();
+            $rs = $query->result();
+            $tienda = '';
+            if(count($rs) > 0){
+                $tienda = $rs[0];
+            }
+            return $tienda;
+		}
+
 		function insertaProd($prod){
 			$this->db->insert($this->tabla, $prod);
 

@@ -48,7 +48,9 @@ class Productos extends CI_Controller {
 		$data['tupla'] = $this->productos_model->dameUno($id);
 
 		//recogemos la puja máxima correspondiente al producto
-		$data['puja'] = $this->productos_model->damePujaProd($id);		
+		$data['puja'] = $this->productos_model->damePujaProd($id);
+
+		$data['tienda'] = $this->productos_model->dameTienda($data['tupla']->id);		
 
 
 		$data['tituloHead'] = "IWeBay Detalles del producto";
