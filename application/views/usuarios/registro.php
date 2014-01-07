@@ -118,6 +118,7 @@ if($error){
 
 	<div class="campoForm">
 		<input type="submit" value="Registrar">
+        <?php echo anchor('','Atrás') ?>
 	</div>
 
 </form>

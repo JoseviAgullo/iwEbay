@@ -13,6 +13,13 @@ if($error){
 }
 ?>
 <form action="crear" method="POST">
+    <fieldset>
+        <div class="campoForm">
+            <label for="descripcion">Inserte una imagen para el producto: </label> <br>
+            <input type="file" name="userfile" size="20" />
+            <br /><br />
+        </div>
+    </fieldset>
 	<fieldset>
 		<div class="campoForm">
 			<label for="nombre">Nombre de la tienda: *  </label> <br>
@@ -24,7 +31,7 @@ if($error){
 		</div>
 	</fieldset>
 	<input type="submit" name="crear_tienda" value="Crear Tienda">
-	<input type="button" name="cancelar" value="Cancelar">
+    <?php echo anchor('usuarios/perfil/' . $this->session->userdata('usuario')['id'],'Atrás') ?>
 </form>
 
 <?php 

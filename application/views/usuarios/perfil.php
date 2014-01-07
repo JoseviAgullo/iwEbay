@@ -10,7 +10,13 @@ $usuario = $this->session->userdata('usuario')
 	
 	<div id="imag" style="width:150px; height:150px; border-style:solid; border-width:1px; margin:3px; padding:3px;"> <?php echo $img_perfil ?></div>
 	<h3 id="user"> <?php echo $tupla->userName ?> </h3>
-	<?php echo anchor('tiendas/tienda/'. $tienda,'Ver Tienda') ?>
+	<?php
+        if($tienda != -1){
+            echo anchor('tiendas/tienda/'. $tienda,'Ver Tienda');
+        } elseif($tupla->id == $usuario['id']) {
+            echo anchor('tiendas/nueva','Crear Tienda');
+        }
+    ?>
 	<p id = "email">Email: <?php echo $tupla->email ?></p>
 	<p id = "votos">Votos Positivos: <?php echo $cantidad_positivos . ' de '. $cantidad_total ?></p>
     <?php

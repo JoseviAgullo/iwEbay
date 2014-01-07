@@ -98,6 +98,39 @@ class Tiendas extends CI_Controller {
                 redirect('tiendas/nueva','refresh');
             } else {
                 $tienda_id = $this->tiendas_model->crear($tienda,$usuario);
+                /*
+                *   Parte en la cual subimos un fichero. Hemos puesto que solo permita .JPG
+                */
+                $config['upload_path'] = './images/tienda';
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['overwrite'] = 'true';
+
+                $config['file_name'] = $tienda_id;
+                $filename = $this->input->post('userfile');
+
+                $this->load->library('upload', $config);
+                $this->load->helper('html');
+
+                if ( ! $this->upload->do_upload())
+                {
+                    echo ('Error');
+                    echo $this->upload->display_errors('<p>', '</p>');
+                    echo anchor('tiendas/tienda/'.$tienda_id,'Volver a la tienda');
+                }
+                else
+                {
+                    $config2['image_library'] = 'gd2';
+                    $config2['source_image'] = $this->upload->data()['full_path'];;
+                    $config2['create_thumb'] = TRUE;
+                    $config2['maintain_ratio'] = TRUE;
+                    $config2['width']     = 150;
+                    $config2['height']   = 150;
+                    $this->load->library('image_lib', $config2);
+
+                    $this->image_lib->resize();
+
+                }
+                //-----------------------------------------------------------
                 if($tienda_id){
                     $this->session->set_flashdata('exito', '¡Tienda creada con exito!');
                     redirect('tiendas/tienda/' . $tienda_id);
