@@ -1,4 +1,5 @@
-<?php $this->load->view("inc/cabecera.inc.php") ?>
+<?php $this->load->view("inc/cabecera.inc.php");
+?>
 <?php $this->load->view("inc/menuLateral.inc.php") ?>
 
 

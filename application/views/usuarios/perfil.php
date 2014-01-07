@@ -31,7 +31,7 @@ $this->load->helper('file');
 		?>
 
 		<?php
-			if($usuario = $this->session->userdata('usuario'))
+			if($usuario = $this->session->userdata('usuario') && $this->session->userdata('usuario')['id'] == $tupla->id)
         	{
 
 			echo('<label for="desc">Recomienda a '. $tupla->userName . ':  </label> <br>
