@@ -124,7 +124,7 @@ if($error){
 
 	<div class="campoForm">
 		<input type="submit" value="Modificar Información">
-        <input type="button" value="Darse de Baja">
+        <?php echo anchor('usuarios/borrar/'.$usuario->id , 'Borrar', array('onclick'=>"return confirm('¿Estás seguro? La vas a liar fijo...')")); ?>
 	</div>
 
 </form>
