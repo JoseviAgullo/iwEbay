@@ -25,9 +25,11 @@
 		}
 
 		function listado(){
-
+			$this->db->select('producto.*, subasta.fecha_fin');
+			$this->db->from($this->tabla);
+			$this->db->join('subasta', 'subasta.producto_id = producto.id');
 			$this->db->order_by('nombre', 'asc');
-			return $this->db->get($this->tabla)->result();
+			return $this->db->get()->result();
 		}
 
 

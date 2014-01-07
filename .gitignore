@@ -17,6 +17,7 @@ application/config/index.html
 application/config/mimes.php
 application/config/profiler.php
 application/config/routes.php
+application/config/database.php
 application/config/smileys.php
 application/config/user_agents.php
 application/controllers/index.html

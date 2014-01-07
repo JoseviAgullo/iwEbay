@@ -46,7 +46,7 @@ class Productos extends CI_Controller {
 			$this->table->set_empty('&nbsp;');
 
 			foreach ($productos as $item) {
-				$this->table->add_row($item->nombre, $item->precio_inicial, "Mañana", anchor('productos/detalle/'.$item->id , 'Detalles'));
+				$this->table->add_row($item->nombre, $item->precio_inicial, date("d-m-Y", strtotime($item->fecha_fin)), anchor('productos/detalle/'.$item->id , 'Detalles'));
 			}
 
 			$data['listado'] = $this->table->generate();
