@@ -24,6 +24,7 @@ class Usuarios extends CI_Controller {
 	}
     public function perfil($id)
     {
+        date_default_timezone_set('UTC');
         $tupla = $this->usuarios_model->getUsuario($id);
         $data['tupla'] = $tupla;
         $data['tienda'] = $this->usuarios_model->getTiendaId(array('id' => $tupla->id));
@@ -195,8 +196,66 @@ class Usuarios extends CI_Controller {
           echo img('images/'.  $this->upload->data()['file_name']);
         }
     }
-   
-}
 
-/* End of file welcome.php */
-/* Location: ./application/controllers/welcome.php */
+    public function modificar($user_id)
+    {
+        $usuario = $this->session->userdata('usuario');
+        if($usuario && $usuario['id'] == $user_id){
+            $data['tituloHead'] = 'IWeBay - ' . $usuario['nick'];
+            $data['tituloBody'] = 'IWeBay';
+            $data['usuario'] = $this->usuarios_model->getTodo($user_id);
+            $this->load->view('usuarios/modificar',$data);
+        } else {
+            show_error('Debes estar logueado para ver esta pagina', 403, 'Acceso no permitido');
+        }
+    }
+
+    public function do_modificar($user_id)
+    {
+        $usuario = $this->session->userdata('usuario');
+        if($usuario && $usuario['id'] == $user_id ){
+            $nick = $this->input->post('username');
+            $pass1 = $this->input->post('pass1');
+            $pass2 = $this->input->post('pass2');
+            $email = $this->input->post('email');
+            $fecha_nac = $this->input->post('f_nacimiento');
+            $direccion = $this->input->post('direccion');
+            $tlf = $this->input->post('telefono');
+            $pass = $this->input->post('password');
+
+            if($pass != $usuario['password']) {
+                $this->session->set_flashdata('error', 'Contraseña incorrecta');
+                redirect('usuarios/modificar/' . $user_id, 'refresh');
+            }
+
+            if($nick == '' || $email == '')
+            {
+                $this->session->set_flashdata('error', 'Campos obligatorios vacios');
+                redirect('usuarios/modificar/' . $user_id, 'refresh');
+            }
+
+            if($pass1 != '' && $pass1 != $pass2)
+            {
+                $this->session->set_flashdata('error', 'Las contraseñas no coinciden');
+                redirect('usuarios/modificar/' . $user_id, 'refresh');
+            } elseif($pass1 == '') {
+                $pass1 = $pass;
+            }
+
+            date_default_timezone_set('UTC');
+            $fecha = date_parse($fecha_nac);
+            $user = array(
+                'id' => $user_id,
+                'userName' => $nick,
+                'password' => $pass1,
+                'email'=>$email,
+                'direccion'=>$direccion,
+                'telefono'=>$tlf,
+                'fecha_nacimiento'=> $fecha['year'] . '-' . $fecha['month'] . '-' . $fecha['day']);
+            $this->usuarios_model->modificar($user);
+            redirect('usuarios/perfil/' . $user_id, 'refresh');
+        } else {
+            show_error('Debes estar logueado para ver esta pagina', 403, 'Acceso no permitido');
+        }
+    }
+}

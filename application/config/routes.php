@@ -42,6 +42,7 @@ $route['default_controller'] = "inicio";
 $route['404_override'] = '';
 $route['usuarios/(:num)/productos/(:any)'] = 'usuarios/productos/$1/$2';
 $route['tiendas/tienda/(:num)/modificar'] = 'tiendas/modificar/$1';
+$route['usuarios/perfil/(:num)/modificar'] = 'usuarios/modificar/$1';
 
 
 /* End of file routes.php */

@@ -27,17 +27,19 @@ $this->load->helper('file');
 		?>
 
 		<?php
-			if($usuario = $this->session->userdata('usuario') && $this->session->userdata('usuario')['id'] == $tupla->id)
+			if($usuario = $this->session->userdata('usuario') && $this->session->userdata('usuario')['id'] != $tupla->id)
         	{
+                echo('<label for="desc">Recomienda a '. $tupla->userName . ':  </label> <br>
+                <textarea name="desc" cols="40" rows="5" placeholder="¡Comenta tu voto!">
+                </textarea><br>');
 
-			echo('<label for="desc">Recomienda a '. $tupla->userName . ':  </label> <br>
-			<textarea name="desc" cols="40" rows="5" placeholder="¡Comenta tu voto!">
-			</textarea>');	
-			
-				echo('<button id="env_voto" name="env_voto" value="posi">Positivo</button>');
-				echo('<button id="env_voto" name="env_voto" value="nega">Negativo</button>');
-			 echo form_close();
-			 } ?>
+                echo('<button id="env_voto" name="env_voto" value="posi">Positivo</button>');
+                echo('<button id="env_voto" name="env_voto" value="nega">Negativo</button>');
+                echo form_close();
+            } else {
+
+            }
+        ?>
 		</div>
 		<div class="campoForm">
 			<fieldset>
