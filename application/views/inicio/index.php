@@ -23,6 +23,7 @@
 
 	<div id="limpieza" style="clear:both;"></div> <!-- Este div es por si queremos después insertar algo debajo, que no se vaya al lado de lo otro -->
 
+	<?php echo anchor('productos/', 'Ver todos los productos'); ?>
 
 <?php 
 	$this->load->view("inc/pie.inc.php")
