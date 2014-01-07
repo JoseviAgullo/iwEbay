@@ -49,7 +49,7 @@ if($error){
 }
 ?>
 
-<?php echo form_open('usuarios/do_modificar/'.$usuario->id) ?>
+<?php echo form_open_multipart('usuarios/do_modificar/'.$usuario->id) ?>
 	<fieldset>
 
         <div class="campoForm">

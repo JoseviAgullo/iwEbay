@@ -185,41 +185,7 @@ class Usuarios extends CI_Controller {
         $this->load->view('usuarios/productos',$data);
     }
 
-    public function subir_imagen($id)
-    {
-        if($this->session->userdata('usuario'))
-        {
-            $config['upload_path'] = './images/user';
-            $config['allowed_types'] = 'gif|jpg|png';
-            $config['overwrite'] = 'true';
-            
-            $config['file_name'] = $this->session->userdata('usuario')['id'];
-            $filename = $this->input->post('userfile');
-
-            $this->load->library('upload', $config);
-            $this->load->helper('html');
-
-            if ( ! $this->upload->do_upload())
-            {
-               echo ('Error');
-               echo $this->upload->display_errors('<p>', '</p>');
-               echo anchor('usuarios/perfil/'.$this->session->userdata('usuario')['id'],'Volver al perfil');
-            }
-            else
-            {    
-                $config2['image_library'] = 'gd2';
-                $config2['source_image'] = $this->upload->data()['full_path'];;
-                $config2['create_thumb'] = TRUE;
-                $config2['maintain_ratio'] = TRUE;
-                $config2['width']     = 150;
-                $config2['height']   = 150;
-                $this->load->library('image_lib', $config2); 
-
-                $this->image_lib->resize();
-                redirect('usuarios/perfil/'.$this->session->userdata('usuario')['id'],'refresh');
-            }
-        }
-    }
+    
 
     public function modificar($user_id)
     {
@@ -239,8 +205,11 @@ class Usuarios extends CI_Controller {
         $usuario = $this->session->userdata('usuario');
         if($usuario && $usuario['id'] == $user_id ){
 
+            /*
+            *   Parte en la cual subimos un fichero. Hemos puesto que solo permita .JPG
+            */
             $config['upload_path'] = './images/user';
-            $config['allowed_types'] = 'gif|jpg|png';
+            $config['allowed_types'] = 'jpg';
             $config['overwrite'] = 'true';
             
             $config['file_name'] = $user_id;
@@ -268,10 +237,7 @@ class Usuarios extends CI_Controller {
                 $this->image_lib->resize();
                 
             }
-
-
-
-
+            /*-----------------------------------------------------------------------
 
 
 

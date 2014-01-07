@@ -133,6 +133,9 @@ class Tiendas extends CI_Controller {
         if($usuario = $this->session->userdata('usuario')) {
             $user_id = $this->tiendas_model->getUsuarioId($tienda_id);
             if($usuario['id'] == $user_id){
+                /*
+                *   Parte en la cual subimos un fichero. Hemos puesto que solo permita .JPG
+                */
                 $config['upload_path'] = './images/tienda';
                 $config['allowed_types'] = 'gif|jpg|png';
                 $config['overwrite'] = 'true';
@@ -162,6 +165,8 @@ class Tiendas extends CI_Controller {
                     $this->image_lib->resize();
                    
                 }
+                //-----------------------------------------------------------
+
 
                 $tienda = array(
                     'id' => $tienda_id,
@@ -177,3 +182,4 @@ class Tiendas extends CI_Controller {
             show_error('Debe estar logueado para acceder a esta pagina',403,'Acceso Prohibido');
         }
     }
+}
