@@ -124,9 +124,7 @@ if($error != '') {
 
 <div id="limpieza" style="clear:both;"></div> <!-- Este div es por si queremos después insertar algo debajo, que no se vaya al lado de lo otro -->
 
-<fieldset>
-	Falta implementar método POST
-</fieldset>
+
 
 <hr>
 <?php echo $link_atras; ?>
