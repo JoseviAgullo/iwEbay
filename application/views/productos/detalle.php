@@ -17,7 +17,7 @@ if($error != '') {
 			<div class="detalles_prod">
 				<table>
 					<tr>
-						<td>Aquí va la foto</td>
+						<td><div id="imag" style="width:150px; height:150px; border-style:solid; border-width:1px; margin:3px; padding:3px;"> <?php echo $img_perfil ?></div></td>
 						<td>
 							<font size="6"><?php echo $tupla->nombre; ?></font>			
 							<br>

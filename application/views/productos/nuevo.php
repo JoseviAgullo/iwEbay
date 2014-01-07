@@ -42,7 +42,9 @@ if($error != '') {
 
 
 	<div id="detalles"  style="float:left">
-		<form action="nuevoProd" method="POST">
+		<?php $this->load->helper('html');
+		$this->load->helper('form');
+		echo form_open_multipart('productos/nuevoProd'); ?>
 			<fieldset>
 				<legend>Datos de la subasta</legend>
 				<div id = "datosForm">
@@ -71,6 +73,13 @@ if($error != '') {
 							<td>
 								<input type="checkbox" name="checkCompraYa"> Compra ya
 							</td>
+							<td>
+								<div class="campoForm">
+						        	<label for="descripcion">Inserte una imagen para el producto: </label> <br>
+						        	<input type="file" name="userfile" size="20" />
+									<br /><br />
+						        </div>
+						    </td>
 						</tr>
 					</table>
 				</div>	
