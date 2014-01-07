@@ -48,9 +48,9 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-$db['default']['hostname'] = 'db4free.net:3306';
-$db['default']['username'] = 'iwebayadmin';
-$db['default']['password'] = 'pedrojvpablo';
+$db['default']['hostname'] = 'localhost';
+$db['default']['username'] = 'root';
+$db['default']['password'] = '';
 $db['default']['database'] = 'iwebay';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';

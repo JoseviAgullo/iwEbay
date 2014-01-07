@@ -167,9 +167,13 @@ class Productos extends CI_Controller {
 				$usuario = $this->session->userdata('usuario');
 	        	$id_user = $usuario['id'];
 
+	        	if($compraYaSubasta)
+	        		$ya='1';
+	        	else
+	        		$ya='0';
 	        	$subasta_reg = array('descripcion' => $descSubasta,
 	        							'fecha_fin' => $fechaFinSubasta,
-	        							'compra_ya' => $compraYaSubasta,
+	        							'compra_ya' => $ya,
 	        							'tipo_envio' => $tipoEnvio,
 	        							'forma_pago' => $formaPago,
 	        							'gastos_envio' => $gastosEnvio,
