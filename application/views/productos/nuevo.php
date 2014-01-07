@@ -1,11 +1,13 @@
 <?php $this->load->view("inc/cabecera.inc.php") ?>
 <?php $this->load->view("inc/menuLateral.inc.php") ?>
 
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 <script>
     jQuery(function ($) {
         $.datepicker.regional['es'] = {
-            yearRange: '-110:-18',
-            defaultDate: '-18y',
             closeText: 'Cerrar',
             prevText: '<Ant',
             nextText: 'Sig>',
@@ -31,6 +33,12 @@
             firstDay: 1
         });
     });
+</script>
+<script type="text/javascript">
+    function cambiarPrecioYa() {
+        precio = document.getElementById('inputCompraYa');
+        precio.disabled = !document.getElementById('compraYa').checked;
+    }
 </script>
 
 <?php
@@ -64,12 +72,12 @@ if($error != '') {
 						</tr>
 						<tr>
 							<td>
-								<input type="date" name="fechaFinSubasta" placeholder="DD/MM/YYYY">
+								<input id="datepicker" type="date" name="fechaFinSubasta" placeholder="DD/MM/YYYY">
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input type="checkbox" name="checkCompraYa"> Compra ya
+								<input id="compraYa" type="checkbox" name="checkCompraYa" onclick="cambiarPrecioYa();"> Compra ya
 							</td>
 						</tr>
 					</table>
@@ -149,7 +157,7 @@ if($error != '') {
 						</td>
 						<td> </td>
 						<td>
-							<input id="inputCompraYa" type="number" name="precioYaProductoSubasta">
+							<input id="inputCompraYa" type="number" name="precioYaProductoSubasta" disabled>
 						</td>
 					</tr>
 				</table>
@@ -200,20 +208,13 @@ if($error != '') {
 			</fieldset>
 			
 			<div class="campoForm">
-				<input type="submit" value="Crear subasta"> <input type="button" value="Cancelar" onClick="#">
+				<input type="submit" value="Crear subasta"> <?php echo anchor('productos/index','Atrás') ?>
 			</div>
 		</form>
 	</div>
 </div>
 
 <div id="limpieza" style="clear:both;"></div> <!-- Este div es por si queremos después insertar algo debajo, que no se vaya al lado de lo otro -->
-
-<fieldset>
-	Falta implementar método POST y que vuelva atrás el botón de cancelar
-</fieldset>
-
-<hr>
-<?php echo $link_atras; ?>
 
 <?php 
 	$this->load->view("inc/pie.inc.php");

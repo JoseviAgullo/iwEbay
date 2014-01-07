@@ -135,57 +135,65 @@ class Productos extends CI_Controller {
 		//categoria seleccionada
 		$categoria = $this->input->post('categoriaProductoSubasta');
 
-        if($nombre == '' || $cantidad == '' || $detalles == '' || $precioIni == '' || $precioYa == '' || $descSubasta == '' || $fechaFinSubasta == '' || $gastosEnvio == ''){
+        if($nombre == '' || $cantidad == '' || $detalles == '' || $precioIni == '' ||  $descSubasta == '' || $fechaFinSubasta == '' || $gastosEnvio == ''){
         	$this->session->set_flashdata('error_subasta', 'Algún campo está vacio');
         	redirect('productos/nuevo','refresh');
         }
-		else{
-			if ($precioIni >= $precioYa)
-			{
-				$this->session->set_flashdata('error_subasta', 'El precio de subasta debe ser inferior al de compra directa');
-        		redirect('productos/nuevo','refresh');		
-	        }
-			else{
-				//registramos el producto
-				$producto_reg = array('nombre' => $nombre,
-	        						'estado' => $estado,
-	        						'cantidad' => $cantidad,
-	        						'detalles' => $detalles,
-	        						'precio_inicial' => $precioIni,
-	        						'precio_compra_ya' => $precioYa);
+        else
+        {
+            if($compraYaSubasta)
+            {
+                $ya = 1;
+                if($precioYa == '') {
+                    $this->session->set_flashdata('error_subasta', 'Tienes que especificar el precio de compra directa');
+                    redirect('productos/nuevo','refresh');
+                }
+                if ($precioIni >= $precioYa)
+                {
+                    $this->session->set_flashdata('error_subasta', 'El precio de subasta debe ser inferior al de compra directa');
+                    redirect('productos/nuevo','refresh');
+                }
+            } else {
+                $ya = 0;
+                $precioYa = 0;
+            }
 
-				$id_producto = $this->productos_model->insertaProd($producto_reg);
-	        	
-				//añadimos la categoria del producto a la tabla correspondiente
+            //registramos el producto
+            $producto_reg = array('nombre' => $nombre,
+                'estado' => $estado,
+                'cantidad' => $cantidad,
+                'detalles' => $detalles,
+                'precio_inicial' => $precioIni,
+                'precio_compra_ya' => $precioYa);
 
-				$prodCat = array('producto_id' => $id_producto, 
-									'categoria_id' => $categoria);
+            $id_producto = $this->productos_model->insertaProd($producto_reg);
 
-				$this->productos_model->guardarCategProd($prodCat);
+            //añadimos la categoria del producto a la tabla correspondiente
 
-	        	//obtenemos el id del user mirando en sesión el nombre registrado
-				$usuario = $this->session->userdata('usuario');
-	        	$id_user = $usuario['id'];
+            $prodCat = array('producto_id' => $id_producto,
+                'categoria_id' => $categoria);
 
-	        	if($compraYaSubasta)
-	        		$ya='1';
-	        	else
-	        		$ya='0';
-                date_default_timezone_set('UTC');
-                $fecha = date_parse($fechaFinSubasta);
-	        	$subasta_reg = array('descripcion' => $descSubasta,
-	        							'fecha_fin' => $fecha['year'] . '-' . $fecha['month'] . '-' . $fecha['day'],
-	        							'compra_ya' => $ya,
-	        							'tipo_envio' => $tipoEnvio,
-	        							'forma_pago' => $formaPago,
-	        							'gastos_envio' => $gastosEnvio,
-	        							'usuario_id' => $id_user,
-	        							'producto_id' => $id_producto);
+            $this->productos_model->guardarCategProd($prodCat);
 
-	        	$this->subastas_model->insertaSubasta($subasta_reg);
+            //obtenemos el id del user mirando en sesión el nombre registrado
+            $usuario = $this->session->userdata('usuario');
+            $id_user = $usuario['id'];
 
-	        	redirect ('productos', 'refresh');	
-        	}
+            date_default_timezone_set('UTC');
+            $fecha = date_parse($fechaFinSubasta);
+            $subasta_reg = array('descripcion' => $descSubasta,
+                'fecha_fin' => $fecha['year'] . '-' . $fecha['month'] . '-' . $fecha['day'],
+                'compra_ya' => $ya,
+                'tipo_envio' => $tipoEnvio,
+                'forma_pago' => $formaPago,
+                'gastos_envio' => $gastosEnvio,
+                'usuario_id' => $id_user,
+                'producto_id' => $id_producto);
+
+            $this->subastas_model->insertaSubasta($subasta_reg);
+
+            redirect ('productos', 'refresh');
+
 		}
 	}
     
