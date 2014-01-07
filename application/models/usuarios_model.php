@@ -62,7 +62,7 @@
             $this->db->distinct();
 
             $query = $this->db->get();
-            $categorias = [];
+            //$categorias = [];
             if($query->num_rows() > 0){
                 foreach ($query->result() as $res) :
                     $categoria = array('categoria' => $res->categoria_id);

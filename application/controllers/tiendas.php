@@ -99,6 +99,43 @@ class Tiendas extends CI_Controller {
             show_error('Debes estar logueado para acceder a esta pagina', 403);
         }
     }
+
+    public function modificar($tienda_id)
+    {
+        if($usuario = $this->session->userdata('usuario')) {
+            $user_id = $this->tiendas_model->getUsuarioId($tienda_id);
+            if($usuario['id'] == $user_id){
+                $data['tienda'] = $this->tiendas_model->getTienda($tienda_id);
+                $data['tituloHead'] = "IWeBay - " . $data['tienda']->nombre;
+                $data['tituloBody'] = "IWeBay";
+                $this->load->view('tiendas/modificar', $data);
+            } else {
+                show_error('Debe ser el propietario de esta tienda para realizar esta accion', 403, 'Prohibido');
+            }
+        } else {
+            show_error('Debe estar logueado para acceder a esta pagina',403,'Acceso Prohibido');
+        }
+    }
+
+    public function do_modificar($tienda_id)
+    {
+        if($usuario = $this->session->userdata('usuario')) {
+            $user_id = $this->tiendas_model->getUsuarioId($tienda_id);
+            if($usuario['id'] == $user_id){
+                $tienda = array(
+                    'id' => $tienda_id,
+                    'nombre' => $this->input->post('nombre'),
+                    'descripcion' => $this->input->post('descripcion')
+                );
+                $this->tiendas_model->modificarTienda($tienda);
+                redirect('tiendas/tienda/' . $tienda_id, 'refresh');
+            } else {
+                show_error('Debe ser el propietario de esta tienda para realizar esta accion', 403, 'Prohibido');
+            }
+        } else {
+            show_error('Debe estar logueado para acceder a esta pagina',403,'Acceso Prohibido');
+        }
+    }
 }
 
 /* End of file welcome.php */

@@ -54,7 +54,12 @@ if($error != '') {
 					</tr>
 					<tr>
 						<td style="font-weight:bold">Fecha finalización: </td>
-						<td><?php echo date("d-m-Y", strtotime($tupla->fecha_fin)); ?></td>
+						<td>
+                            <?php
+                            date_default_timezone_set('UTC');
+                            echo date("d-m-Y", strtotime($tupla->fecha_fin));
+                            ?>
+                        </td>
 					</tr>
 					<tr>
 						<td> 
