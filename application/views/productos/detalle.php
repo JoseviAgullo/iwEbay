@@ -27,6 +27,10 @@ if($error != '') {
 							<?php if($tienda != ''){
 								echo anchor('tiendas/tienda/'.$tienda->id, 'Visita la tienda de este usuario<br>');
 							} ?>
+                            <?php
+                            if($usuario = $this->session->userdata('usuario') && $this->session->userdata('usuario')['id'] == $tupla->usuario_id)
+                                echo anchor('productos/modificar/' . $tupla->producto_id, 'Modificar subasta')
+                            ?>
 						</td>
 					</tr>
 				</table>
@@ -65,7 +69,7 @@ if($error != '') {
 					</tr>
 					
 					<tr>						 
-						<?php  if($usuario = $this->session->userdata('usuario') && $this->session->userdata('usuario')['id'] != $tupla->usuario_id)
+						<?php  if($this->session->userdata('usuario') && $this->session->userdata('usuario')['id'] != $tupla->usuario_id)
                 			{ 
                 				echo '<td>';
                 				echo '<input type="number" id="valor_puja" name="valor_puja"> <br>';
@@ -81,7 +85,6 @@ if($error != '') {
        							echo '</td>';
 								echo '<td> <input type="submit" value="Pujar"> </td>';
        						}
-       						
        					?>
 					</tr>
 				</table>

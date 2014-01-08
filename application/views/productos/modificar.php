@@ -191,7 +191,7 @@ if($error != '') {
 			</fieldset>
 			
 			<div class="campoForm">
-				<input type="submit" value="Modificar subasta"> <?php echo anchor('productos/borrar/'.$producto->id , 'Cancelar Subasta', array('onclick'=>"return confirm('La subasta se cerrará y no venderás el producto. ¿Estás seguro?')")); ?> <?php echo anchor('productos/detalle/'.$producto->producto_id,'Atrás') ?>
+				<input type="submit" value="Modificar subasta"> <?php echo anchor('productos/borrar/'.$producto->producto_id , 'Cancelar Subasta', array('onclick'=>"return confirm('La subasta se cerrará y no venderás el producto. ¿Estás seguro?')")); ?> <?php echo anchor('productos/detalle/'.$producto->producto_id,'Atrás') ?>
 			</div>
 		</form>
 	</div>
