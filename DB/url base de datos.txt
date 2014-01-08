@@ -1,3 +1,0 @@
-http://www.db4free.net/d4f_apply.php
-user: iwebayadmin
-pass: pedrojvpablo

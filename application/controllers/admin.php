@@ -39,6 +39,21 @@ class Admin extends CI_Controller {
 			 show_error('Debes estar logueado como administrador para acceder a esta pagina', 403);
 		}
 	}
+	
+	public function categorias()
+	{
+		if($usuario = $this->session->userdata('usuario') && $this->session->userdata('usuario')['nick']=='admin')
+		{
+			$crud = new Grocery_CRUD();
+			$crud->set_table('categoria');
+			$output = $crud->render();
+			$this->load->view('admin/categorias',$output);
+		}
+		else
+		{
+			 show_error('Debes estar logueado como administrador para acceder a esta pagina', 403);
+		}
+	}
 
 	public function index()
 	{

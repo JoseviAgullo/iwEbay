@@ -18,7 +18,7 @@ class Tiendas extends CI_Controller {
 
         $tienda = $this->tiendas_model->getTienda($tienda_id);
         if($tienda == '') {
-            show_404();
+            show_error('No existe esta tienda', 404, 'No encontrado');
         } else {
             $data['tienda'] = $tienda;
             $data['tituloHead'] = "IWeBay - " . $tienda->nombre;

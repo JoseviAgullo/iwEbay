@@ -1,50 +1,52 @@
--- phpMyAdmin SQL Dump
--- version 4.1.3
--- http://www.phpmyadmin.net
+CREATE DATABASE  IF NOT EXISTS `iwebay` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `IWeBay`;
+-- MySQL dump 10.13  Distrib 5.6.13, for osx10.6 (i386)
 --
--- Host: db4free.net:3306
--- Generation Time: Jan 07, 2014 at 07:32 PM
--- Server version: 5.6.15
--- PHP Version: 5.3.10-1ubuntu3.9
+-- Host: 127.0.0.1    Database: IWeBay
+-- ------------------------------------------------------
+-- Server version	5.5.31
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
---
--- Database: `iwebay`
---
-
--- --------------------------------------------------------
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
 -- Table structure for table `categoria`
 --
 
+DROP TABLE IF EXISTS `categoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `categoria` (
   `categoria` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`categoria`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `categoria`
 --
 
-INSERT INTO `categoria` (`categoria`) VALUES
-('Coleccionismo y Arte'),
-('Deportes y Tiempo Libre'),
-('Electrónica'),
-('Entretenimiento'),
-('Hogar y Decoración'),
-('Joyería y Belleza'),
-('Moda'),
-('Motor');
-
--- --------------------------------------------------------
+LOCK TABLES `categoria` WRITE;
+/*!40000 ALTER TABLE `categoria` DISABLE KEYS */;
+INSERT INTO `categoria` VALUES ('Coleccionismo y Arte'),('Deportes y Tiempo Libre'),('Electrónica'),('Entretenimiento'),('Hogar y Decoración'),('Joyería y Belleza'),('Moda'),('Motor');
+/*!40000 ALTER TABLE `categoria` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `producto`
 --
 
+DROP TABLE IF EXISTS `producto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `producto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
@@ -55,77 +57,55 @@ CREATE TABLE `producto` (
   `precio_compra_ya` double DEFAULT NULL,
   `destacado` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `producto`
 --
 
-INSERT INTO `producto` (`id`, `nombre`, `estado`, `cantidad`, `detalles`, `precio_inicial`, `precio_compra_ya`, `destacado`) VALUES
-(1, 'producto 1', 'nuevo', 100, 'todos', 100, 123, 1),
-(2, 'producto 2', 'usado', 1, 'menos', 12, NULL, 0),
-(4, 'prueba union tablas', 'Nuevo', 2, 'zaxdfc', 3, 5, 0),
-(5, 'prueba union 2', 'Usado', 4, 'qwerty', 45, 64, 0),
-(6, 'asdadad', 'Nuevo', 5, 'asdas', 6, 7, 0),
-(7, 'Primera prueba dia', 'Gastado', 7, 'A ver si con las modificaciones esto va', 4, 9, 0),
-(8, 'Segunda prueba del dia', 'Usado', 8, 'blabla', 7, 9, 0),
-(9, 'Tercera prueba, si será por intentos...', 'Nuevo', 5, 'afafs', 9, 14, 0),
-(10, 'Cuarta y subiendo', 'Roto', 4, 'dasfa', 5, 9, 0),
-(11, 'asdasd', 'Nuevo', 2131, 'sdffv', 63, 66, 0),
-(12, 'Hola holita', 'Nuevo', 4, 'sadd', 5, 6, 0),
-(13, 'Prueba definitiva', 'Nuevo', 4, 'asdf', 2, 3, 0),
-(14, 'Supuestamente ya mete la categoria al prod', 'Nuevo', 4, 'adffad', 2, 6, 0),
-(15, 'Cascos MASMOLA3k', 'Nuevo', 1, 'Son negros, y punto.', 17, 75, 1),
-(17, 'Gratitud', 'Nuevo', 1, 'Son negros, y punto.', 17, 75, 1),
-(18, 'Corazon de melon', 'Nuevo', 25, 'Moal mil', 12, 125, 1),
-(19, 'jijijijijijjjijij', 'Nuevo', 25, 'Moal mil', 12, 125, 0),
-(20, 'Prueba de que esto no falla', 'Usado', 1, 'dfaf', 3, 5, 0),
-(21, 'sdfwdf', 'Nuevo', 2, 'asddassd', 3, 5, 0),
-(22, 'sdafas', 'Nuevo', 2, 'asdasdf', 5, 9, 0),
-(23, 'Microfono', 'Nuevo', 1, 'dasda', 12, 125, 1),
-(24, 'Prueba buena', 'Usado', 1, 'dsad', 4, 5, 0),
-(25, 'Producto prueba restricción', 'Usado', 4, 'asdfa', 6, 4, 0),
-(26, 'Aprobado en IW', 'Nuevo', 1, 'Apruebe fácilmente la asignatura de IW', 120, 250, 1),
-(27, 'Pantallaza PRO', 'Nuevo', 1, 'Mola mil esta pantalla, ya verás', 210, 315, 0),
-(28, 'Pantallaza PRO', 'Nuevo', 1, 'Mola mil esta pantalla, ya verás', 210, 315, 0);
-
--- --------------------------------------------------------
+LOCK TABLES `producto` WRITE;
+/*!40000 ALTER TABLE `producto` DISABLE KEYS */;
+INSERT INTO `producto` VALUES (35,'Gafas de sol','Nuevo',1,'Cosas y cosas\n',12,0,1),(36,'Pantalla LCD','Nuevo',1,'Perfecto estado. Se vende por exceso de stock',200,0,0),(37,'Estuche','Nuevo',1,'<p>\n	Estuche negro, de piel. Lo usaba Hitler.</p>\n',20,200,1);
+/*!40000 ALTER TABLE `producto` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `producto_a_categoria`
 --
 
+DROP TABLE IF EXISTS `producto_a_categoria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `producto_a_categoria` (
   `producto_id` int(11) NOT NULL,
   `categoria_id` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`producto_id`,`categoria_id`),
   UNIQUE KEY `producto_id` (`producto_id`,`categoria_id`),
   UNIQUE KEY `producto_id_2` (`producto_id`,`categoria_id`),
-  KEY `categoria_id` (`categoria_id`)
+  KEY `categoria_id` (`categoria_id`),
+  CONSTRAINT `producto_a_categoria_ibfk_1` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `producto_a_categoria_ibfk_2` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`categoria`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `producto_a_categoria`
 --
 
-INSERT INTO `producto_a_categoria` (`producto_id`, `categoria_id`) VALUES
-(24, 'Deportes y Tiempo Libre'),
-(25, 'Deportes y Tiempo Libre'),
-(15, 'Electrónica'),
-(26, 'Electrónica'),
-(14, 'Entretenimiento'),
-(27, 'Entretenimiento'),
-(28, 'Entretenimiento'),
-(18, 'Moda'),
-(22, 'Moda'),
-(23, 'Moda');
-
--- --------------------------------------------------------
+LOCK TABLES `producto_a_categoria` WRITE;
+/*!40000 ALTER TABLE `producto_a_categoria` DISABLE KEYS */;
+INSERT INTO `producto_a_categoria` VALUES (37,'Coleccionismo y Arte'),(36,'Electrónica'),(35,'Moda');
+/*!40000 ALTER TABLE `producto_a_categoria` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `puja`
 --
 
+DROP TABLE IF EXISTS `puja`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `puja` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cantidad` double NOT NULL,
@@ -134,31 +114,29 @@ CREATE TABLE `puja` (
   `subasta_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `usuario_id` (`usuario_id`),
-  KEY `subasta_id` (`subasta_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=11 ;
+  KEY `subasta_id` (`subasta_id`),
+  CONSTRAINT `puja_subasta` FOREIGN KEY (`subasta_id`) REFERENCES `subasta` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `puja_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `puja`
 --
 
-INSERT INTO `puja` (`id`, `cantidad`, `fecha`, `usuario_id`, `subasta_id`) VALUES
-(1, 4, '2006-01-14', 2, 2),
-(2, 5, '2006-01-14', 1, 2),
-(3, 5, '2006-01-14', 1, 2),
-(4, 4, '2006-01-14', 1, 2),
-(5, 5, '2006-01-14', 1, 2),
-(6, 5, '2006-01-14', 1, 2),
-(7, 6, '2006-01-14', 1, 2),
-(8, 15, '2007-01-14', 2, 5),
-(9, 130, '2007-01-14', 2, 8),
-(10, 140, '2007-01-14', 2, 8);
-
--- --------------------------------------------------------
+LOCK TABLES `puja` WRITE;
+/*!40000 ALTER TABLE `puja` DISABLE KEYS */;
+INSERT INTO `puja` VALUES (1,16,'2008-01-14',9,16);
+/*!40000 ALTER TABLE `puja` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `subasta`
 --
 
+DROP TABLE IF EXISTS `subasta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `subasta` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` text COLLATE utf8_spanish_ci NOT NULL,
@@ -172,48 +150,55 @@ CREATE TABLE `subasta` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `producto_id_UNIQUE` (`producto_id`),
   KEY `usuario_id` (`usuario_id`),
-  KEY `producto_subasta_idx` (`producto_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=10 ;
+  KEY `producto_subasta_idx` (`producto_id`),
+  CONSTRAINT `producto_subasta` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `subasta_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `subasta`
 --
 
-INSERT INTO `subasta` (`id`, `descripcion`, `fecha_fin`, `compra_ya`, `tipo_envio`, `forma_pago`, `gastos_envio`, `usuario_id`, `producto_id`) VALUES
-(2, 'asdsd', '2016-03-03', 0, 'Urgente', 'PayPal', 4, 1, 14),
-(3, 'Croazon de melon', '2014-12-13', 0, 'Urgente', 'PayPal', 12, 2, 18),
-(5, 'hehehe', '0014-02-12', 0, 'Urgente', 'PayPal', 1, 2, 23),
-(8, 'Aprobado en IW', '2014-01-13', 0, 'Urgente', 'PayPal', 4, 2, 26),
-(9, 'Pantalla programatoriumsun', '0014-02-19', 0, 'Urgente', 'TCredito', 12, 1, 28);
-
--- --------------------------------------------------------
+LOCK TABLES `subasta` WRITE;
+/*!40000 ALTER TABLE `subasta` DISABLE KEYS */;
+INSERT INTO `subasta` VALUES (16,'asdf','2014-02-22',0,'Rápido','PayPal',1,8,35),(17,'Pantalla de última generación capaz de transmitir datos a alta velocidad','2014-02-28',0,'Urgente','TCredito',15,8,36),(18,'Estuche imprescindible para la vuelta al cole.','2014-01-21',1,'Normal','ContraR',14,9,37);
+/*!40000 ALTER TABLE `subasta` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `tienda`
 --
 
+DROP TABLE IF EXISTS `tienda`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tienda` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `descripcion` text COLLATE utf8_spanish_ci,
   `imagen` varchar(300) COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `tienda`
 --
 
-INSERT INTO `tienda` (`id`, `nombre`, `descripcion`, `imagen`) VALUES
-(4, 'Tienda de Pedro', 'Sobreescribiodeadanssdandaj das?=', NULL),
-(5, 'Tienda de Pablo', 'anviaopoihfañsoef asldkfnpae apndifanpesora asdjfapsñeia', NULL);
-
--- --------------------------------------------------------
+LOCK TABLES `tienda` WRITE;
+/*!40000 ALTER TABLE `tienda` DISABLE KEYS */;
+INSERT INTO `tienda` VALUES (7,'Tienda UA','Tienda con productos de la UA',NULL);
+/*!40000 ALTER TABLE `tienda` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `usuario`
 --
 
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `userName` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
@@ -226,44 +211,53 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `tienda_id_2` (`tienda_id`),
   KEY `tienda_id` (`tienda_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `userName`, `password`, `email`, `direccion`, `telefono`, `fecha_nacimiento`, `tienda_id`) VALUES
-(1, 'pedro', 'pedro', 'pedro@ua.es', 'MODIFICADA', '687463529', '1990-06-13', NULL),
-(2, 'Pablo', 'pablo', 'pabyspam@gmail.com', 'Alicante', '', '1990-06-13', NULL),
-(4, 'admin', 'admin', 'admin@admin.com', 'Nada', '666666666', '1990-06-13', NULL),
-(6, 'prueba', 'prueba', 'prueba@jeje.com', 'asjsa', 'asd', '2301-12-13', NULL);
-
--- --------------------------------------------------------
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (7,'admin','admin','admin@iwebay.es','','','0000-00-00',NULL),(8,'Pedro','pedro','pedro@ua.es','Calle false 123','654323121','1990-08-22',NULL),(9,'Pablo','pablo','pablo@ua.es','','','1996-01-09',NULL);
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `usuario_a_tienda`
 --
 
+DROP TABLE IF EXISTS `usuario_a_tienda`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuario_a_tienda` (
   `usuario_id` int(11) NOT NULL,
   `tienda_id` int(11) NOT NULL,
   PRIMARY KEY (`usuario_id`),
-  UNIQUE KEY `tienda_id_UNIQUE` (`tienda_id`)
+  UNIQUE KEY `tienda_id_UNIQUE` (`tienda_id`),
+  CONSTRAINT `tienda` FOREIGN KEY (`tienda_id`) REFERENCES `tienda` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `usuario_a_tienda`
 --
 
-INSERT INTO `usuario_a_tienda` (`usuario_id`, `tienda_id`) VALUES
-(1, 4);
-
--- --------------------------------------------------------
+LOCK TABLES `usuario_a_tienda` WRITE;
+/*!40000 ALTER TABLE `usuario_a_tienda` DISABLE KEYS */;
+INSERT INTO `usuario_a_tienda` VALUES (8,7);
+/*!40000 ALTER TABLE `usuario_a_tienda` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `voto`
 --
 
+DROP TABLE IF EXISTS `voto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `voto` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `positivo` tinyint(1) NOT NULL,
@@ -273,59 +267,29 @@ CREATE TABLE `voto` (
   PRIMARY KEY (`id`),
   KEY `votante_id` (`votante_id`,`votado_id`),
   KEY `votante_id_2` (`votante_id`,`votado_id`),
-  KEY `votado_id` (`votado_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=10 ;
+  KEY `votado_id` (`votado_id`),
+  CONSTRAINT `votado_usuario` FOREIGN KEY (`votado_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `votante_usuario` FOREIGN KEY (`votante_id`) REFERENCES `usuario` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `voto`
 --
 
-INSERT INTO `voto` (`id`, `positivo`, `comentario`, `votante_id`, `votado_id`) VALUES
-(1, 1, 'Buen vendedor. Rápido y eficaz. Buena comunicación			', 2, 1),
-(2, 0, 'Menudo cabrón. Además de que me llegó todo tarde y roto, me robó a mi novia.	', 2, 1),
-(3, 1, 'Peta?', 2, 1),
-(4, 1, 'Dildo comprado correctamente.', 2, 1),
-(5, 1, 'Prueba de mensaje de confirmación.', 2, 1),
-(6, 1, '			', 1, 1),
-(7, 1, 'boom', 2, 1),
-(8, 0, 'Ya funciona jejeje', 2, 1),
-(9, 1, '			', 1, 1);
+LOCK TABLES `voto` WRITE;
+/*!40000 ALTER TABLE `voto` DISABLE KEYS */;
+INSERT INTO `voto` VALUES (10,1,'Te voto a tí',9,8);
+/*!40000 ALTER TABLE `voto` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- Constraints for dumped tables
---
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
---
--- Constraints for table `producto_a_categoria`
---
-ALTER TABLE `producto_a_categoria`
-  ADD CONSTRAINT `producto_a_categoria_ibfk_2` FOREIGN KEY (`categoria_id`) REFERENCES `categoria` (`categoria`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `producto_a_categoria_ibfk_1` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `puja`
---
-ALTER TABLE `puja`
-  ADD CONSTRAINT `puja_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `puja_subasta` FOREIGN KEY (`subasta_id`) REFERENCES `subasta` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `subasta`
---
-ALTER TABLE `subasta`
-  ADD CONSTRAINT `producto_subasta` FOREIGN KEY (`producto_id`) REFERENCES `producto` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `subasta_usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `usuario_a_tienda`
---
-ALTER TABLE `usuario_a_tienda`
-  ADD CONSTRAINT `tienda` FOREIGN KEY (`tienda_id`) REFERENCES `tienda` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `usuario` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `voto`
---
-ALTER TABLE `voto`
-  ADD CONSTRAINT `votante_usuario` FOREIGN KEY (`votante_id`) REFERENCES `usuario` (`id`) ON DELETE SET NULL ON UPDATE SET NULL,
-  ADD CONSTRAINT `votado_usuario` FOREIGN KEY (`votado_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+-- Dump completed on 2014-01-08 16:20:46

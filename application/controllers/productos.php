@@ -45,23 +45,29 @@ class Productos extends CI_Controller {
 	public function detalle($id){
 		//recogemos el producto con su subasta y su creador
 		$data['tupla'] = $this->productos_model->dameUno($id);
+		if($data['tupla'])
+		{
+			//recogemos la puja máxima correspondiente al producto
+			$data['puja'] = $this->productos_model->damePujaProd($id);
 
-		//recogemos la puja máxima correspondiente al producto
-		$data['puja'] = $this->productos_model->damePujaProd($id);
+			$data['tienda'] = $this->productos_model->dameTienda($data['tupla']->id);	
 
-		$data['tienda'] = $this->productos_model->dameTienda($data['tupla']->id);	
-
-		$data['img_perfil'] = img('images/producto/'.$id.'_thumb.jpg' );	
+			$data['img_perfil'] = img('images/producto/'.$id.'_thumb.jpg' );	
 
 
-		$data['tituloHead'] = "IWeBay Detalles del producto";
-		$data['tituloBody'] = "IWeBay";
-		$data['link_atras'] = anchor('productos/index', 'Volver al listado');
+			$data['tituloHead'] = "IWeBay Detalles del producto";
+			$data['tituloBody'] = "IWeBay";
+			$data['link_atras'] = anchor('productos/index', 'Volver al listado');
 
-		$this->load->model('categoria_model');
-		$data['categorias'] = $this->categoria_model->getCategorias();
+			$this->load->model('categoria_model');
+			$data['categorias'] = $this->categoria_model->getCategorias();
 
-		$this->load->view('productos/detalle', $data);
+			$this->load->view('productos/detalle', $data);
+		}
+		else
+		{
+			show_error('No existe este producto', 404, 'No encontrado');
+		}
 	}
 
 	public function nuevo(){

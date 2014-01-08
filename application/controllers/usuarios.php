@@ -27,43 +27,52 @@ class Usuarios extends CI_Controller {
     {
         date_default_timezone_set('UTC');
         $tupla = $this->usuarios_model->getUsuario($id);
-        $data['tupla'] = $tupla;
-        $data['tienda'] = $this->usuarios_model->getTiendaId(array('id' => $tupla->id));
-        $data['tituloHead'] = "IWeBay Perfil de ".$tupla->userName;
-        $data['tituloBody'] = "IWeBay";
-        $data['action'] = 'usuarios/votar';
-        $data['cantidad_positivos'] = $this->votos_model->votos_positivos($id); 
-        $data['cantidad_total'] = $this->votos_model->cuenta_todos($id); 
-        $data['img_perfil'] = img('images/user/'.$id.'_thumb.jpg' );
+		
+		if($tupla)
+		{
+			$data['tupla'] = $tupla;
+			$data['tienda'] = $this->usuarios_model->getTiendaId(array('id' => $tupla->id));
+			$data['tituloHead'] = "IWeBay Perfil de ".$tupla->userName;
+			$data['tituloBody'] = "IWeBay";
+			$data['action'] = 'usuarios/votar';
+			$data['cantidad_positivos'] = $this->votos_model->votos_positivos($id); 
+			$data['cantidad_total'] = $this->votos_model->cuenta_todos($id); 
+			$data['img_perfil'] = img('images/user/'.$id.'_thumb.jpg' );
 
-        $ventas_bruto = $this->productos_model->productos_usuario($id);
-        if($ventas_bruto)
-        {
-        $this->load->library('table');
+			$ventas_bruto = $this->productos_model->productos_usuario($id);
+			if($ventas_bruto)
+			{
+			$this->load->library('table');
 
-        $this->table->set_heading('Descripcion', 'Gastos de Envío', 'Fecha Fin','Última Puja','Compralo Ya', 'Detalles');
-            $this->table->set_empty('&nbsp;');
+			$this->table->set_heading('Descripcion', 'Gastos de Envío', 'Fecha Fin','Última Puja','Compralo Ya', 'Detalles');
+				$this->table->set_empty('&nbsp;');
 
-            foreach ($ventas_bruto as $item) {
+				foreach ($ventas_bruto as $item) {
 
-                $precio_bet = $this->productos_model->damePujaProd($item->producto_id);
-                if($precio_bet)
-                    $this->table->add_row($item->descripcion, $item->gastos_envio, date("d-m-Y", strtotime($item->fecha_fin)), $precio_bet->cantidad, $item->precio_compra_ya, anchor('productos/detalle/'.$item->producto_id , 'Detalles'));
-                else
-                    $this->table->add_row($item->descripcion, $item->gastos_envio, date("d-m-Y", strtotime($item->fecha_fin)), $item->precio_inicial, $item->precio_compra_ya, anchor('productos/detalle/'.$item->producto_id , 'Detalles'));
+					$precio_bet = $this->productos_model->damePujaProd($item->producto_id);
+					if($precio_bet)
+						$this->table->add_row($item->descripcion, $item->gastos_envio, date("d-m-Y", strtotime($item->fecha_fin)), $precio_bet->cantidad, $item->precio_compra_ya, anchor('productos/detalle/'.$item->producto_id , 'Detalles'));
+					else
+						$this->table->add_row($item->descripcion, $item->gastos_envio, date("d-m-Y", strtotime($item->fecha_fin)), $item->precio_inicial, $item->precio_compra_ya, anchor('productos/detalle/'.$item->producto_id , 'Detalles'));
 
-            }
+				}
 
-            $data['ventas'] = $this->table->generate();
-        }
-        else
-        {
-            $data['ventas'] = "El usuario actualmente no tiene ninguna subasta activa";
-        }
+				$data['ventas'] = $this->table->generate();
+			}
+			else
+			{
+				$data['ventas'] = "El usuario actualmente no tiene ninguna subasta activa";
+			}
 
-        $data['tituloHead'] = "IWeBay - ".$tupla->userName;
-        $data['tituloBody'] = "IWeBay";
-        $this->load->view('usuarios/perfil', $data);
+			$data['tituloHead'] = "IWeBay - ".$tupla->userName;
+			$data['tituloBody'] = "IWeBay";
+			$this->load->view('usuarios/perfil', $data);
+			}
+			else
+			{
+				show_error('No existe este usuario', 404, 'No encontrado');
+			}
+			
     }
 
     public function registro()
