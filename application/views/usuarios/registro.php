@@ -3,7 +3,7 @@ $this->load->view("inc/cabecera.inc.php")
 
  ?>
 
-<h2> Regístrate (falta funcionalidad aún)</h2>
+<h2> Regístrate</h2>
 <h4> Hazte de oro vendiendo y subastando los productos que ya no quieres en nuestra web. 
 	Para ello solo tienes que registrarte aquí. Es muy sencillo, ¡adelante! </h4>
 

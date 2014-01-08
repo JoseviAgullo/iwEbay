@@ -1,4 +1,5 @@
 <?php $this->load->view("inc/cabecera.inc.php") ?>
+    <h2> Modifica tu subasta</h2>
 <?php $this->load->view("inc/menuLateral.inc.php") ?>
 
 

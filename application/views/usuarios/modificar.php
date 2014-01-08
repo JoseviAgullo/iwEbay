@@ -3,9 +3,7 @@ $this->load->view("inc/cabecera.inc.php");
 date_default_timezone_set('UTC');
  ?>
 
-<h2> Regístrate (falta funcionalidad aún)</h2>
-<h4> Hazte de oro vendiendo y subastando los productos que ya no quieres en nuestra web. 
-	Para ello solo tienes que registrarte aquí. Es muy sencillo, ¡adelante! </h4>
+<h2> Modifica tus datos</h2>
 
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 <script src="http://code.jquery.com/jquery-1.9.1.js"></script>

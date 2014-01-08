@@ -1,4 +1,7 @@
 <?php $this->load->view("inc/cabecera.inc.php") ?>
+
+    <h2>Crea una subasta</h2>
+    <h4>Vende el producto que quieras, cuando quieras y como quieras. Para hacerlo sólo tienes que rellenar estos tres apartados y esperar a que te llueva el dinero.</h4>
 <?php $this->load->view("inc/menuLateral.inc.php") ?>
 
 
